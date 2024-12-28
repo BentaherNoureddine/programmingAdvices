@@ -5,9 +5,15 @@ using namespace std;
 int main()
 {
 
+    int a,b;
 
-    unsigned short var1;
-    cout<<"Enter your age : ";
-    cin>>var1;
-    cout<<"After 5 years your age will be "<<var1+5<<" Years old.";
+    cout << "Please Enter te First Number A\n";
+    cin >>a;
+    cout <<"Please Enter the Second Number\n";
+    cin >>b;
+    cout <<a <<" + " <<b << "=" <<a+b <<endl;
+    cout <<a <<" - " <<b << "=" <<a-b <<endl;
+    cout <<a <<" * " <<b << "=" <<a*b <<endl;
+    cout <<a <<" / " <<b << "=" <<a/b <<endl;
+    cout <<a <<" % " <<b << "=" <<a%b <<endl;
 }
