@@ -3,7 +3,7 @@ using namespace std;
 
 
 
-void mySum()
+int mySum()
 {
    cout <<"Please enter Number1" <<endl;
    int number1;
@@ -12,12 +12,13 @@ void mySum()
    int number2;
    cin >> number2;
    cout<<"********************************************************************" <<endl;
-   cout <<number1 +number2 <<endl;
+   return  number1+number2 ;
 }
 
 
 int main()
 {
 
-   mySum();
+
+   cout <<mySum() <<endl;
 }
