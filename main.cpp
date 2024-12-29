@@ -2,49 +2,26 @@
 using namespace std;
 
 
-struct Person
-{
-    string name,city,country;
-    float monthly_salary,yearly_salary;
-    int age;
-    char gender;
-    bool maried;
-
-};
-
-
 
 int main()
 {
 
-    Person person;
+   string string1;
+   string string2;
+   string string3;
 
-    cout <<"Your Name : " ;
-    cin >> person.name;
-    cout <<"Your Age : " ;
-    cin>> person.age;
-    cout <<"Your City : " ;
-    cin >> person.city;
-    cout <<"Your Country : " ;
-    cin >> person.country;
-    cout <<"Your Monthly Salary : " ;
-    cin >> person.monthly_salary;
-    cout <<"Your Yearly Salary : " ;
-    cin >> person.yearly_salary;
-    cout <<"Your Gender : " ;
-    cin >> person.gender;
-    cout <<"Are you Maried 0/1 : " ;
-    cin >> person.maried;
+   cout << "Please enter String1" << endl;
+   getline(cin, string1);
+   cout << "Please enter String2" << endl;
+   getline(cin, string2);
+   cout << "Please enter String3" << endl;
+   getline(cin, string3);
 
-    cout << "************************************************************\n";
-    cout <<"Your Name : " <<person.name<<endl;
-    cout <<"Your Age : " <<person.age<<endl;
-    cout <<"Your City : " <<person.city<<endl;
-    cout <<"Your Country : " <<person.country<<endl;
-    cout <<"Monthly Salary : " <<person.monthly_salary<<endl;
-    cout <<"Yearly Salary : " <<person.yearly_salary<<endl;
-    cout <<"Gender : " <<person.gender<<endl;
-    cout <<"Maried : " <<person.maried<<endl;
+   cout <<"**************************************************************"<<endl;
 
+   cout << "the length of string 1 is "<<string1.length()<<endl;
+   cout <<"characters at 0,2,4,7 are: "<<string1[0]<<" "<<string1[2]<<" "<<string1[4]<<" "<<string1[7]<<endl;
+   cout <<"concatenating string2 and string 3  = "<<string2 + string3<<endl;
+   cout<< stoi(string2) <<" * "<<stoi(string3) <<" = "<<stoi(string2) * stoi(string3)<< endl;
 
 }
