@@ -3,16 +3,12 @@ using namespace std;
 
 
 
-int mySum()
+void swapme(int &a,int &b)
 {
-   cout <<"Please enter Number1" <<endl;
-   int number1;
-   cin >> number1;
-   cout <<"Please enter Number2" <<endl;
-   int number2;
-   cin >> number2;
-   cout<<"********************************************************************" <<endl;
-   return  number1+number2 ;
+   int c = a;
+   a=b;
+   b=c;
+
 }
 
 
@@ -20,5 +16,13 @@ int main()
 {
 
 
-   cout <<mySum() <<endl;
+   int a,b;
+
+    cout<<"Enter a number a :";
+    cin>>a;
+    cout<<"Enter a number b :";
+    cin>>b;
+
+    swapme(a,b);
+    cout<<a<<" "<<b<<endl;
 }
