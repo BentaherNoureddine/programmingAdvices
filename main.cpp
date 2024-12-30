@@ -2,58 +2,67 @@
 using namespace std;
 
 
-struct stPerson
-{
-    string firstName;
-    string lastName;
-    short age;
-    int phoneNumber;
-};
+enum weekday { Sun = 1, Mon, Tue, Wed, Thu, Fri, Sat };
 
-//READ INFOS
-void readInfos(stPerson &person)
+void showWeekDays()
 {
-    cout<<"Enter First Name: ";
-    cin>>person.firstName;
-    cout<<"Enter Last Name: ";
-    cin>>person.lastName;
-    cout<<"Enter Age: ";
-    cin>>person.age;
-    cout<<"Enter Phone: ";
-    cin>>person.phoneNumber;
+    cout <<"*************************************" <<endl;
+    cout << "Weekdays: \n";
+    cout<<  "(1) sunday" <<endl;
+    cout << "(2) monday" <<endl;
+    cout << "(3) tuesday" <<endl;
+    cout << "(4) wednesday" <<endl;
+    cout << "(5) thursday" <<endl;
+    cout << "(6) friday" <<endl;
+    cout << "(7) saturday" <<endl;
+    cout <<"*************************************\n\n" <<endl;
 }
 
-void readAllInfos(stPerson persons[2])
+
+// CAST AN INTEGER TO A WEEKDAY
+weekday readWeekDay()
 {
-    readInfos(persons[0]);
-    readInfos(persons[1]);
+    //READ THE WEEKDAY
+    int day;
+    cin>>day;
+
+    // RETURN THE CASTED WEEK DAY
+    return (weekday)day;
 }
 
-//PRINT INFOS
-void printInfos(const stPerson person)
-{
-    cout<<"First Name: "<<person.firstName<<endl;
-    cout<<"Last Name: "<<person.lastName<<endl;
-    cout<<"Age: "<<person.age<<endl;
-    cout<<"Phone: "<<person.phoneNumber<<endl;
-}
+// DETERMINE THE WEEK DAY BASED ON THE GIVEN INPUT
 
-//PRINT ALL PERSONS
-void printAll(stPerson person[2])
+string getWeekDay(weekday weekday)
 {
-    printInfos(person[0]);
-    cout<<"************************************************"<<endl;
-    cout<<"************************************************"<<endl;
-    printInfos(person[1]);
+    switch (weekday)
+    {
+        case Sun:
+            return "Sunday";
+        case Mon:
+            return "Monday";
+        case Tue:
+            return "Tuesday";
+        case Wed:
+            return "Wednesday";
+        case Thu:
+            return "Thursday";
+        case Fri:
+            return "Friday";
+        case Sat:
+            return "Saturday";
+        default:
+            return "Unknown";
+    }
 }
 
 
 int main()
 {
 
-    stPerson person[2];
-    readAllInfos(person);
-    printAll(person);
+    showWeekDays();
+    cout << "today is "<<getWeekDay(readWeekDay());
+    return 0;
+
 
 
 }
