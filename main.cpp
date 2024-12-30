@@ -2,35 +2,53 @@
 using namespace std;
 
 
-//READ THE ARRAY
-void readArray(int x[3])
+struct stPerson
 {
-   cout<< "Please enter Grade1 " << endl;
-   cin>>x[0];
-   cout<< "Please enter Grade2 " << endl;
-   cin>>x[1];
-   cout<< "Please enter Grade3 " << endl;
-   cin>>x[2];
+    string firstName;
+    string lastName;
+    short age;
+    int phoneNumber;
+};
+
+//READ INFOS
+void readInfos(stPerson &person)
+{
+    cout<<"Enter First Name: ";
+    cin>>person.firstName;
+    cout<<"Enter Last Name: ";
+    cin>>person.lastName;
+    cout<<"Enter Age: ";
+    cin>>person.age;
+    cout<<"Enter Phone: ";
+    cin>>person.phoneNumber;
 }
 
-
-
-//PRINT THE ARRAY
-int getAverage(const int x[3])
+//PRINT INFOS
+void printInfos(stPerson person)
 {
-   return (x[0] + x[1] + x[2]) / 3;
-
+    cout<<"First Name: "<<person.firstName<<endl;
+    cout<<"Last Name: "<<person.lastName<<endl;
+    cout<<"Age: "<<person.age<<endl;
+    cout<<"Phone: "<<person.phoneNumber<<endl;
 }
 
-
+//PRINT ALL PERSONS
+void printAll(stPerson person[2])
+{
+    printInfos(person[0]);
+    cout<<"************************************************"<<endl;
+    cout<<"************************************************"<<endl;
+    printInfos(person[1]);
+}
 
 
 int main()
 {
 
-   int x[3];
+    stPerson person[2];
+    readInfos(person[0]);
+    readInfos(person[1]);
+    printAll(person);
 
-  readArray(x);
-  cout<<"thee Average of grades is "<< getAverage(x);
 
 }
