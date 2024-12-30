@@ -23,8 +23,14 @@ void readInfos(stPerson &person)
     cin>>person.phoneNumber;
 }
 
+void readAllInfos(stPerson persons[2])
+{
+    readInfos(persons[0]);
+    readInfos(persons[1]);
+}
+
 //PRINT INFOS
-void printInfos(stPerson person)
+void printInfos(const stPerson person)
 {
     cout<<"First Name: "<<person.firstName<<endl;
     cout<<"Last Name: "<<person.lastName<<endl;
@@ -46,8 +52,7 @@ int main()
 {
 
     stPerson person[2];
-    readInfos(person[0]);
-    readInfos(person[1]);
+    readAllInfos(person);
     printAll(person);
 
 
