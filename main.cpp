@@ -7,11 +7,11 @@ using namespace std;
 int main()
 {
 
-   for (int i=65;i<72;i++)
+   for (int i=1; i < 11; i++)
    {
-    for (int j=65;j<i;j++)
+    for (int j=i; j < 11; j++)
     {
-        cout<<char(j);
+        cout<<j<<" ";
     }
        cout<<endl;
    }
