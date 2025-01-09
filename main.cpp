@@ -7,13 +7,13 @@ using namespace std;
 int main()
 {
 
-   for (int i=0;i<11;i++)
+   for (int i=65;i<72;i++)
    {
-      for (int j=1;j<=i;j++)
-      {
-         cout<<j;
-      }
-      cout<<endl;
+    for (int j=65;j<i;j++)
+    {
+        cout<<char(j);
+    }
+       cout<<endl;
    }
 
 
