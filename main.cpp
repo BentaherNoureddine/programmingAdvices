@@ -3,36 +3,37 @@ using namespace std;
 
 
 
-float readNumber()
+void readNums(int &num1,int &num2,int &num3)
 {
-    float number;
-    cout << "Enter a number: ";
-    cin >> number;
-    return number;
+    cout<<"Enter First Number: ";
+    cin>> num1;
+    cout<<"Enter Second Number: ";
+    cin>> num2;
+    cout<<"Enter Third Number: ";
+    cin>> num3;
 }
 
-bool checkPass(float number)
+
+int sumOfNumbers(int num1,int num2,int num3)
 {
-    return number>=50;
+    return num1+num2+num3;
 }
 
-void printResult(float number)
+float average(int num1,int num2,int num3)
 {
-    if (checkPass(number))
-    {
-        cout << "Passed!" << endl;
-    }else
-    {
-        cout << "Failed!" << endl;
-    }
+    return (float) sumOfNumbers(num1,num2,num3) / 3;
 }
+
+
 
 
 
 int main()
 {
 
-    printResult(readNumber());
+    int num1,num2,num3;
+    readNums(num1,num2,num3);
+    cout<<"The average is: "<<average(num1,num2,num3);
     return 0;
 
 
