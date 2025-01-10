@@ -1,44 +1,36 @@
+#include <cmath>
 #include <iostream>
 using namespace std;
 
 
 
-void readNums(int &num1,int &num2, int &num3)
+void readNums(int &a,int &d)
 {
-    cout<<"Enter First Number: ";
-    cin>> num1;
-    cout<<"Enter Second Number: ";
-    cin>> num2;
-    cout<<"Enter Third Number: ";
-    cin>> num3;
+    cout << "Enter  A: ";
+    cin >> a;
+    cout << "Enter D: ";
+    cin >> d;
 }
 
 
-int getMax(int num1,int num2,int num3)
+float getArea(int a,int d)
 {
-   if (num1>num2&&num1>num3)
-       return num1;
 
-   else if(num2>num3)
-       return num2;
-
-   else
-       return num3;
-
+  return a * sqrt(pow(d, 2) - pow(a, 2));
 }
 
-void printResult(int num1,int num2,int num3)
+void printResult(int num1,int num2)
 {
-    cout<<"The Max Value is "<<getMax(num1,num2,num3)<<endl;
+    cout<<"The Ara of the Rectangle is "<<getArea(num1,num2)<<endl;
 }
 
 
 int main()
 {
 
-    int num1,num2,num3;
-    readNums(num1,num2,num3);
-    printResult(num1,num2,num3);
+    int num1,num2;
+    readNums(num1,num2);
+    printResult(num1,num2);
     return 0;
 
 
