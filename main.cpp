@@ -3,22 +3,28 @@ using namespace std;
 
 
 
-int readNumber()
+float readNumber()
 {
-    int number;
+    float number;
     cout << "Enter a number: ";
     cin >> number;
     return number;
 }
 
-float getHalf(int number)
+bool checkPass(float number)
 {
-    return number / 2;
+    return number>=50;
 }
 
-void printHalf(float result)
+void printResult(float number)
 {
-    cout <<"The Half Is : " << result << endl;
+    if (checkPass(number))
+    {
+        cout << "Passed!" << endl;
+    }else
+    {
+        cout << "Failed!" << endl;
+    }
 }
 
 
@@ -26,7 +32,7 @@ void printHalf(float result)
 int main()
 {
 
-    printHalf(getHalf(readNumber()));
+    printResult(readNumber());
     return 0;
 
 
