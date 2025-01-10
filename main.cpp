@@ -2,41 +2,31 @@
 using namespace std;
 
 
-struct stInfo
-{
-    string firstName;
-    string lastName;
-};
 
-stInfo readInfo()
+int readNumber()
 {
-    stInfo info;
-    cout << "Enter first name: ";
-    cin >> info.firstName;
-    cout << "Enter last name: ";
-    cin >> info.lastName;
-    return info;
+    int number;
+    cout << "Enter a number: ";
+    cin >> number;
+    return number;
 }
 
-string getFullName(stInfo info)
+float getHalf(int number)
 {
-    return info.firstName + " " + info.lastName;
+    return number / 2;
 }
 
-void printFullName(string fullName )
+void printHalf(float result)
 {
-    cout << " FullName: " << fullName << endl;
+    cout <<"The Half Is : " << result << endl;
 }
-
-
 
 
 
 int main()
 {
 
-    stInfo info;
-    printFullName(getFullName(readInfo()));
+    printHalf(getHalf(readNumber()));
     return 0;
 
 
