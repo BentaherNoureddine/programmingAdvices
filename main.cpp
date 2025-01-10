@@ -8,20 +8,20 @@ void readNums(int &a,int &d)
 {
     cout << "Enter  A: ";
     cin >> a;
-    cout << "Enter D: ";
+    cout << "Enter H: ";
     cin >> d;
 }
 
 
-float getArea(int a,int d)
+float getArea(int a,int h)
 {
 
-  return a * sqrt(pow(d, 2) - pow(a, 2));
+  return a/2 *h;
 }
 
 void printResult(int num1,int num2)
 {
-    cout<<"The Ara of the Rectangle is "<<getArea(num1,num2)<<endl;
+    cout<<"The Ara of the Triangle is "<<getArea(num1,num2)<<endl;
 }
 
 
