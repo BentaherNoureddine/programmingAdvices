@@ -3,7 +3,7 @@ using namespace std;
 
 
 
-void readNums(int &num1,int &num2,int &num3)
+void readNums(int &num1,int &num2, int &num3)
 {
     cout<<"Enter First Number: ";
     cin>> num1;
@@ -14,43 +14,31 @@ void readNums(int &num1,int &num2,int &num3)
 }
 
 
-int sumOfNumbers(int num1,int num2,int num3)
+int getMax(int num1,int num2,int num3)
 {
-    return num1+num2+num3;
+   if (num1>num2&&num1>num3)
+       return num1;
+
+   else if(num2>num3)
+       return num2;
+
+   else
+       return num3;
+
 }
 
-
-
-float average(int num1,int num2,int num3)
+void printResult(int num1,int num2,int num3)
 {
-    return (float)sumOfNumbers(num1,num2,num3) / 3;
+    cout<<"The Max Value is "<<getMax(num1,num2,num3)<<endl;
 }
 
-
-
-bool checkAverage(float average)
-{
-    return average >=50;
-}
-
-
-void prinResult(float average)
-{
-    if (checkAverage(average))
-    {
-        cout<<"Pass"<<endl;
-    }else
-    {
-        cout<<"Fail"<<endl;
-    }
-}
 
 int main()
 {
 
     int num1,num2,num3;
     readNums(num1,num2,num3);
-    prinResult(average(num1,num2,num3));
+    printResult(num1,num2,num3);
     return 0;
 
 
