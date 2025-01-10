@@ -16,7 +16,7 @@ void readNums(int &a,int &d)
 float getArea(int a,int h)
 {
 
-  return a/2 *h;
+  return (a/2) *h;
 }
 
 void printResult(int num1,int num2)
