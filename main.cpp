@@ -4,33 +4,31 @@ using namespace std;
 
 
 
-void readNums(int &a,int &d)
+void readNums(int &a)
 {
-    cout << "Enter  A: ";
+    cout << "Enter  R: ";
     cin >> a;
-    cout << "Enter H: ";
-    cin >> d;
 }
 
 
-float getArea(int a,int h)
+float getArea(int r)
 {
 
-  return (a/2) *h;
+  return numbers::pi*(pow(r,2));
 }
 
-void printResult(int num1,int num2)
+void printResult(int r)
 {
-    cout<<"The Ara of the Triangle is "<<getArea(num1,num2)<<endl;
+    cout<<"The Ara of the Circle is "<<getArea(r)<<endl;
 }
 
 
 int main()
 {
 
-    int num1,num2;
-    readNums(num1,num2);
-    printResult(num1,num2);
+    int r;
+    readNums(r);
+    printResult(r);
     return 0;
 
 
