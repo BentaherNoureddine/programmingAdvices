@@ -4,31 +4,40 @@ using namespace std;
 
 
 
-void readNums(int &a)
+struct stInputs
 {
-    cout << "Enter  L: ";
-    cin >> a;
+    int a,b;
+};
+
+stInputs readNums()
+{
+    stInputs inputs;
+    cout << "Enter  a: ";
+    cin >> inputs.a;
+    cout << "Enter  b: ";
+    cin >> inputs.b;
+    return inputs;
 }
 
 
-float getArea(int l)
+float getArea(stInputs inputs)
 {
 
-  return pow(l,2)/(4*numbers::pi);
+  return  ((numbers::pi*pow(inputs.b,2))/4)*(2*inputs.a-inputs.b)/(2*inputs.a+inputs.b);
 }
 
-void printResult(int r)
+void printResult(stInputs inputs)
 {
-    cout<<"The Ara of the Circle is "<<getArea(r)<<endl;
+    cout<<"The Ara of the Circle is "<<getArea(inputs)<<endl;
 }
 
 
 int main()
 {
 
-    int r;
-    readNums(r);
-    printResult(r);
+
+    printResult(readNums());
+
     return 0;
 
 
