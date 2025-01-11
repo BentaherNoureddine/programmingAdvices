@@ -18,41 +18,23 @@ int readPositiveNumber(string s)
 }
 
 
-bool isPerfect(int number)
+void printReversedNumber(int number)
 {
-    int sum =0;
-   for (int i=1; i<number; i++)
-   {
-       if(number%i==0)
-       {
-           sum+=i;;
-       }
-   }
-   return sum==number;
+
+    string stNumber = to_string(number);
+    for (int i = stNumber.size()-1; i >= 0; i--)
+    {
+        cout<<stNumber[i]<<endl;
+    }
 }
 
 
-void printResult(int number)
-{
-
-   cout<<"Perfect Numbers : \n";
-
-   for(int i=1; i<=number; i++)
-   {
-       if (isPerfect(i))
-       {
-           cout<< i<<endl;
-       }
-   }
-
-
-}
 
 
 int main()
 {
 
-    printResult(readPositiveNumber("Give a Positive Number"));
+    printReversedNumber(readPositiveNumber("Give a Positive Number"));
     return 0;
 
 
