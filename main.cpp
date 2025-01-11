@@ -3,51 +3,46 @@
 using namespace std;
 
 
-string ColumnSeparator(int i)
+
+int readNumber()
 {
-    if (i>9)
-    {
-        return "    |";
-    }
-    return "     |";
-
-
+    int number;
+    cout<<"Enter a number: ";
+    cin>>number;
+    return number;
 }
 
 
-void calculate()
+bool isPrime(int number)
 {
-    for (int i = 1; i <= 10; i++)
+    if(number <= 1)
+        return false;
+    for (int i=2;i<number;i++)
     {
-        cout << " " <<i <<ColumnSeparator(i)<<"\t";
-        for (int j = 1; j <= 10; j++)
+        if(number % i == 0)
+            return false;
+
+    }
+    return true;
+}
+
+
+void printPrimeNumbers(int number)
+{
+    for (int i=2;i<number;i++)
+    {
+        if(isPrime(i))
         {
-            cout <<i*j<<"\t \t \t\t";
+            cout<<i<<" ";
         }
-        cout << endl;
     }
 }
-
-
-
-void printResult()
-{
-    cout<<"                            Multiplication Table From 1 to 10             \n";
-    cout<<"            1               2              3                4              5                6               7               8               9               10\n";
-    cout<<"______________________________________________________________________________________________________________________________________________________________\n";
-    calculate();
-
-}
-
 
 
 int main()
 {
 
-
-
-
-    printResult();
+    printPrimeNumbers(readNumber());
     return 0;
 
 
