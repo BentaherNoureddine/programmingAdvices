@@ -4,31 +4,41 @@ using namespace std;
 
 
 
-struct stInputs
-{
-    int a,b;
-};
+enum enOptype{Add = '+',Subtract='-',Multiply = '*',Divide = '/'};
 
-stInputs readNums()
+int readNumber(string input)
 {
-    stInputs inputs;
-    cout << "Enter  a: ";
-    cin >> inputs.a;
-    cout << "Enter  b: ";
-    cin >> inputs.b;
-    return inputs;
+    int number;
+    cout<<input;
+    cin>>number;
+    return number;
 }
 
 
-float getArea(stInputs inputs)
+enOptype readOperator()
 {
-
-  return  ((numbers::pi*pow(inputs.b,2))/4)*(2*inputs.a-inputs.b)/(2*inputs.a+inputs.b);
+    cout<<"Please enter an operator (+,-,*,/):"<<endl;
+    char input='+';
+    cin>>input;
+    return (enOptype)input;
 }
 
-void printResult(stInputs inputs)
+float calculate(int a,int b,enOptype optype)
 {
-    cout<<"The Ara of the Circle is "<<getArea(inputs)<<endl;
+    switch(optype)
+    {
+        case Add:
+            return a+b;
+        case Subtract:
+            return a-b;
+        case Multiply:
+            return a*b;
+        case Divide:
+            return a/b;
+        default:
+            return a+b;
+    }
+
 }
 
 
@@ -36,7 +46,13 @@ int main()
 {
 
 
-    printResult(readNums());
+    int num1,num2;
+    num1 = readNumber("Enter First Number: ");
+    num2 = readNumber("Enter Second Number: ");
+    enOptype op= readOperator();
+    cout<<"The result is: "<<calculate(num1,num2,op)<<endl;
+
+
 
     return 0;
 
