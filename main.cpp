@@ -4,45 +4,55 @@ using namespace std;
 
 
 
-int readNumber()
+int readPositiveNumber(string s)
 {
     int number;
-    cout<<"Enter a number: ";
-    cin>>number;
+    do
+    {
+        cout<<s;
+        cin>>number;
+
+    }while(number<0);
     return number;
+
 }
 
 
-bool isPrime(int number)
+bool isPerfect(int number)
 {
-    if(number <= 1)
-        return false;
-    for (int i=2;i<number;i++)
-    {
-        if(number % i == 0)
-            return false;
-
-    }
-    return true;
+    int sum =0;
+   for (int i=1; i<number; i++)
+   {
+       if(number%i==0)
+       {
+           sum+=i;;
+       }
+   }
+   return sum==number;
 }
 
 
-void printPrimeNumbers(int number)
+void printResult(int number)
 {
-    for (int i=2;i<number;i++)
-    {
-        if(isPrime(i))
-        {
-            cout<<i<<" ";
-        }
-    }
+
+   cout<<"Perfect Numbers : \n";
+
+   for(int i=1; i<=number; i++)
+   {
+       if (isPerfect(i))
+       {
+           cout<< i<<endl;
+       }
+   }
+
+
 }
 
 
 int main()
 {
 
-    printPrimeNumbers(readNumber());
+    printResult(readPositiveNumber("Give a Positive Number"));
     return 0;
 
 
