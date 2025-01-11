@@ -3,32 +3,41 @@
 using namespace std;
 
 
-
-int readNumber(string message)
+string ColumnSeparator(int i)
 {
-    int number = 0;
-    cout << message<<endl;
-    cin >> number;
-    return number;
-}
-
-int sumNumbers()
-{
-    int sum=0,counter=1,number=0;
-
-    do
+    if (i>9)
     {
-        number = readNumber("Enter a number: " + to_string(counter));
-        counter++;
-        if (number == -99)
-        {
-            break;
-        }
-        sum += number;
-    }while (number != -99);
-    return sum;
+        return "    |";
+    }
+    return "     |";
+
+
 }
 
+
+void calculate()
+{
+    for (int i = 1; i <= 10; i++)
+    {
+        cout << " " <<i <<ColumnSeparator(i)<<"\t";
+        for (int j = 1; j <= 10; j++)
+        {
+            cout <<i*j<<"\t \t \t\t";
+        }
+        cout << endl;
+    }
+}
+
+
+
+void printResult()
+{
+    cout<<"                            Multiplication Table From 1 to 10             \n";
+    cout<<"            1               2              3                4              5                6               7               8               9               10\n";
+    cout<<"______________________________________________________________________________________________________________________________________________________________\n";
+    calculate();
+
+}
 
 
 
@@ -38,8 +47,7 @@ int main()
 
 
 
-    cout << sumNumbers() << endl;
-
+    printResult();
     return 0;
 
 
