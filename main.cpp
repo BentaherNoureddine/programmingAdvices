@@ -21,10 +21,12 @@ int readPositiveNumber(string s)
 void printReversedNumber(int number)
 {
 
-    string stNumber = to_string(number);
-    for (int i = stNumber.size()-1; i >= 0; i--)
+  int remainder = 0;
+    while(number>0)
     {
-        cout<<stNumber[i]<<endl;
+        remainder = number%10;
+        number = number/10;
+        cout<<remainder<<endl;
     }
 }
 
