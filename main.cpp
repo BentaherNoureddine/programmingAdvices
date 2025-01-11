@@ -4,55 +4,41 @@ using namespace std;
 
 
 
-enum enOptype{Add = '+',Subtract='-',Multiply = '*',Divide = '/'};
-
-int readNumber(string input)
+int readNumber(string message)
 {
-    int number;
-    cout<<input;
-    cin>>number;
+    int number = 0;
+    cout << message<<endl;
+    cin >> number;
     return number;
 }
 
-
-enOptype readOperator()
+int sumNumbers()
 {
-    cout<<"Please enter an operator (+,-,*,/):"<<endl;
-    char input='+';
-    cin>>input;
-    return (enOptype)input;
-}
+    int sum=0,counter=1,number=0;
 
-float calculate(int a,int b,enOptype optype)
-{
-    switch(optype)
+    do
     {
-        case Add:
-            return a+b;
-        case Subtract:
-            return a-b;
-        case Multiply:
-            return a*b;
-        case Divide:
-            return a/b;
-        default:
-            return a+b;
-    }
-
+        number = readNumber("Enter a number: " + to_string(counter));
+        counter++;
+        if (number == -99)
+        {
+            break;
+        }
+        sum += number;
+    }while (number != -99);
+    return sum;
 }
+
+
 
 
 int main()
 {
 
 
-    int num1,num2;
-    num1 = readNumber("Enter First Number: ");
-    num2 = readNumber("Enter Second Number: ");
-    enOptype op= readOperator();
-    cout<<"The result is: "<<calculate(num1,num2,op)<<endl;
 
 
+    cout << sumNumbers() << endl;
 
     return 0;
 
