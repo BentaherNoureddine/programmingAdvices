@@ -6,15 +6,15 @@ using namespace std;
 
 void readNums(int &a)
 {
-    cout << "Enter  D: ";
+    cout << "Enter  L: ";
     cin >> a;
 }
 
 
-float getArea(int d)
+float getArea(int l)
 {
 
-  return (numbers::pi*pow(d, 2))/4;
+  return pow(l,2)/(4*numbers::pi);
 }
 
 void printResult(int r)
