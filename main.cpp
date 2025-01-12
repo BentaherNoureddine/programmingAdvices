@@ -21,14 +21,15 @@ int readPositiveNumber(string s)
 void printReversedNumber(int number)
 {
 
-  int remainder = 0,sum=0;
+  int remainder = 0,number2 = 0;;
     while(number>0)
     {
         remainder = number%10;
         number = number/10;
-        sum+=remainder;
+        number2 =number2*10+remainder;
     }
-    cout <<"Sum of Digits: "<<sum;
+    cout<<number2<<endl;
+
 }
 
 
