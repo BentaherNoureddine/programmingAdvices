@@ -46,7 +46,7 @@ void printFrequency(int number)
     {
         if (calculateFrequency(number,i)>=1)
         {
-            cout<< "Digit "<<i<<" frequency is "<<calculateFrequency(number,i)<<endl;
+            cout<<i<<endl;
         }
     }
 
