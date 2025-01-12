@@ -18,17 +18,39 @@ int readPositiveNumber(string s)
 }
 
 
-void printReversedNumber(int number)
+int calculateFrequency(int number,int i)
 {
 
-  int remainder = 0,number2 = 0;;
-    while(number>0)
+    int remainder=0,frequency=0;
+
+    while (number>0)
     {
-        remainder = number%10;
-        number = number/10;
-        number2 =number2*10+remainder;
+
+        remainder=number%10;
+        if (i==remainder)
+        {
+            frequency++;
+        }
+        number/=10;
+
     }
-    cout<<number2<<endl;
+    return frequency;
+
+}
+
+
+void printFrequency(int number)
+{
+
+    for (int i = 0; i <= 9; i++)
+    {
+        if (calculateFrequency(number,i)>=1)
+        {
+            cout<< "Digit "<<i<<" frequency is "<<calculateFrequency(number,i)<<endl;
+        }
+    }
+
+
 
 }
 
@@ -38,7 +60,7 @@ void printReversedNumber(int number)
 int main()
 {
 
-    printReversedNumber(readPositiveNumber("Give a Positive Number"));
+    printFrequency(readPositiveNumber("Give a Positive Number "));
     return 0;
 
 
