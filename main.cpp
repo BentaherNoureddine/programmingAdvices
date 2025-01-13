@@ -18,40 +18,31 @@ int readPositiveNumber(string s)
 }
 
 
-int reverseNumber(int number)
+void printNumberRows(int number)
 {
+    for (int i =0;i<number;i++)
+    {
+        cout<<number;
+    }
 
-    int remainder=0;int number2=0;
+}
+
+
+void printNumber(int number)
+{
     while(number>0)
     {
-        remainder=number%10;
-        number=number/10;
-        number2 = number2*10+remainder;
-      
+        printNumberRows(number);
+        cout<<endl;
+        number--;
     }
-  return number2;
 }
-
-
-void printReverse(int number)
-{
-
-    if (number==reverseNumber(number))
-        cout <<" Yes, it s a Palindrome Number"<<endl;
-    else
-        cout <<" No, it s Not a Palindrome Number"<<endl;
-
-
-
-}
-
-
 
 
 int main()
 {
 
-    printReverse(readPositiveNumber("Give a Positive Number "));
+    printNumber(readPositiveNumber("Enter number"));
     return 0;
 
 
