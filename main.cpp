@@ -27,6 +27,7 @@ int reverseNumber(int number)
         remainder=number%10;
         number=number/10;
         number2 = number2*10+remainder;
+      
     }
   return number2;
 }
@@ -35,7 +36,10 @@ int reverseNumber(int number)
 void printReverse(int number)
 {
 
-    cout<< "Reversed number is "<<reverseNumber(number)<<endl;
+    if (number==reverseNumber(number))
+        cout <<" Yes, it s a Palindrome Number"<<endl;
+    else
+        cout <<" No, it s Not a Palindrome Number"<<endl;
 
 
 
