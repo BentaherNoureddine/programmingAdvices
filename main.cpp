@@ -18,23 +18,18 @@ int readPositiveNumber(string s)
 }
 
 
-void printNumberRows(int number)
-{
-    for (int i =0;i<number;i++)
-    {
-        cout<<number;
-    }
 
-}
 
 
 void printNumber(int number)
 {
-    while(number>0)
+    for (int i = 1; i <= number; i++)
     {
-        printNumberRows(number);
+        for (int j = 1; j <= i; j++)
+        {
+            cout<<i;
+        }
         cout<<endl;
-        number--;
     }
 }
 
