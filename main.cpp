@@ -27,7 +27,7 @@ void printNumber(int number)
     for (int i = 65;i<=65+number-1; i++)
     {
 
-        for (int j=1;j<=number-(65+number-1-i);j++)
+        for (int j=1;j<=i-65+1;j++)
         {
             cout<<char(i);
         }
