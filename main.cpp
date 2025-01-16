@@ -24,7 +24,7 @@ int readPositiveNumber(string s)
 
 void printNumber(int number)
 {
-    for (int i = number+65-1;i>=65; i--)
+    for (int i = 65;i<=65+number-1; i++)
     {
 
         for (int j=1;j<=number-(65+number-1-i);j++)
