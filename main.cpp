@@ -22,16 +22,18 @@ int readPositiveNumber(string s)
 
 
 
-void printNumber(int number)
+void printFromAToZ()
 {
-    for (int i = 65;i<=65+number-1; i++)
+    for (int i = 65;i<=90; i++)
     {
-
-        for (int j=1;j<=i-65+1;j++)
+        for (int j= 65;j<=90; j++)
         {
-            cout<<char(i);
+            for (int k= 65;k<=90; k++)
+            {
+                cout<<char(i)<<char(j)<<char(k)<<endl;
+            }
         }
-        cout<<endl;
+
     }
 
 }
@@ -39,7 +41,7 @@ void printNumber(int number)
 int main()
 {
 
-    printNumber(readPositiveNumber("Enter number"));
+    printFromAToZ();
     return 0;
 
 
