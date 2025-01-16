@@ -6,57 +6,55 @@ using namespace std;
 
 string readString(string s)
 {
-    string input;
-    do
-    {
-        cout<<s;
+        string input;
+        cout<<s<<endl;
         cin>>input;
 
-    }while(input.length()!=3);
+
     return input;
 
 }
 
 
-
-
-
-
-void getPassWord(string s)
+string encrypt(string s,short encryptionKey)
 {
-    int sum=1;
-    string password = "";
-    for (int i = 65;i<=90; i++)
+    string encrypted="";
+    for (int i=0;i<s.length();i++)
     {
-        for (int j= 65;j<=90; j++)
-        {
-            for (int k= 65;k<=90; k++)
-            {
-
-                password+=char(i);
-                password+=char(j);
-                password+=char(k);
-                cout<<"Trial["<<sum<<"] :"<<password<<endl;
-                if (password==s)
-                {
-                        cout<<"Password is "<<password<<endl;
-                        cout<<"Found Password after "<<sum<<" Trial(s)"<<endl;
-                        return;
-                }
-                sum++;
-                password="";
-
-            }
-        }
-
+        encrypted+=char(int(s[i])+encryptionKey);
     }
+    return encrypted;
 
 }
 
-int main()
+
+string decrypt(string s,short encryptionKey)
 {
 
-    getPassWord(readString("WRITE YOUR PASSWORD"));
+    string decrypted="";
+    for (int i=0;i<s.length();i++)
+    {
+        decrypted+=char(int(s[i])-encryptionKey);
+    }
+    return decrypted;
+
+}
+
+
+
+void printResult(string input,short encryptionKey)
+{
+    cout<<"Text Before Encryption: "<<input<<endl;
+    cout<<"Text After Encryption: "<<encrypt(input,encryptionKey)<<endl;
+    cout<<"Text After Decryption: "<<decrypt(encrypt(input,encryptionKey),encryptionKey)<<endl;
+}
+
+
+int main()
+{
+    short encryptionKey=2;
+    string input = readString("write a text");
+    printResult(input,encryptionKey);
     return 0;
 
 
