@@ -21,18 +21,22 @@ int readPositiveNumber(string s)
 
 
 
+
 void printNumber(int number)
 {
-    for (int i = 1; i <= number; i++)
+    int number2 = number-1;
+    for (int i = number+65-1;i>=65; i--)
     {
-        for (int j = 1; j <= i; j++)
+
+        for (int j=number2;j>=0;j--)
         {
-            cout<<i;
+            cout<<char(i);
         }
+        number2--;
         cout<<endl;
     }
-}
 
+}
 
 int main()
 {
