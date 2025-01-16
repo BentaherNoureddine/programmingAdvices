@@ -4,16 +4,16 @@ using namespace std;
 
 
 
-int readPositiveNumber(string s)
+string readString(string s)
 {
-    int number;
+    string input;
     do
     {
         cout<<s;
-        cin>>number;
+        cin>>input;
 
-    }while(number<0);
-    return number;
+    }while(input.length()!=3);
+    return input;
 
 }
 
@@ -22,15 +22,30 @@ int readPositiveNumber(string s)
 
 
 
-void printFromAToZ()
+void getPassWord(string s)
 {
+    int sum=1;
+    string password = "";
     for (int i = 65;i<=90; i++)
     {
         for (int j= 65;j<=90; j++)
         {
             for (int k= 65;k<=90; k++)
             {
-                cout<<char(i)<<char(j)<<char(k)<<endl;
+
+                password+=char(i);
+                password+=char(j);
+                password+=char(k);
+                cout<<"Trial["<<sum<<"] :"<<password<<endl;
+                if (password==s)
+                {
+                        cout<<"Password is "<<password<<endl;
+                        cout<<"Found Password after "<<sum<<" Trial(s)"<<endl;
+                        return;
+                }
+                sum++;
+                password="";
+
             }
         }
 
@@ -41,7 +56,7 @@ void printFromAToZ()
 int main()
 {
 
-    printFromAToZ();
+    getPassWord(readString("WRITE YOUR PASSWORD"));
     return 0;
 
 
