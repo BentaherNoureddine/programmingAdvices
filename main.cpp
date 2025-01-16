@@ -3,7 +3,21 @@
 using namespace std;
 
 
-enum    enCharType{smallLetter=1,capitalLetter=2,specialCharacter=3,digit=4};
+
+
+int readNumber(string message)
+{
+    short number;
+
+    do
+    {
+        cout << message;
+        cin >> number;
+    }while (number < 0);
+    return number;
+
+
+}
 
 
 int randomNumber(int from,int to)
@@ -14,32 +28,35 @@ int randomNumber(int from,int to)
 
 
 
-char getRandomCharacter(enCharType CharType)
+string getRandomString()
 {
-    switch (CharType)
+    string randomString="";
+    for(int i=0;i<4;i++)
     {
-    case enCharType::smallLetter:
-        {
-            return char(randomNumber(97, 122));
-            break;
-        }
-    case enCharType::capitalLetter:
-        {
-            return char(randomNumber(65, 90));
-            break;
-        }
-    case enCharType::specialCharacter:
-        {
-            return char(randomNumber(33, 47));
-            break;
-        }
-    case enCharType::digit:
-        {
-            return char(randomNumber(48, 57));
-            break;
-        }
+     randomString+=char(randomNumber(65,90));
     }
+    return randomString;
+
 }
+
+
+void printKey(int number)
+{
+
+    string key="";
+    for(int i=1;i<=number;i++)
+    {
+        key=getRandomString();
+        for (int j=0;j<3;j++)
+        {
+            key+="-"+getRandomString();
+        }
+        cout<<"Key ["<<i<<"] : "<<key<<endl;
+        key="";
+    }
+
+}
+
 
 
 
@@ -49,10 +66,7 @@ int main()
     srand((unsigned)time(NULL));
 
 
-    cout << getRandomCharacter(enCharType::smallLetter)<<endl;
-    cout<<  getRandomCharacter(enCharType::capitalLetter)<<endl;
-    cout<<  getRandomCharacter(enCharType::specialCharacter)<<endl;
-    cout<<  getRandomCharacter(enCharType::digit)<<endl;
+    printKey(readNumber("Enter the number of keys you want to generate: "));
 
 
     return 0;
