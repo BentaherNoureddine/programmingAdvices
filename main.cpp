@@ -47,17 +47,14 @@ void fillArray(short arr[100],short number)
     }
 }
 
-void getMax(short arr[100],short number)
+void sumOfArray(short arr[100],short number)
 {
-    short min = arr[1];
-    for (int i = 2; i <= number; i++)
+    int sum=0;
+    for (int i = 0; i <= number; i++)
     {
-        if (arr[i] < min)
-        {
-            min = arr[i];
-        }
+        sum+=arr[i];
     }
-    cout<<"Max Number is: "<<min<<endl;
+    cout<<"Sum of All Numbers is: "<<sum<<endl;
 }
 
 
@@ -70,7 +67,7 @@ int main()
     short number = readNumber("Enter Number : ");
     fillArray(arr,number);
     printArray(arr,number);
-    getMax(arr,number);
+    sumOfArray(arr,number);
 
 
 
