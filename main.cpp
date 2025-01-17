@@ -20,54 +20,58 @@ int readNumber(string message)
 }
 
 
-void fillArray(short arr[],short n)
+
+int RandomNumber(int From, int To)
 {
-    for (int i = 1; i <= n; i++)
-    {
-        arr[i] = readNumber("Element ["+to_string(i)+"] :");
-        cout<<endl;
-    }
+    //Function to generate a random number
+    int randNum = rand() % (To - From + 1) + From;
+    return randNum;
 }
 
 
-void printArray(short arr[])
+void printArray(short arr[],short number)
 {
-    cout<<"Original Array:";
-    for (int i = 1; i <=sizeof(arr); i++)
+    cout<<"Array Elements :";
+    for (int i = 1; i <=number; i++)
     {
         cout<<arr[i]<<" ";
     }
     cout<<endl;
 }
 
-short getReputation(short arr[],short number)
+void fillArray(short arr[100],short number)
 {
-    int sum =0;
-    for (int i = 0; i <sizeof(arr); i++)
+    for (int i = 1; i <= number; i++)
     {
-        if (arr[i] == number)
-         sum++;
+        arr[i] = RandomNumber(1,100);
     }
-    return sum;
 }
 
-void checkNumber(short number)
+void getMax(short arr[100],short number)
 {
-    short arr[number];
-    fillArray(arr,number);
-    short numberToCheck= readNumber("Enter Number to check : ");
-    printArray(arr);
-    cout<<numberToCheck<<" is repeated "<<getReputation(arr,numberToCheck)<<" time(s)"<<endl;
-
-
-
+    short min = arr[1];
+    for (int i = 2; i <= number; i++)
+    {
+        if (arr[i] < min)
+        {
+            min = arr[i];
+        }
+    }
+    cout<<"Max Number is: "<<min<<endl;
 }
 
 
 int main()
 {
 
-    checkNumber(readNumber("Enter the number of elements : "));
+    //Seeds the random number generator in C++, called only once
+    srand((unsigned)time(NULL));
+    short arr[100];
+    short number = readNumber("Enter Number : ");
+    fillArray(arr,number);
+    printArray(arr,number);
+    getMax(arr,number);
+
 
 
     return 0;
