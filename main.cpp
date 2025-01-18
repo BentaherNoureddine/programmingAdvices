@@ -31,7 +31,6 @@ int RandomNumber(int From, int To)
 
 void printArray(short arr[],short number)
 {
-    cout<<"Array Elements :";
     for (int i = 1; i <=number; i++)
     {
         cout<<arr[i]<<" ";
@@ -43,18 +42,35 @@ void fillArray(short arr[100],short number)
 {
     for (int i = 1; i <= number; i++)
     {
-        arr[i] = RandomNumber(1,100);
+        arr[i] = RandomNumber(1,number);
     }
 }
 
-void sumOfArray(short arr[100],short number)
+string getResult(short number)
 {
-    int sum=0;
-    for (int i = 0; i <= number; i++)
+
+        if ( number>0)
+            return "The number found at position : " + to_string(number)+"\n"+"The Number found its order : "+to_string(number+1);
+        return "The Number is not found :-(";
+
+
+}
+
+void searchNumber(short arr[100],short arrayLength,short number)
+
+{
+    short result = 0;
+    for (short i = 1; i <= arrayLength; i++)
     {
-        sum+=arr[i];
+        if (number == arr[i])
+        {
+            result = i;
+            break;
+        }
     }
-    cout<<"Sum of All Numbers is: "<<sum<<endl;
+    cout<<"Number  you are looking for is : "<<number<<endl;
+    cout<<getResult(result)<<endl;
+
 }
 
 
@@ -64,11 +80,12 @@ int main()
     //Seeds the random number generator in C++, called only once
     srand((unsigned)time(NULL));
     short arr[100];
-    short number = readNumber("Enter Number : ");
-    fillArray(arr,number);
-    printArray(arr,number);
-    sumOfArray(arr,number);
-
+    short arrayLength=readNumber("Enter the Array size : ");
+    fillArray(arr,arrayLength);
+    cout<<"Array Elements : "<<endl;
+    printArray(arr,arrayLength);
+    short number=readNumber("Enter the Number to search for: ");
+    searchNumber(arr,arrayLength,number);
 
 
     return 0;
