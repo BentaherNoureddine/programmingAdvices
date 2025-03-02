@@ -18,11 +18,21 @@ float readNumber(string message)
 }
 
 
+float getFrac(float number) {
+    return number-int(number) ;
+}
 
 
-short getFloor(float number) {
+int getCiel(float number) {
 
-    return short(number);
+  if (number<0) {
+
+      return int(number);
+  }
+  if (getFrac(number)==0) {
+      return int(number);
+  }
+  return int(number)+1;
 
 }
 
@@ -36,9 +46,9 @@ int main()
 
 
 
-    int number = readNumber("Enter a number: ");
-    cout <<"My  Floor Result is: " << getFloor(number) << endl;
-    cout<<"C++ Floor Result is "<< ::floor(number) << endl;
+    float number = readNumber("Enter a number: ");
+    cout <<"My  Floor Result is: " << getCiel(number) << endl;
+    cout<<"C++ Floor Result is "<< ::ceill(number) << endl;
 
 
 
