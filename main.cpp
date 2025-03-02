@@ -23,53 +23,46 @@ int readNumber(string message)
 
 int RandomNumber(int From, int To)
 {
-    //Function to generate a random number
+
     int randNum = rand() % (To - From + 1) + From;
     return randNum;
 }
 
 
-void printArray(short arr[],short number)
+void printArray(short arr[],short arrLength)
 {
-    for (int i = 1; i <=number; i++)
+    for (int i = 0; i <arrLength; i++)
     {
         cout<<arr[i]<<" ";
     }
     cout<<endl;
 }
 
-void fillArray(short arr[100],short number)
+void fillArray(short arr[100],short arrLength)
 {
-    for (int i = 1; i <= number; i++)
+    for (int i = 0; i < arrLength; i++)
     {
-        arr[i] = RandomNumber(1,number);
+        arr[i] = RandomNumber(1,arrLength);
     }
 }
 
-string getResult(short number)
-{
 
-        if ( number>0)
-            return "The number found at position : " + to_string(number)+"\n"+"The Number found its order : "+to_string(number+1);
-        return "The Number is not found :-(";
-
-
+bool isOdd(short number) {
+    return (number % 2) != 0;
 }
 
-void searchNumber(short arr[100],short arrayLength,short number)
+void countOddNumbers(short arr[],short arrLength) {
 
-{
-    short result = 0;
-    for (short i = 1; i <= arrayLength; i++)
-    {
-        if (number == arr[i])
-        {
-            result = i;
-            break;
+    short counter = 0;
+    for (int i=0; i<arrLength; i++) {
+        cout << "Checking: " << arr[i] << " ";
+        if (isOdd(arr[i])) {
+            counter++;
         }
     }
-    cout<<"Number  you are looking for is : "<<number<<endl;
-    cout<<getResult(result)<<endl;
+    cout<<"Odd Numbers count is "<<counter<<endl;
+
+
 
 }
 
@@ -84,8 +77,8 @@ int main()
     fillArray(arr,arrayLength);
     cout<<"Array Elements : "<<endl;
     printArray(arr,arrayLength);
-    short number=readNumber("Enter the Number to search for: ");
-    searchNumber(arr,arrayLength,number);
+    countOddNumbers(arr,arrayLength);
+
 
 
     return 0;
