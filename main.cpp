@@ -47,6 +47,7 @@ void fillArray(short arr[100],short arrLength)
 }
 
 
+
 bool isOdd(short number) {
     return (number % 2) != 0;
 }
