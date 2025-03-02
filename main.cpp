@@ -48,20 +48,19 @@ void fillArray(short arr[100],short arrLength)
 
 
 
-bool isOdd(short number) {
-    return (number % 2) != 0;
+bool isEven(short number) {
+    return (number % 2) == 0;
 }
 
-void countOddNumbers(short arr[],short arrLength) {
+void countEvenNumbers(short arr[],short arrLength) {
 
     short counter = 0;
     for (int i=0; i<arrLength; i++) {
-        cout << "Checking: " << arr[i] << " ";
-        if (isOdd(arr[i])) {
+        if (isEven(arr[i])) {
             counter++;
         }
     }
-    cout<<"Odd Numbers count is "<<counter<<endl;
+    cout<<"Even Numbers count is "<<counter<<endl;
 
 
 
@@ -78,7 +77,7 @@ int main()
     fillArray(arr,arrayLength);
     cout<<"Array Elements : "<<endl;
     printArray(arr,arrayLength);
-    countOddNumbers(arr,arrayLength);
+    countEvenNumbers(arr,arrayLength);
 
 
 
