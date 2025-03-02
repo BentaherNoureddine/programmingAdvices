@@ -42,28 +42,20 @@ void fillArray(short arr[100],short arrLength)
 {
     for (int i = 0; i < arrLength; i++)
     {
-        arr[i] = RandomNumber(1,arrLength);
+        arr[i] = RandomNumber(-100,100);
     }
 }
 
 
+int countPositiveNumbers(short arr[100],short arrLength) {
 
-bool isEven(short number) {
-    return (number % 2) == 0;
-}
-
-void countEvenNumbers(short arr[],short arrLength) {
-
-    short counter = 0;
-    for (int i=0; i<arrLength; i++) {
-        if (isEven(arr[i])) {
-            counter++;
+    int count = 0;
+    for (int i = 0; i < arrLength; i++) {
+        if (arr[i] > 0) {
+            count++;
         }
     }
-    cout<<"Even Numbers count is "<<counter<<endl;
-
-
-
+    return count;
 }
 
 
@@ -77,7 +69,7 @@ int main()
     fillArray(arr,arrayLength);
     cout<<"Array Elements : "<<endl;
     printArray(arr,arrayLength);
-    countEvenNumbers(arr,arrayLength);
+    cout<<"Positive Numbers : "<<countPositiveNumbers(arr,arrayLength)<<endl;
 
 
 
