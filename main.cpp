@@ -4,9 +4,9 @@ using namespace std;
 
 
 
-int readNumber(string message)
+float readNumber(string message)
 {
-    short number;
+    float number;
 
         cout << message;
         cin >> number;
@@ -17,11 +17,22 @@ int readNumber(string message)
 }
 
 
-int getAbs(int number) {
-    if (number < 0) {
-        return -number;
+short getFracPart(float number) {
+    short intPart =short (number);
+
+    return number - intPart;
+}
+
+
+short getRound(float number) {
+
+    short intPart= short(number);
+    short fracPart=  getFracPart(number);
+    if (fracPart>=0.5) {
+        return ++intPart;
     }
-    return number;
+    return intPart;
+
 }
 
 
@@ -35,8 +46,8 @@ int main()
 
 
     int number = readNumber("Enter a number: ");
-    cout <<"My abs Result is: " << getAbs(number) << endl;
-    cout<<"C++ abs Result is "<< abs(number) << endl;
+    cout <<"My  Round Result is: " << getRound(number) << endl;
+    cout<<"C++ Round Result is "<< abs(number) << endl;
 
 
 
