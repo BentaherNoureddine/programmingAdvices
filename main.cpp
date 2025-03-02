@@ -47,11 +47,11 @@ void fillArray(short arr[100],short arrLength)
 }
 
 
-int countPositiveNumbers(short arr[100],short arrLength) {
+int countNegativeNumbers(short arr[100],short arrLength) {
 
     int count = 0;
     for (int i = 0; i < arrLength; i++) {
-        if (arr[i] > 0) {
+        if (arr[i] < 0) {
             count++;
         }
     }
@@ -69,7 +69,7 @@ int main()
     fillArray(arr,arrayLength);
     cout<<"Array Elements : "<<endl;
     printArray(arr,arrayLength);
-    cout<<"Positive Numbers : "<<countPositiveNumbers(arr,arrayLength)<<endl;
+    cout<<"Positive Numbers : "<<countNegativeNumbers(arr,arrayLength)<<endl;
 
 
 
