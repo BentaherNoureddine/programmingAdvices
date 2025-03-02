@@ -1,3 +1,4 @@
+#include <cmath>
 #include <iostream>
 using namespace std;
 
@@ -17,21 +18,11 @@ float readNumber(string message)
 }
 
 
-short getFracPart(float number) {
-    short intPart =short (number);
-
-    return number - intPart;
-}
 
 
-short getRound(float number) {
+short getFloor(float number) {
 
-    short intPart= short(number);
-    short fracPart=  getFracPart(number);
-    if (fracPart>=0.5) {
-        return ++intPart;
-    }
-    return intPart;
+    return short(number);
 
 }
 
@@ -46,8 +37,8 @@ int main()
 
 
     int number = readNumber("Enter a number: ");
-    cout <<"My  Round Result is: " << getRound(number) << endl;
-    cout<<"C++ Round Result is "<< abs(number) << endl;
+    cout <<"My  Floor Result is: " << getFloor(number) << endl;
+    cout<<"C++ Floor Result is "<< ::floor(number) << endl;
 
 
 
