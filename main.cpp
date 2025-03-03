@@ -18,21 +18,12 @@ float readNumber(string message)
 }
 
 
-float getFrac(float number) {
-    return number-int(number) ;
-}
 
 
-int getCiel(float number) {
+int getSqrt(float number) {
 
-  if (number<0) {
+    return pow(number,0.5);
 
-      return int(number);
-  }
-  if (getFrac(number)==0) {
-      return int(number);
-  }
-  return int(number)+1;
 
 }
 
@@ -47,8 +38,8 @@ int main()
 
 
     float number = readNumber("Enter a number: ");
-    cout <<"My  Floor Result is: " << getCiel(number) << endl;
-    cout<<"C++ Floor Result is "<< ::ceill(number) << endl;
+    cout <<"My  sqrt Result is: " <<getSqrt(number) << endl;
+    cout<<"C++ sqrt Result is "<< sqrt(number) << endl;
 
 
 
