@@ -4,40 +4,61 @@
 
 using namespace std;
 
-struct GameStats {
 
-    short roundsNumber;
+enum QuizLevel {
+    easy=1,medium=2,hard=3,mix=4
+};
 
-    short playerWins;
-
-    short computerWins;
-
-    short draws;
+enum OperationType {
+    addition=1,subtraction=2,multiplication=3,division=4,Mix=5
 };
 
 
-int RandomNumber(int From, int To) {
-
-    return rand() % (To - From + 1) + From;
+int getAddition(int left,int right) {
+    return left+right;
 }
+
+int getSubtraction(int left,int right) {
+    return left-right;
+}
+int getMultiplication(int left,int right) {
+    return left*right;
+}
+int getDivision(int left,int right) {
+    return left/right;
+}
+
+
+struct QuizStats {
+
+    short quizNumber;
+
+    QuizLevel quizLevel;
+
+    OperationType operationType;
+
+    short rightAnswerCount;
+
+    short wrongAnswerCount;
+};
+
 
 void loseScreen() {
 
-
+    cout<<"wrong Answer: "<<endl;
     cout << "\033[2J\033[H\033[41m";
     cout << "\a";
 }
 
 void winScreen() {
 
-
+    cout<<"right Answer: "<<endl;
     cout << "\033[42m";
 }
 
-void drawScreen() {
+int RandomNumber(int From, int To) {
 
-
-    cout << "\033[43m";
+    return rand() % (To - From + 1) + From;
 }
 
 string playAgain(string message) {
@@ -54,127 +75,176 @@ string playAgain(string message) {
     return playAgain;
 }
 
-string getChoice(short choice) {
+short getQuizNumber(string message) {
 
-    switch (choice) {
-
-        case 1: return "Stone";
-        case 2: return "Paper";
-        case 3: return "Scissors";
-    }
-}
-
-string getHumanChoice() {
-
-    short playerChoice;
-
-    do {
-        cout << "Your choice: [1]:Stone, [2]:Paper, [3]:Scissors? ";
-        cin >> playerChoice;
-    } while (playerChoice < 1 || playerChoice > 3);
-
-    return getChoice(playerChoice);
-}
-
-string getComputerChoice() {
-    return getChoice(RandomNumber(1, 3));
-}
-
-short getRoundsNumber(string message) {
-
-    short rounds;
+    short quizNumber;
 
     do {
         cout << message << endl;
-        cin >> rounds;
-    } while (rounds < 1 || rounds > 10);
+        cin >> quizNumber;
+    } while (quizNumber < 1 || quizNumber > 10);
 
-    return rounds;
+    return quizNumber;
 }
 
-string getWinner(string computerChoice, string humanChoice) {
 
-    if (humanChoice == computerChoice) {
-        drawScreen();
-        return "Draw";
-    }
-    if ((humanChoice == "Stone" && computerChoice == "Scissors") ||
-        (humanChoice == "Paper" && computerChoice == "Stone") ||
-        (humanChoice == "Scissors" && computerChoice == "Paper")) {
-        winScreen();
-        return "Human";
-    }
-    loseScreen();
-
-    return "Computer";
+void gameStatus(QuizStats stats) {
+    cout << "\nNumber of Questions    : " << stats.quizNumber << endl;
+    cout << "Question Level           : " << stats.quizLevel <<endl;
+    cout << "OpType                   : " << stats.operationType << endl;
+    cout << "Number of right answers  : " << stats.rightAnswerCount<< endl;
+    cout << "Number of wrong answers  : " << stats.wrongAnswerCount << endl;
 }
 
-void updateStats(string winner, GameStats &stats) {
-
-    if (winner == "Draw") {
-        stats.draws++;
-    }
-    else if (winner == "Computer") {
-        stats.computerWins++;
-    }
-    else {
-        stats.playerWins++;
-    }
-}
-
-string getFinalWinner(GameStats stats) {
-    if (stats.playerWins == stats.computerWins){ return "Draw";}
-
-    else if (stats.computerWins>stats.playerWins) {
-        return "Computer";
-    }else {
-        return "Player";
-    }
-}
-
-void roundStatus(short round, string humanChoice, string computerChoice, GameStats &stats) {
-
-    cout << "_________________Round [" << round << "]___________________" << endl;
-    cout << "\nPlayer Choice   : " << humanChoice << endl;
-    cout << "Computer Choice : " << computerChoice << endl;
-    string winner = getWinner(computerChoice, humanChoice);
-    cout << "Round Winner    : [" << winner << "]" << endl;
-    updateStats(winner, stats);
-    cout << "_____________________________________________________________" << endl;
-}
-
-void gameStatus(GameStats stats) {
-    cout << "\nGame Rounds    : " << stats.roundsNumber << endl;
-    cout << "Player won     : " << stats.playerWins << " times" << endl;
-    cout << "Computer won   : " << stats.computerWins << " times" << endl;
-    cout << "Draws          : " << stats.draws << " times" << endl;
-    cout << "Final Winner   : " << getFinalWinner(stats) << endl;
-}
-
-void startRound(short round, GameStats &stats) {
-    cout << "Round [" << round << "] begins:\n" << endl;
-    string humanChoice = getHumanChoice();
-    string computerChoice = getComputerChoice();
-    roundStatus(round, humanChoice, computerChoice, stats);
-}
-
-void gameOver(GameStats stats) {
+void gameOver(QuizStats stats) {
     cout << "                  ____________________________________________________________________________" << endl;
-    cout << "\n\n                                           +++   GAME OVER   +++" << endl;
+    cout << "\n\n                                           +++   Final result is   +++" << endl;
     cout << "                  ____________________________________________________________________________" << endl;
     cout << "\n                  _____________________________[Game Results ]______________________________________" << endl;
     gameStatus(stats);
 }
 
-void startGame() {
-    GameStats stats;
-    stats.roundsNumber = getRoundsNumber("How many Rounds? (1 to 10)");
-    stats.playerWins = 0;
-    stats.computerWins = 0;
-    stats.draws = 0;
+QuizLevel getQuizLevel() {
 
-    for (short i = 1; i <= stats.roundsNumber; i++) {
-        startRound(i, stats);
+    short quizLevel;
+    do {
+        cout << "Enter Question level [1] Easy,  [2] Med,  [3] Hard,  [4] Mix" << endl;
+        cin>>quizLevel;
+    }while (quizLevel < 1 || quizLevel > 4);
+
+    return (QuizLevel)quizLevel;
+}
+
+OperationType getOperationType() {
+
+    short operationType;
+    do {
+        cout << "Enter Operation Type [1] Add,  [2] Sub ,  [3] Mul,  [4] Div, [5] Mix" << endl;
+        cin>>operationType;
+    }while (operationType < 1 || operationType > 5);
+
+    return (OperationType)operationType;
+}
+
+
+int getNumber(QuizLevel quizLevel) {
+
+    if (quizLevel==QuizLevel::easy) {
+        return RandomNumber(1, 9);
+    }else if (quizLevel==QuizLevel::medium) {
+        return RandomNumber(10,99);
+    }else if (quizLevel==QuizLevel::hard) {
+        return RandomNumber(100,1000);
+    }
+}
+
+string operationString(OperationType operation) {
+    if (operation == OperationType::addition) {
+        return "+";
+    }else if (operation == OperationType::subtraction) {
+        return "-";
+    }else if (operation == OperationType::multiplication) {
+        return "*";
+    }else if (operation == OperationType::division) {
+        return "/";
+    }
+}
+
+
+
+
+void getResult(int playerAnswer,int rightAnswer,QuizStats &stats) {
+
+   if (playerAnswer == rightAnswer) {
+       stats.rightAnswerCount ++;
+       winScreen();
+   }else {
+       stats.wrongAnswerCount ++;
+       loseScreen();
+   }
+
+}
+
+
+int getPlayerAnswer() {
+
+    int playerAnswer;
+    cin >> playerAnswer;
+    return playerAnswer;
+}
+
+
+int getNumbers(QuizLevel quizLevel) {
+
+    switch (quizLevel) {
+        case QuizLevel::easy:
+            return RandomNumber(1, 9);
+        case QuizLevel::medium:
+            return RandomNumber(10,99);
+        case QuizLevel::hard:
+            return RandomNumber(100,1000);
+        default: ;
+    }
+
+}
+
+
+int getQuestion(QuizStats stats) {
+
+    int right,left;
+    switch (stats.operationType) {
+        case OperationType::addition:
+            right = getNumbers(stats.quizLevel);
+            left =  getNumbers(stats.quizLevel);
+            cout<<right<<endl;
+            cout<<left<<" +"<<endl;
+            cout<<"______________\n";
+           return right + left;
+
+        case  OperationType::subtraction:
+            right = getNumbers(stats.quizLevel);
+            left =  getNumbers(stats.quizLevel);
+            cout<<right<<endl;
+            cout<<left<<" -"<<endl;
+            cout<<"______________\n";
+            return right - left;
+
+        case  OperationType::multiplication:
+            right = getNumbers(stats.quizLevel);
+            left =  getNumbers(stats.quizLevel);
+            cout<<right<<endl;
+            cout<<left<<" *"<<endl;
+            cout<<"______________\n";
+            return right * left;
+
+        case  OperationType::division:
+            right = getNumbers(stats.quizLevel);
+            left =  getNumbers(stats.quizLevel);
+            cout<<right<<endl;
+            cout<<left<<" /"<<endl;
+            cout<<"______________\n";
+            return right / left;
+        default: ;
+    }
+
+}
+
+
+void startQuiz() {
+    QuizStats stats;
+    stats.quizNumber = getQuizNumber("How many Questions do you want to answer ?");
+    stats.quizLevel = getQuizLevel();
+    stats.operationType = getOperationType();
+    stats.rightAnswerCount = 0;
+    stats.wrongAnswerCount = 0;
+
+    int rightAnswer,userAnswer;
+    for (int i=1;i<=stats.quizNumber;i++) {
+
+        cout<<"Question ["<<i<<"/"<<stats.quizNumber<<"]"<<endl;
+        rightAnswer = getQuestion(stats);
+        userAnswer = getPlayerAnswer();
+        getResult(rightAnswer,userAnswer,stats);
     }
 
     gameOver(stats);
@@ -183,13 +253,13 @@ void startGame() {
 void continuePlaying() {
     string choice = playAgain("Do you want to play again? (y/n)");
     if (choice == "y") {
-        startGame();
+            startQuiz();
     }
 }
 
 int main() {
     srand((unsigned)time(NULL));
-    startGame();
+    startQuiz();
     continuePlaying();
     return 0;
 }
