@@ -4,14 +4,6 @@ using namespace std;
 
 
 
-void rec(int m, int n){
-
-    if (m>n) {
-        cout << m << endl;
-        rec(m-1,n);
-    }
-}
-
 
 
 
@@ -19,7 +11,20 @@ void rec(int m, int n){
 int main() {
 
 
-    rec(10,5);
+    int arr[10][10];
+
+    for (int i = 0; i <10; i++) {
+        for (int j = 0; j < 10; j++) {
+            arr[i][j] = (i+1) * (j+1);
+        }
+    }
+    for (int i = 0; i < 10; i++) {
+        for (int j = 0; j < 10; j++) {
+            printf("%0*d ",2, arr[i][j]);
+        }
+        cout << endl;
+    }
+
 
     return 0;
 }
