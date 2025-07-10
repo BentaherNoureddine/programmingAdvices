@@ -8,27 +8,42 @@ using namespace myLibrary;
 
 
 
-void fillVector(vector<int> &vec) {
+struct  stEmployee {
 
-    char choice = 'Y' ;
+    string firstName;
+    string lastName;
+    float salary;
+};
 
-     do{
 
-        vec.push_back(readInt("Enter a number: "));
-        cout << "Do you want to add another number? (Y/N): ";
+void readEmployees(vector<stEmployee> &employees) {
+
+
+    char choice = 'Y';
+    stEmployee employee;
+
+    do {
+        employee.firstName = readString("Enter first name: ");
+        employee.lastName = readString("Enter last name: ");
+        employee.salary = readFloat("Enter salary: ");
+        employees.push_back(employee);
+
+        cout << "Do you want to add another employee? (Y/N): ";
         cin >> choice;
     }while (toupper(choice) == 'Y');
+
 }
 
+void printEmployees(vector<stEmployee> &employees) {
 
-void printVector(vector<int>  vec) {
+    for (stEmployee employee : employees) {
 
-    for (int i :vec) {
-        cout << i << endl;
+        cout << "First name: " << employee.firstName << endl;
+        cout << "Last name: " << employee.lastName << endl;
+        cout << "Salary: " << employee.salary << endl;
+        cout << endl;
     }
-
 }
-
 
 
 
@@ -37,9 +52,9 @@ void printVector(vector<int>  vec) {
 int main() {
 
 
-    vector<int> vec;
-    fillVector(vec);
-    printVector(vec);
+    vector<stEmployee> employees;
+    readEmployees(employees);
+    printEmployees(employees);
 
 
     return 0;
