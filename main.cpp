@@ -1,7 +1,33 @@
 #include <iostream>
+#include <vector>
+#include "myInputLibrary.h"
 
 using namespace std;
 
+using namespace myLibrary;
+
+
+
+void fillVector(vector<int> &vec) {
+
+    char choice = 'Y' ;
+
+     do{
+
+        vec.push_back(readInt("Enter a number: "));
+        cout << "Do you want to add another number? (Y/N): ";
+        cin >> choice;
+    }while (toupper(choice) == 'Y');
+}
+
+
+void printVector(vector<int>  vec) {
+
+    for (int i :vec) {
+        cout << i << endl;
+    }
+
+}
 
 
 
@@ -11,19 +37,9 @@ using namespace std;
 int main() {
 
 
-    int arr[10][10];
-
-    for (int i = 0; i <10; i++) {
-        for (int j = 0; j < 10; j++) {
-            arr[i][j] = (i+1) * (j+1);
-        }
-    }
-    for (int i = 0; i < 10; i++) {
-        for (int j = 0; j < 10; j++) {
-            printf("%0*d ",2, arr[i][j]);
-        }
-        cout << endl;
-    }
+    vector<int> vec;
+    fillVector(vec);
+    printVector(vec);
 
 
     return 0;
