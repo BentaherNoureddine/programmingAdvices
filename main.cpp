@@ -36,7 +36,7 @@ void readEmployees(vector<stEmployee> &employees) {
 
 void printEmployees(vector<stEmployee> &employees) {
 
-    for (stEmployee employee : employees) {
+    for (stEmployee &employee : employees) {
 
         cout << "First name: " << employee.firstName << endl;
         cout << "Last name: " << employee.lastName << endl;
