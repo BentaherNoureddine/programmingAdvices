@@ -11,8 +11,6 @@ namespace checkLib{
     }
 
 
-    void numberSign(int number){
-        number ==0 ? cout<< "Zero" : (number>0 ? cout <<"Positive" : cout <<"Negative");
-    }
+    
 
 }
