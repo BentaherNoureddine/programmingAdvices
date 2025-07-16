@@ -37,18 +37,17 @@ void saveVectorToFile(string fileName, vector<string> vFileContent) {
     file.close();
 }
 
-void deleteRecordFromFile(string fileName, string record) {
+void updateRecordFromFile(string fileName, string oldRecord, string newRecord) {
     vector<string> vFileContent;
     loadDataFromFileToVector(fileName,vFileContent);
     for (string& line : vFileContent) {
-        if (line == record) {
-            line = "";
+        if (line == oldRecord) {
+            line = newRecord;
         }
     }
     saveVectorToFile(fileName,vFileContent);
 
 }
-
 
 void printFile(string fileName) {
     fstream file;
@@ -66,7 +65,7 @@ int main() {
 
     cout<< "File before delete" << endl;
     printFile("myFile.txt");
-    deleteRecordFromFile("myFile.txt", "ali");
+    updateRecordFromFile("myFile.txt", "noureddine","hazem");
     cout<< "File after delete" << endl;
     printFile("myFile.txt");
 
