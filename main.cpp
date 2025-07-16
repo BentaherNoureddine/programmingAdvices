@@ -25,6 +25,7 @@ void printMat(int mat[3][3]) {
     }
 }
 
+
 int main() {
 
     //Seeds the random number generator in C++, called only once
