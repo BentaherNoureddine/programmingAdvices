@@ -1,50 +1,28 @@
 #include <iostream>
 #include <vector>
-#include "myInputLibrary.h"
-
+#include  <string>
+#include <fstream>
 using namespace std;
 
-using namespace myLibrary;
 
 
 
-struct  stEmployee {
-
-    string firstName;
-    string lastName;
-    float salary;
-};
 
 
-void readEmployees(vector<stEmployee> &employees) {
+void loadDataFromFileToVector(string fileName, vector<string>& vFileContent ) {
 
 
-    char choice = 'Y';
-    stEmployee employee;
-
-    do {
-        employee.firstName = readString("Enter first name: ");
-        employee.lastName = readString("Enter last name: ");
-        employee.salary = readFloat("Enter salary: ");
-        employees.push_back(employee);
-
-        cout << "Do you want to add another employee? (Y/N): ";
-        cin >> choice;
-    }while (toupper(choice) == 'Y');
-
-}
-
-void printEmployees(vector<stEmployee> &employees) {
-
-    for (stEmployee &employee : employees) {
-
-        cout << "First name: " << employee.firstName << endl;
-        cout << "Last name: " << employee.lastName << endl;
-        cout << "Salary: " << employee.salary << endl;
-        cout << endl;
+    fstream file;
+    file.open(fileName, ios::in);
+    if (file.is_open()) {
+        string line;
+        while (getline(file, line)) {
+            vFileContent.push_back(line);
+        }
     }
-}
+    file.close();
 
+}
 
 
 
@@ -52,9 +30,11 @@ void printEmployees(vector<stEmployee> &employees) {
 int main() {
 
 
-    vector<stEmployee> employees;
-    readEmployees(employees);
-    printEmployees(employees);
+    vector<string> vFileContent;
+    loadDataFromFileToVector("myFile.txt", vFileContent);
+    for (string &line : vFileContent) {
+        cout <<line << endl;
+    }
 
 
     return 0;
