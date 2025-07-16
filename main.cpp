@@ -27,6 +27,21 @@ void printMat(int mat[3][3],short rows, short cols) {
     }
 }
 
+void swap(short &a, short &b) {
+    short temp = a;
+    a = b;
+    b = temp;
+}
+
+void transposeMatrix(int mat[3][3],short rows, short cols) {
+
+    for (short i = 0; i < rows; i++) {
+        for (short j = i; j < cols; j++) {
+            swap(mat[i][j], mat[j][i]);
+        }
+    }
+
+}
 
 int main() {
 
@@ -34,11 +49,12 @@ int main() {
      srand((unsigned)time(NULL));
 
      int matrix[3][3];
-    int arr[3];
+
+     cout<< "the following matrix is a 3x3 ordered matrix:"<<endl;
      fillMat(matrix,3,3);
      printMat(matrix,3,3);
-
-
-
+     cout<< "the following matrix is the transposed matrix:"<<endl;
+     transposeMatrix(matrix,3,3);
+     printMat(matrix,3,3);
     return 0;
 }
