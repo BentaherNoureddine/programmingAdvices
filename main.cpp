@@ -32,6 +32,7 @@ int colSum(int mat[3][3],short colNumber,short rows) {
     }
     return sum;
 
+
 }
 
 void sumMatColsInArray(int mat[3][3],int arr[3],short rows, short cols) {
