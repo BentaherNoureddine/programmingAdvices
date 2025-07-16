@@ -8,11 +8,11 @@ using namespace std;
 
 void fillMat(int mat[3][3],short rows,short cols)  {
 
-    short num=1;
+
     for (short i = 0; i < rows; i++) {
         for (short j = 0; j < cols; j++) {
-            mat[i][j] =num;
-            num++;
+            mat[i][j] =getRandomNumber(1,100);
+
         }
     }
 
@@ -21,26 +21,19 @@ void fillMat(int mat[3][3],short rows,short cols)  {
 void printMat(int mat[3][3],short rows, short cols) {
     for (short i = 0; i < rows; i++) {
         for (short j = 0; j < cols; j++) {
-            cout <<setw(4) << mat[i][j] << " ";
+            cout <<setw(5) << mat[i][j] << " ";
         }
         cout << endl;
     }
 }
 
-void swap(short &a, short &b) {
-    short temp = a;
-    a = b;
-    b = temp;
-}
+void fillWithMulti(int mat[3][3],int mat2[3][3],int mat3[3][3]) {
 
-void transposeMatrix(int mat[3][3],short rows, short cols) {
-
-    for (short i = 0; i < rows; i++) {
-        for (short j = i; j < cols; j++) {
-            swap(mat[i][j], mat[j][i]);
+    for (short i = 0; i < 3; i++) {
+        for (short j = 0; j < 3; j++) {
+            mat3[i][j] = mat[i][j] * mat2[i][j];
         }
     }
-
 }
 
 int main() {
@@ -49,12 +42,18 @@ int main() {
      srand((unsigned)time(NULL));
 
      int matrix[3][3];
+     int matrix2[3][3];
+     int matrix3[3][3];
 
-     cout<< "the following matrix is a 3x3 ordered matrix:"<<endl;
+     cout<< "Matrix 1"<<endl;
      fillMat(matrix,3,3);
      printMat(matrix,3,3);
-     cout<< "the following matrix is the transposed matrix:"<<endl;
-     transposeMatrix(matrix,3,3);
-     printMat(matrix,3,3);
+     cout<< "matrix 2"<<endl;
+     fillMat(matrix2,3,3);
+     printMat(matrix2,3,3);
+
+     fillWithMulti(matrix,matrix2,matrix3);
+     cout<< "Result"<<endl;
+     printMat(matrix3,3,3);
     return 0;
 }
