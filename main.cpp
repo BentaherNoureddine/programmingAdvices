@@ -25,18 +25,22 @@ void printMat(int mat[3][3]) {
     }
 }
 
-int rowSum(int mat[3][3], int row) {
+void rowSum(int mat[3][3],int arr[3]) {
     int sum = 0;
     for (short i = 0; i < 3; i++) {
-        sum += mat[row][i];
+        for (short j = 0; j < 3; j++) {
+            sum += mat[i][j];
+        }
+        arr[i] = sum;
+
     }
-    return sum;
+
 }
 
-void printRowsSum(int mat[3][3]) {
+void printRowsSum(int arr[3]) {
 
     for (short i=0;i<3;i++) {
-        cout << "Sum of row "<<i << " is "<< rowSum(mat,i)<<endl;
+        cout << "Sum of row "<<i+1 << " is "<< arr[i]<<endl;
     }
 }
 
@@ -46,9 +50,11 @@ int main() {
      srand((unsigned)time(NULL));
 
      int matrix[3][3];
+    int arr[3];
      fillMat(matrix);
      printMat(matrix);
-     printRowsSum(matrix);
+     rowSum(matrix,arr);
+     printRowsSum(arr);
 
 
     return 0;
