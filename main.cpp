@@ -1,21 +1,39 @@
-#pragma warning(disable : 4996) // Disable warning for using unsafe functions like ctime()
+#include <iomanip>
+#include <iostream>
+#include "myMathLibrary.h"
 
-#include <ctime>     // For time-related functions
-#include <iostream>  // For input/output
-
+using namespace myMathLib;
 using namespace std;
 
+
+void fillMat(int mat[3][3])  {
+
+    for (short i = 0; i < 3; i++) {
+        for (short j = 0; j < 3; j++) {
+            mat[i][j] = getRandomNumber(1, 100);
+        }
+    }
+
+}
+
+void printMat(int mat[3][3]) {
+    for (short i = 0; i < 3; i++) {
+        for (short j = 0; j < 3; j++) {
+            cout <<setw(4) << mat[i][j] << " ";
+        }
+        cout << endl;
+    }
+}
+
 int main() {
-    time_t t = time(0); // Get the current time in seconds since 1970 (epoch)
 
-    // Convert to local time string
-    char* dt = ctime(&t);
-    cout << "Local date and time is: " << dt << "\n";
+    //Seeds the random number generator in C++, called only once
+     srand((unsigned)time(NULL));
 
-    // Convert to UTC (GMT) time structure
-    tm* gmtm = gmtime(&t);
-    dt = asctime(gmtm); // Convert tm struct to readable string
-    cout << "UTC date and time is: " << dt;
+     int matrix[3][3];
+     fillMat(matrix);
+     printMat(matrix);
+
 
     return 0;
 }

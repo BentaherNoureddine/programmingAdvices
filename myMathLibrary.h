@@ -3,11 +3,13 @@
 #include <iostream>
 using namespace std;
 
+//
+// Seeds the random number generator in C++, called only once
+//  srand((unsigned)time(NULL));
 
 
 
-
-namespace MyMathLib{
+namespace myMathLib{
 
     int getAddition(int left,int right) {
         return left+right;
