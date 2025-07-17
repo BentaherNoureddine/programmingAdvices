@@ -3,7 +3,7 @@
 #include <limits> 
 using namespace std;
 
-namespace myLibrary {
+namespace myInputLib {
     
 
 
@@ -56,6 +56,21 @@ namespace myLibrary {
         
         return str;
 
+    }
+
+    short readShort(string message){
+        short number;
+
+        cout << message;
+        cin >> number;
+
+        while (cin.fail()) {
+            cin.clear(); // clear the error flag
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
+            cout << "Invalid input. Please enter a valid number: ";
+            cin >> number;
+        }
+        return number;
     }
 
 

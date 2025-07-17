@@ -1,6 +1,8 @@
 #include <iomanip>
 #include <iostream>
 #include "myMathLibrary.h"
+#include "myInputLibrary.h"
+using namespace myInputLib;
 
 using namespace myMathLib;
 using namespace std;
@@ -29,30 +31,20 @@ void printMat(int mat[3][3],short rows, short cols) {
 
 
 
+short numberOfExists(int mat[3][3],short rows,short cols,short number) {
 
-
-bool validScalar(int mat[3][3],short rows,short cols) {
-
-    bool valid=true;
-    int number=mat[0][0];
+    short count =0;
     for (int i=0;i<rows;i++) {
         for (int j=0;j<cols;j++) {
-            if (j==i && (mat[i][j]!=number)) {
-                return false;
-            }
-            if (j!=i &&(mat[i][j]!=0)) {
-                return false;
-            }
+           if (mat[i][j]==number) {
+               count++;
+           }
         }
     }
-    return valid;
+    return count;
 }
 
-void printResult(int mat[3][3],short rows,short cols) {
 
-    validScalar(mat,rows,cols) ?  cout<< "Yes : Matrix is Scalar" : cout<<"No Matrix is NOT Scalar";
-
-}
 
 
 int main() {
@@ -66,9 +58,8 @@ int main() {
 
      printMat(matrix,3,3);
 
-
-
-     printResult(matrix,3,3);
+     short number = readShort("Enter the number to count in matrix");
+     cout <<"number " <<number <<" count is : "<<numberOfExists(matrix,3,3,number);
 
 
 
