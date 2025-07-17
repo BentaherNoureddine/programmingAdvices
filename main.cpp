@@ -32,28 +32,26 @@ void printMat(int mat[3][3],short rows, short cols) {
 
 
 
-void printFibonacciUsingLoop(short n) {
+void fibonacciRec(short n,short prev1,short prev2) {
 
-    short prev1=1;
-    short prev2=1;
-    short fibo;
-    cout <<1<<" "<<1<<" ";
-    for (short i=0;i<n-2;i++) {
-       fibo=prev1+prev2;
-        prev1=prev2;
-        prev2=fibo;
-        cout <<fibo<<" ";
+    short feb =0;
+    if (n>0) {
+        feb=prev2+prev1;
+        prev2=prev1;
+        prev1 =feb;
+        cout<<feb<<" ";
+        fibonacciRec(n-1,prev1,prev2);
     }
 
-}
 
+}
 
 
 int main() {
 
     //Seeds the random number generator in C++, called only once
     srand((unsigned)time(NULL));
-    printFibonacciUsingLoop(10);
+    fibonacciRec(10,0,1);
 
 
 
