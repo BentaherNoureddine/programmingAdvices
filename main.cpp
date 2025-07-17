@@ -28,26 +28,25 @@ void printMat(int mat[3][3],short rows, short cols) {
 }
 
 
-int sumMat(int mat[3][3],short rows, short cols) {
-    int sum = 0;
-    for (short i = 0; i < rows; i++) {
-        for (short j = 0; j < cols; j++) {
-            sum += mat[i][j];
+
+
+bool isTypical(int mat[3][3], int mat2[3][3]) {
+
+    bool typical = true;
+    for (short i = 0; i < 3; i++) {
+        for (short j = 0; j < 3; j++) {
+            if (mat[i][j]!=mat2[i][j]) {
+                return false;
+            }
         }
     }
-    return sum;
-}
-
-bool isEqual(int mat[3][3], int mat2[3][3]) {
-
-    return sumMat(mat,3,3) == sumMat(mat2,3,3);
-
+    return typical;
 
 }
 
 void printResult(int mat[3][3], int mat2[3][3]) {
 
-    isEqual(mat,mat2)? cout<< "Yes : matrices are equal." : cout<<"No : matrices are not equal." ;
+    isTypical(mat,mat2)? cout<< "Yes : matrices ARE typycal." : cout<<"No : matrices are NOT typical." ;
 
 }
 
