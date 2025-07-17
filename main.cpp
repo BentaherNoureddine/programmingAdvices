@@ -29,24 +29,44 @@ void printMat(int mat[3][3],short rows, short cols) {
 
 
 
+bool validDiagonal(int mat[3][3],short rows,short cols) {
+    bool valid=true;
+    for (int i=0;i<rows;i++) {
+        for (int j=0;j<cols;j++) {
+         if (i==j) {
+             if (mat[i][j]!=1) {
+                 return false;
+             }
+         }
+        }
+    }
+    return valid;
+}
 
-bool isTypical(int mat[3][3], int mat2[3][3]) {
+bool validIdentity(int mat[3][3],short rows,short cols) {
 
-    bool typical = true;
-    for (short i = 0; i < 3; i++) {
-        for (short j = 0; j < 3; j++) {
-            if (mat[i][j]!=mat2[i][j]) {
+    bool valid=true;
+    for (int i=0;i<rows;i++) {
+        for (int j=0;j<cols;j++) {
+            if (i==j && (j<cols || i<cols)) {
+                i++;
+                j++;
+            }
+            if (mat[i][j]!=0) {
                 return false;
             }
         }
     }
-    return typical;
-
+    return valid;
 }
 
-void printResult(int mat[3][3], int mat2[3][3]) {
+void printResult(int mat[3][3],short rows,short cols) {
 
-    isTypical(mat,mat2)? cout<< "Yes : matrices ARE typycal." : cout<<"No : matrices are NOT typical." ;
+    if (validDiagonal(mat,rows,cols) && validDiagonal(mat,rows,cols)) {
+        cout<< "Yes: Matrix is identity";
+    }else {
+        cout <<"No: Matrix is NOT identity";
+    }
 
 }
 
@@ -56,16 +76,15 @@ int main() {
     //Seeds the random number generator in C++, called only once
      srand((unsigned)time(NULL));
 
-     int matrix[3][3];
-    int matrix2[3][3];
+     int matrix[3][3]= {{1,0,0},{0,1,0},{0,0,1}};
 
-     fillMat(matrix,3,3);
+
+
      printMat(matrix,3,3);
 
-     fillMat(matrix2,3,3);
-     printMat(matrix2,3,3);
 
-     printResult(matrix,matrix2);
+
+     printResult(matrix,3,3);
 
 
 
