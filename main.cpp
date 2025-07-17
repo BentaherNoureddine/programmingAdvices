@@ -29,30 +29,18 @@ void printMat(int mat[3][3],short rows, short cols) {
 
 
 
-bool validDiagonal(int mat[3][3],short rows,short cols) {
-    bool valid=true;
-    for (int i=0;i<rows;i++) {
-        for (int j=0;j<cols;j++) {
-         if (i==j) {
-             if (mat[i][j]!=1) {
-                 return false;
-             }
-         }
-        }
-    }
-    return valid;
-}
 
-bool validIdentity(int mat[3][3],short rows,short cols) {
+
+bool validScalar(int mat[3][3],short rows,short cols) {
 
     bool valid=true;
+    int number=mat[0][0];
     for (int i=0;i<rows;i++) {
         for (int j=0;j<cols;j++) {
-            if (i==j && (j<cols || i<cols)) {
-                i++;
-                j++;
+            if (j==i && (mat[i][j]!=number)) {
+                return false;
             }
-            if (mat[i][j]!=0) {
+            if (j!=i &&(mat[i][j]!=0)) {
                 return false;
             }
         }
@@ -62,11 +50,7 @@ bool validIdentity(int mat[3][3],short rows,short cols) {
 
 void printResult(int mat[3][3],short rows,short cols) {
 
-    if (validDiagonal(mat,rows,cols) && validDiagonal(mat,rows,cols)) {
-        cout<< "Yes: Matrix is identity";
-    }else {
-        cout <<"No: Matrix is NOT identity";
-    }
+    validScalar(mat,rows,cols) ?  cout<< "Yes : Matrix is Scalar" : cout<<"No Matrix is NOT Scalar";
 
 }
 
