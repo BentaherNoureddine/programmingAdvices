@@ -29,8 +29,6 @@ void printMat(int mat[3][3],short rows, short cols) {
     }
 }
 
-
-
 short numberOfExists(int mat[3][3],short rows,short cols,short number) {
 
     short count =0;
@@ -45,6 +43,22 @@ short numberOfExists(int mat[3][3],short rows,short cols,short number) {
 }
 
 
+bool isSparce(int mat[3][3],short rows,short cols) {
+
+    int zeroCount = numberOfExists(mat,rows,cols,0);
+
+    int count = 0;
+
+    for (int i=0;i<rows;i++) {
+        for (int j=0;j<cols;j++) {
+            if (mat[i][j]!=0) {
+                count++;
+            }
+        }
+    }
+        return zeroCount>count;
+
+}
 
 
 int main() {
@@ -58,8 +72,8 @@ int main() {
 
      printMat(matrix,3,3);
 
-     short number = readShort("Enter the number to count in matrix");
-     cout <<"number " <<number <<" count is : "<<numberOfExists(matrix,3,3,number);
+
+     isSparce(matrix,3,3)? cout<< "Yes is Sparce" : cout <<"it's Not Sparce" ;
 
 
 
