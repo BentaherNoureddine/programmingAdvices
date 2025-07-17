@@ -27,14 +27,18 @@ void printMat(int mat[3][3],short rows, short cols) {
     }
 }
 
-void fillWithMulti(int mat[3][3],int mat2[3][3],int mat3[3][3]) {
 
-    for (short i = 0; i < 3; i++) {
-        for (short j = 0; j < 3; j++) {
-            mat3[i][j] = mat[i][j] * mat2[i][j];
+int sumMat(int mat[3][3],short rows, short cols) {
+    int sum = 0;
+    for (short i = 0; i < rows; i++) {
+        for (short j = 0; j < cols; j++) {
+            sum += mat[i][j];
         }
     }
+    return sum;
 }
+
+
 
 int main() {
 
@@ -42,18 +46,16 @@ int main() {
      srand((unsigned)time(NULL));
 
      int matrix[3][3];
-     int matrix2[3][3];
-     int matrix3[3][3];
 
-     cout<< "Matrix 1"<<endl;
+
      fillMat(matrix,3,3);
      printMat(matrix,3,3);
-     cout<< "matrix 2"<<endl;
-     fillMat(matrix2,3,3);
-     printMat(matrix2,3,3);
 
-     fillWithMulti(matrix,matrix2,matrix3);
-     cout<< "Result"<<endl;
-     printMat(matrix3,3,3);
+     cout << "Sum of the matrix1 is : "<< sumMat(matrix,3,3) << endl;
+
+
+
+
+
     return 0;
 }
