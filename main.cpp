@@ -29,45 +29,38 @@ void printMat(int mat[3][3],short rows, short cols) {
     }
 }
 
+bool isPalindrome(int mat[3][3],short rows,short cols) {
 
-int getMin(int mat[3][3],short rows,short cols) {
-
-    int min=mat[0][0];
     for (short i=0;i<rows;i++) {
-        for (short j=0;j<cols;j++) {
-            if (mat[i][j]<min) {
-                min =mat[i][j];
-            }
+        if (mat[i][0]!=mat[i][cols-1]) {
+            return false;
         }
     }
-    return min;
+    return true;
 }
 
 
-int getMax(int mat[3][3],short rows,short cols) {
+void printPalindrome(int mat[3][3],short rows, short cols) {
 
-    int max=mat[0][0];
-    for (short i=0;i<rows;i++) {
-        for (short j=0;j<cols;j++) {
-            if (mat[i][j]>max) {
-                max =mat[i][j];
-            }
-        }
+    if (isPalindrome(mat,rows,cols)) {
+        cout <<"Yes: Matrix is Palindrome";
+    }else {
+        cout <<"No: Matrix is NOT Palindrome";
     }
-    return max;
 }
+
+
 
 int main() {
 
     //Seeds the random number generator in C++, called only once
     srand((unsigned)time(NULL));
 
-    int matrix[3][3]= {{1,2,3},{4,5,6},{7,8,9}};
+    int matrix[3][3]= {{1,2,1},{4,5,4},{1,2,1}};
 
 
     cout <<"Matrix 1:"<<endl;
     printMat(matrix,3,3);
-    cout<<"Minimum Number is : "<<getMin(matrix,3,3)<<endl;
-    cout<<"Maximum Number is : "<<getMax(matrix,3,3)<<endl;
+    printPalindrome(matrix,3,3);
     return 0;
 }
