@@ -29,52 +29,37 @@ void printMat(int mat[3][3],short rows, short cols) {
     }
 }
 
-short numberOfExists(int mat[3][3],short rows,short cols,short number) {
+bool exists(int mat[3][3],short rows,short cols,int number) {
 
-    short count =0;
     for (int i=0;i<rows;i++) {
         for (int j=0;j<cols;j++) {
            if (mat[i][j]==number) {
-               count++;
+               return true;
            }
         }
     }
-    return count;
+    return false;
 }
 
 
-bool isSparce(int mat[3][3],short rows,short cols) {
-
-    int zeroCount = numberOfExists(mat,rows,cols,0);
-
-    int count = 0;
-
-    for (int i=0;i<rows;i++) {
-        for (int j=0;j<cols;j++) {
-            if (mat[i][j]!=0) {
-                count++;
-            }
-        }
-    }
-        return zeroCount>count;
-
-}
 
 
 int main() {
 
+
+
     //Seeds the random number generator in C++, called only once
-     srand((unsigned)time(NULL));
+    srand((unsigned)time(NULL));
 
-     int matrix[3][3]= {{1,0,0},{0,1,0},{0,0,1}};
-
-
-
-     printMat(matrix,3,3);
+    int matrix[3][3]= {{1,0,0},{0,1,0},{0,0,1}};
 
 
-     isSparce(matrix,3,3)? cout<< "Yes is Sparce" : cout <<"it's Not Sparce" ;
+    printMat(matrix,3,3);
 
+
+    int number = readInt("Please enter a number to look for in matrix : ");
+
+    exists(matrix,3,3,number)? cout <<"Yes it is there ":cout<< "No its NOT there";
 
 
 
