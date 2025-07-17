@@ -38,6 +38,18 @@ int sumMat(int mat[3][3],short rows, short cols) {
     return sum;
 }
 
+bool isEqual(int mat[3][3], int mat2[3][3]) {
+
+    return sumMat(mat,3,3) == sumMat(mat2,3,3);
+
+
+}
+
+void printResult(int mat[3][3], int mat2[3][3]) {
+
+    isEqual(mat,mat2)? cout<< "Yes : matrices are equal." : cout<<"No : matrices are not equal." ;
+
+}
 
 
 int main() {
@@ -46,12 +58,15 @@ int main() {
      srand((unsigned)time(NULL));
 
      int matrix[3][3];
-
+    int matrix2[3][3];
 
      fillMat(matrix,3,3);
      printMat(matrix,3,3);
 
-     cout << "Sum of the matrix1 is : "<< sumMat(matrix,3,3) << endl;
+     fillMat(matrix2,3,3);
+     printMat(matrix2,3,3);
+
+     printResult(matrix,matrix2);
 
 
 
