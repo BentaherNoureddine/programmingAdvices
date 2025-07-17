@@ -29,24 +29,22 @@ void printMat(int mat[3][3],short rows, short cols) {
     }
 }
 
-bool isPalindrome(int mat[3][3],short rows,short cols) {
 
-    for (short i=0;i<rows;i++) {
-        if (mat[i][0]!=mat[i][cols-1]) {
-            return false;
-        }
+
+
+void printFibonacciUsingLoop(short n) {
+
+    short prev1=1;
+    short prev2=1;
+    short fibo;
+    cout <<1<<" "<<1<<" ";
+    for (short i=0;i<n-2;i++) {
+       fibo=prev1+prev2;
+        prev1=prev2;
+        prev2=fibo;
+        cout <<fibo<<" ";
     }
-    return true;
-}
 
-
-void printPalindrome(int mat[3][3],short rows, short cols) {
-
-    if (isPalindrome(mat,rows,cols)) {
-        cout <<"Yes: Matrix is Palindrome";
-    }else {
-        cout <<"No: Matrix is NOT Palindrome";
-    }
 }
 
 
@@ -55,12 +53,11 @@ int main() {
 
     //Seeds the random number generator in C++, called only once
     srand((unsigned)time(NULL));
+    printFibonacciUsingLoop(10);
 
-    int matrix[3][3]= {{1,2,1},{4,5,4},{1,2,1}};
 
 
-    cout <<"Matrix 1:"<<endl;
-    printMat(matrix,3,3);
-    printPalindrome(matrix,3,3);
+
+
     return 0;
 }
