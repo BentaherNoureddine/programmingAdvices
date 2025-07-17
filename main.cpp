@@ -29,31 +29,33 @@ void printMat(int mat[3][3],short rows, short cols) {
     }
 }
 
-bool exists(int mat[3][3],short rows,short cols,int number) {
 
-    for (int i=0;i<rows;i++) {
-        for (int j=0;j<cols;j++) {
-           if (mat[i][j]==number) {
-               return true;
-           }
-        }
-    }
-    return false;
-}
+int getMin(int mat[3][3],short rows,short cols) {
 
-void printIntersected(int mat[3][3],int mat2[3][3],short rows,short cols) {
-
-    cout <<"Intersected Numbers are :"<<endl;
-    for (int i=0;i<rows;i++) {
-        for (int j=0;j<cols;j++) {
-            if (exists(mat2,rows,cols,mat[i][j])) {
-                cout <<mat[i][j] <<"  ";
+    int min=mat[0][0];
+    for (short i=0;i<rows;i++) {
+        for (short j=0;j<cols;j++) {
+            if (mat[i][j]<min) {
+                min =mat[i][j];
             }
         }
     }
+    return min;
 }
 
 
+int getMax(int mat[3][3],short rows,short cols) {
+
+    int max=mat[0][0];
+    for (short i=0;i<rows;i++) {
+        for (short j=0;j<cols;j++) {
+            if (mat[i][j]>max) {
+                max =mat[i][j];
+            }
+        }
+    }
+    return max;
+}
 
 int main() {
 
@@ -61,12 +63,11 @@ int main() {
     srand((unsigned)time(NULL));
 
     int matrix[3][3]= {{1,2,3},{4,5,6},{7,8,9}};
-    int matrix2[3][3]= {{7,0,0},{0,1,0},{0,0,1}};
+
 
     cout <<"Matrix 1:"<<endl;
     printMat(matrix,3,3);
-    cout<<"Matrix 2:"<<endl;
-    printMat(matrix2,3,3);
-    printIntersected(matrix,matrix2,3,3);
+    cout<<"Minimum Number is : "<<getMin(matrix,3,3)<<endl;
+    cout<<"Maximum Number is : "<<getMax(matrix,3,3)<<endl;
     return 0;
 }
