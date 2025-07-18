@@ -45,15 +45,9 @@ namespace myInputLib {
         string str;
 
         cout << message;
-        cin >> str;
+        getline(cin,str);
         
-        while (cin.fail()) {
-            cin.clear(); // clear the error flag
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
-            cout << "Invalid input. Please enter a valid string: ";
-            cin >> str;
-        }
-        
+
         return str;
 
     }
