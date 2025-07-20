@@ -10,18 +10,17 @@ using namespace std;
 
 
 
-void printFirstLetter(string letter) {
+char invertChar(char c) {
 
-    cout<<letter[0]<<endl;
-
-    for (short i=1;i<letter.length();i++) {
-        if (letter[i]==' ') {
-            cout<<letter[i+1]<<endl;;
-        }
-    }
-
+    return isupper(c)? tolower(c):toupper(c);
 }
 
+void invertString(string& word) {
+
+    for (int i=0;i<word.length();i++) {
+        word[i]=invertChar(word[i]);
+    }
+}
 
 
 int main() {
@@ -30,7 +29,9 @@ int main() {
     srand((unsigned)time(NULL));
 
     string str = readString("Please enter your string");
-    printFirstLetter(str);
+    invertString(str);
+    cout<< "String after conversion"<<endl;
+    cout<<str;
 
 
 
