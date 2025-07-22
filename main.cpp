@@ -22,6 +22,15 @@ string join(vector<string> vNames,string sep) {
 
 }
 
+string join(string arr[],short arrLen,string sep) {
+    string names;
+    for (short i=0;i<arrLen;i++) {
+        names+=arr[i]+sep;
+    }
+    return names.substr(0,names.length()-sep.length());
+
+}
+
 
 
 
@@ -32,9 +41,14 @@ int main() {
 
 
    vector<string> vString={{"noureddine"},{"mohamed"},"moeez"};
-    string s=join(vString,"/");
+   string arr[]={"momo","koukou","loulou"};
+
+       string s=join(vString,"/");
    cout<<"Vector after join : "<<endl;
-    cout <<s;
+    cout <<s<<endl;
+    cout<<"Array after join"<<endl;
+    s=join(arr,3,")");
+    cout<<s<<endl;
 
 
     return 0;
