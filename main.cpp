@@ -12,33 +12,17 @@ using namespace std;
 
 
 
+string join(vector<string> vNames,string sep) {
 
-string trimLeft(string s) {
-
-
-    for (short i=0;i<s.length();i++) {
-        if (s[i]!=' ') {
-            return s.substr(i,s.length()-i);
-        }
+    string names;
+    for (string& name :vNames) {
+     names+=name+sep;
     }
-    return "";
+    return names.substr(0,names.length()-sep.length());
+
 }
 
 
-string trimRight(string s) {
-    for (short i=s.length()-1;i>=0;i--) {
-        if (s[i]!=' ') {
-            return s.substr(0,i+1);
-        }
-    }
-    return "";
-}
-
-void trim(string& s) {
-
-    s=trimLeft(s);
-    s=trimRight(s);
-}
 
 
 int main() {
@@ -47,14 +31,10 @@ int main() {
     srand((unsigned)time(NULL));
 
 
-    string s = readString("Enter a string");
-    cout <<"String ="<<s<<endl;
-    cout <<"Trim left ="<<trimLeft(s)<<endl;
-    cout <<"Trim Right ="<<trimRight(s)<<endl;
-    cout <<"Trim =";
-    trim(s);
+   vector<string> vString={{"noureddine"},{"mohamed"},"moeez"};
+    string s=join(vString,"/");
+   cout<<"Vector after join : "<<endl;
     cout <<s;
-
 
 
     return 0;
