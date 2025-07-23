@@ -13,25 +13,51 @@ using namespace std;
 
 struct ClientData {
     string accountNumber;
-    short pinCode;
+    string pinCode;
     string name;
-    short phone;
-    float accountBalance;
+    string phone;
+    double accountBalance;
 };
 
 
-void readClientData(ClientData& clientData) {
 
-    cout<<"Please Enter Client Data"<<endl;
-    clientData.accountNumber = readString("Enter account Number");
-    clientData.pinCode = readShort("Enter PinCode");
-    clientData.name = readString("Enter your Name");
-    clientData.phone = readShort("Enter PhoneNumber");
-    clientData.accountBalance = readFloat("Enter Account Balance");
+string getWord(string str,string sep) {
+
+    return str.substr(0,str.find(sep));
 }
 
-void printClientData(ClientData client,string sep) {
-    cout<<client.accountNumber<<sep<<client.pinCode<<sep<<client.name<<sep<<client.phone<<sep<<client.accountBalance<<endl;
+void fillVectorWithStrings(vector<string>& vStrings,string str,string sep) {
+
+    while (str.find(sep)!=string::npos) {
+
+        vStrings.push_back(getWord(str,sep));
+        str=str.substr(str.find(sep)+sep.length(),str.length());
+        if (str.find(sep)==string::npos) {
+            vStrings.push_back(str);
+            break;
+        }
+
+
+
+    }
+}
+
+void fillDataStruct(ClientData& clientData ,string str,string sep) {
+
+    vector<string> vStrings;
+    fillVectorWithStrings(vStrings,str,sep);
+
+    clientData.accountNumber = vStrings[0];
+    clientData.pinCode = vStrings[1];
+    clientData.name = vStrings[2];
+    clientData.phone = vStrings[3];
+    clientData.accountBalance = stod(vStrings[4]);
+}
+
+
+
+void printClientData(ClientData client) {
+    cout<<client.accountNumber<<endl<<client.pinCode<<endl<<client.name<<endl<<client.phone<<endl<<client.accountBalance<<endl;
 }
 
 
@@ -43,10 +69,10 @@ int main() {
     srand((unsigned)time(NULL));
 
 
-    ClientData client;
+    ClientData clientData;
 
-    readClientData(client);
-    printClientData(client,"#//#");
+    fillDataStruct(clientData,"A101//123//noureddine//07777//0123","//");
+    printClientData(clientData);
 
 
 
