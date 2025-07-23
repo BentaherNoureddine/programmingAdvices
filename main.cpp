@@ -10,28 +10,44 @@ using namespace myMathLib;
 using namespace std;
 
 
+string getWord(string str,string sep) {
 
-
-string join(vector<string> vNames,string sep) {
-
-    string names;
-    for (string& name :vNames) {
-     names+=name+sep;
-    }
-    return names.substr(0,names.length()-sep.length());
-
-}
-
-string join(string arr[],short arrLen,string sep) {
-    string names;
-    for (short i=0;i<arrLen;i++) {
-        names+=arr[i]+sep;
-    }
-    return names.substr(0,names.length()-sep.length());
-
+   return str.substr(0,str.find(sep));
 }
 
 
+void fillVectorWithStrings(vector<string>& vStrings,string str,string sep) {
+
+    while (str.find(sep)!=string::npos) {
+
+        vStrings.push_back(getWord(str,sep));
+        str=str.substr(str.find(sep)+1,str.length());
+        if (str.find(sep)==string::npos) {
+            vStrings.push_back(str);
+            break;
+        }
+
+
+
+    }
+}
+
+vector<string> reverseVector(vector<string>& vStrings) {
+
+    vector<string> vString2;
+
+    for (short i=vStrings.size()-1;i>=0;i--) {
+        vString2.push_back(vStrings[i]);
+    }
+    return vString2;
+}
+
+void printVector(vector<string> vStrings) {
+
+    for (string& str :vStrings ) {
+        cout<<str<<" ";
+    }
+}
 
 
 int main() {
@@ -40,16 +56,10 @@ int main() {
     srand((unsigned)time(NULL));
 
 
-   vector<string> vString={{"noureddine"},{"mohamed"},"moeez"};
-   string arr[]={"momo","koukou","loulou"};
-
-       string s=join(vString,"/");
-   cout<<"Vector after join : "<<endl;
-    cout <<s<<endl;
-    cout<<"Array after join"<<endl;
-    s=join(arr,3,")");
-    cout<<s<<endl;
-
+    vector<string> vNames;
+    fillVectorWithStrings(vNames,readString("Please Enter your String")," ");
+    vNames=reverseVector(vNames);
+    printVector(vNames);
 
     return 0;
 }

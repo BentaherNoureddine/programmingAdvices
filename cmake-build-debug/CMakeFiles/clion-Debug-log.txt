@@ -1,4 +1,4 @@
-/snap/clion/359/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" -S /home/noureddine/CLionProjects/programmingAdvices -B /home/noureddine/CLionProjects/programmingAdvices/cmake-build-debug
+/snap/clion/363/bin/cmake/linux/x64/bin/cmake -DCMAKE_BUILD_TYPE=Debug -G "Unix Makefiles" -S /home/noureddine/CLionProjects/programmingAdvices -B /home/noureddine/CLionProjects/programmingAdvices/cmake-build-debug
 -- The C compiler identification is GNU 11.4.0
 -- The CXX compiler identification is GNU 11.4.0
 -- Detecting C compiler ABI info
