@@ -51,7 +51,7 @@ namespace myInputLib {
             cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
 
-        getline(cin, str);
+        getline(cin>>ws, str);
         return str;
     }
 
