@@ -11,17 +11,30 @@ using namespace std;
 
 
 
-string removePunc(string s) {
+struct ClientData {
+    string accountNumber;
+    short pinCode;
+    string name;
+    short phone;
+    float accountBalance;
+};
 
-    string s2;
-    bool n;
-    for (short i=0;i<s.length();i++) {
-        if (std::ispunct(s[i])==false) {
-            s2+=s[i];
-        }
-    }
-    return s2;
+
+void readClientData(ClientData& clientData) {
+
+    cout<<"Please Enter Client Data"<<endl;
+    clientData.accountNumber = readString("Enter account Number");
+    clientData.pinCode = readShort("Enter PinCode");
+    clientData.name = readString("Enter your Name");
+    clientData.phone = readShort("Enter PhoneNumber");
+    clientData.accountBalance = readFloat("Enter Account Balance");
 }
+
+void printClientData(ClientData client,string sep) {
+    cout<<client.accountNumber<<sep<<client.pinCode<<sep<<client.name<<sep<<client.phone<<sep<<client.accountBalance<<endl;
+}
+
+
 
 
 int main() {
@@ -30,8 +43,10 @@ int main() {
     srand((unsigned)time(NULL));
 
 
-    string s=readString("Original String :\n");
-    cout<<"Punctuations Removed: "<<endl<<removePunc(s);
+    ClientData client;
+
+    readClientData(client);
+    printClientData(client,"#//#");
 
 
 

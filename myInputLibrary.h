@@ -19,6 +19,7 @@ namespace myInputLib {
             cout << "Invalid input. Please enter a valid number: ";
             cin >> number;
         }
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return number;
     }
 
@@ -35,7 +36,7 @@ namespace myInputLib {
             cout << "Invalid input. Please enter a valid number: ";
             cin >> number;
         }
-
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return number;
 
     }
@@ -43,14 +44,18 @@ namespace myInputLib {
 
     string readString(string message){
         string str;
-
         cout << message;
-        getline(cin,str);
-        
 
+        // Only ignore if the last character read is a newline (i.e., if there’s something to clean)
+        if (cin.peek() == '\n') {
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+
+        getline(cin, str);
         return str;
-
     }
+
+
 
     short readShort(string message){
         short number;
@@ -64,6 +69,7 @@ namespace myInputLib {
             cout << "Invalid input. Please enter a valid number: ";
             cin >> number;
         }
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return number;
     }
 
