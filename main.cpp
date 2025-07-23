@@ -1,3 +1,4 @@
+#include <fstream>
 #include <iomanip>
 #include <iostream>
 #include <vector>
@@ -16,51 +17,70 @@ struct ClientData {
     string pinCode;
     string name;
     string phone;
-    double accountBalance;
+    float accountBalance;
 };
 
 
+void readClientData(ClientData& clientData) {
 
-string getWord(string str,string sep) {
-
-    return str.substr(0,str.find(sep));
+    cout<<"Please Enter Client Data"<<endl;
+    clientData.accountNumber = readString("Enter account Number");
+    clientData.pinCode = readString("Enter PinCode");
+    clientData.name = readString("Enter your Name");
+    clientData.phone = readString("Enter PhoneNumber");
+    clientData.accountBalance = readFloat("Enter Account Balance");
 }
 
-void fillVectorWithStrings(vector<string>& vStrings,string str,string sep) {
+string convertStructToString(ClientData clientData,string sep) {
 
-    while (str.find(sep)!=string::npos) {
+    string str;
+    str+=clientData.accountNumber+sep;
+    str+=clientData.pinCode+sep;
+    str+=clientData.name+sep;
+    str+=clientData.phone+sep;
+    str+=to_string(clientData.accountBalance);
 
-        vStrings.push_back(getWord(str,sep));
-        str=str.substr(str.find(sep)+sep.length(),str.length());
-        if (str.find(sep)==string::npos) {
-            vStrings.push_back(str);
-            break;
-        }
+    return str;
+}
 
-
-
+void saveToFile(string fileName,string str) {
+    fstream file;
+    file.open(fileName, ios::app);
+    if (file.is_open()) {
+        file<<str;
     }
+    file<<endl;
+
+    file.close();
 }
 
-void fillDataStruct(ClientData& clientData ,string str,string sep) {
-
-    vector<string> vStrings;
-    fillVectorWithStrings(vStrings,str,sep);
-
-    clientData.accountNumber = vStrings[0];
-    clientData.pinCode = vStrings[1];
-    clientData.name = vStrings[2];
-    clientData.phone = vStrings[3];
-    clientData.accountBalance = stod(vStrings[4]);
-}
-
-
-
-void printClientData(ClientData client) {
-    cout<<client.accountNumber<<endl<<client.pinCode<<endl<<client.name<<endl<<client.phone<<endl<<client.accountBalance<<endl;
+bool getChoice() {
+    char choice;
+    cout<<"Client added successfully, Do you want to add more clients(Y/N)?"<<endl;
+    cin>>choice;
+    return  toupper(choice)=='Y';
 }
 
 
+void printClientData(ClientData client,string sep) {
+    cout<<client.accountNumber<<sep<<client.pinCode<<sep<<client.name<<sep<<client.phone<<sep<<client.accountBalance<<endl;
+}
+
+void saveClientsToFile(ClientData clientData,string fileName,string sep) {
+
+    bool keep=true;
+    string str;
+
+    do {
+        readClientData(clientData);
+        str=convertStructToString(clientData,sep);
+        saveToFile(fileName,str);
+        keep=getChoice();
+
+    }while (keep==true);
+
+
+}
 
 
 int main() {
@@ -69,10 +89,9 @@ int main() {
     srand((unsigned)time(NULL));
 
 
-    ClientData clientData;
+    ClientData client;
+    saveClientsToFile(client,"test.txt","//");
 
-    fillDataStruct(clientData,"A101//123//noureddine//07777//0123","//");
-    printClientData(clientData);
 
 
 
