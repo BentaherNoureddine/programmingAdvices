@@ -14,42 +14,24 @@ using namespace myMathLib;
 using namespace std;
 
 
-void deleteLineFromVector(vector<string>& vLines,string word) {
 
-    for (string& line : vLines) {
-        if (line.find(word)!=string::npos) {
-            line="";
+
+void updateClient(string accountNumber,string filename,string sep) {
+
+    vector<string>vLines;
+    vector<ClientData> vClients = getAllClientsFromFile(filename,sep);
+
+    for (ClientData& client: vClients) {
+        if (client.accountNumber==accountNumber) {
+            readClientData(client);
         }
     }
-}
-
-void clearFile(const string& fileName) {
-    ofstream file(fileName, ios::trunc); // Open in truncate mode
-    file.close(); // Optional, but good practice
-}
-
-
-void saveVStringToFile(vector<string>vLines,string fileName ) {
-
-
-    clearFile(fileName);
-
-    for (string& line : vLines) {
-        if (line!="") {
-            saveToFile(fileName,line);
-        }
-
+    for (ClientData& client : vClients) {
+        vLines.push_back(convertStructToString(client,sep));
     }
-}
+    saveVStringToFile(vLines,filename);
 
 
-void deleteClientByAccountNumber(string accountNumber,string fileName) {
-
-    vector<string> vLines= loadLinesFromFileToVector(fileName);
-    deleteLineFromVector(vLines,accountNumber);
-    saveVStringToFile(vLines,fileName);
-
-    cout<<"Client deleted successfully"<<endl;
 
 
 }
@@ -57,33 +39,24 @@ void deleteClientByAccountNumber(string accountNumber,string fileName) {
 
 
 
-void deleteClientByAccountNumber(string accountNumber,string fileName,string sep) {
+void updateClientByAccountNumber(string accountNumber,string fileName,string sep) {
 
-
-    char choice;
+    ClientData client;
     if (findClientByAccountNumber(accountNumber,fileName,sep)) {
-        cout<<"Are you sure you want to delete this Client(Y/N)"<<endl;
-        cin>>choice;
-        if (toupper(choice)=='Y') {
-            deleteClientByAccountNumber(accountNumber,fileName);
-        }
+        cout<<"Are you sure you want to update this client?"<<endl;
+        updateClient(accountNumber,fileName,sep);
+        cout<<"Client updated Successfully"<<endl;
+
     }
 
-
-
 }
-
-
-
-
-
 
 int main() {
 
     //Seeds the random number generator in C++, called only once
     srand((unsigned)time(NULL));
 
-    deleteClientByAccountNumber(readString("Please enter Account Number :"),"test.txt","//");
+    updateClientByAccountNumber(readString("Please enter Account Number :"),"test.txt","//");
 
 
 
