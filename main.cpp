@@ -15,48 +15,100 @@ using namespace std;
 
 
 
-
-void updateClient(string accountNumber,string filename,string sep) {
-
-    vector<string>vLines;
-    vector<ClientData> vClients = getAllClientsFromFile(filename,sep);
-
-    for (ClientData& client: vClients) {
-        if (client.accountNumber==accountNumber) {
-            readClientData(client);
-        }
-    }
-    for (ClientData& client : vClients) {
-        vLines.push_back(convertStructToString(client,sep));
-    }
-    saveVStringToFile(vLines,filename);
+const string fileName="test.txt";
+const string sep="//";
 
 
+void getBackToMenu();
 
+
+void printActionsList() {
+    cout<<"\t\t\t\t\t\t[1] Show Clients List."<<endl;
+    cout<<"\t\t\t\t\t\t[2] Add new Client."<<endl;
+    cout<<"\t\t\t\t\t\t[3] Delete Client."<<endl;
+    cout<<"\t\t\t\t\t\t[4] Update Client."<<endl;
+    cout<<"\t\t\t\t\t\t[5] Find Client."<<endl;
+    cout<<"\t\t\t\t\t\t[6] Exit."<<endl;
 
 }
 
 
+void endProgram() {
+    std::system("clear");
+    cout<<"--------------------------------------------------------------------"<<endl;
+    cout<<"                        Program ends :-)"<<endl;
+    cout<<"--------------------------------------------------------------------"<<endl;
+    exit(0);
 
 
-void updateClientByAccountNumber(string accountNumber,string fileName,string sep) {
+}
 
+void chooseAction() {
+    short choice;
+    cout<<"Choose what do you want to do? [1 to [6]?"<<endl;
+    cin>>choice;
     ClientData client;
-    if (findClientByAccountNumber(accountNumber,fileName,sep)) {
-        cout<<"Are you sure you want to update this client?"<<endl;
-        updateClient(accountNumber,fileName,sep);
-        cout<<"Client updated Successfully"<<endl;
-
+    switch (choice) {
+        case 1:
+            printClients(fileName,sep);
+            getBackToMenu();
+            break;
+        case 2:
+            saveClientsToFile(client,fileName,sep);
+            getBackToMenu();
+            break;
+        case 3:
+            deleteClientByAccountNumber(readString("Please Enter Account Number"),fileName);
+            getBackToMenu();
+            break;
+        case 4:
+            updateClientByAccountNumber(readString("Please Enter Account Number"),fileName,sep);
+            getBackToMenu();
+            break;
+        case 5:
+            findClientByAccountNumber(readString("Please Enter Account Number"),fileName,sep);
+            getBackToMenu();
+            break;
+        case 6:
+            endProgram();
+            break;
+        default:
+            chooseAction();
     }
+}
+
+void printMenu() {
+
+    cout<<"========================================================================================"<<endl;
+    cout<<"\t\t\t\t\t\tMain Menu Screen"<<endl;
+    cout<<"========================================================================================"<<endl;
+    printActionsList();
+    cout<<"========================================================================================"<<endl;
+    chooseAction();
+
 
 }
+
+void getBackToMenu() {
+
+    char getback;
+    cout <<"Press any key to gp back to Main Menu"<<endl;
+    cin>>getback;
+    std::system("clear");
+    printMenu();
+
+}
+
+
+
+
 
 int main() {
 
     //Seeds the random number generator in C++, called only once
     srand((unsigned)time(NULL));
 
-    updateClientByAccountNumber(readString("Please enter Account Number :"),"test.txt","//");
+    printMenu();
 
 
 
