@@ -14,36 +14,66 @@ using namespace myMathLib;
 using namespace std;
 
 
+void deleteLineFromVector(vector<string>& vLines,string word) {
 
-
-void printClient(ClientData client) {
-
-    cout<<"Account Number: "<<client.accountNumber<<endl;
-    cout<<"Pin Code: "<<client.pinCode<<endl;
-    cout<<"Name: "<<client.name<<endl;
-    cout<<"Phone : "<<client.phone<<endl;
-    cout<<"Account Balance: "<<client.accountBalance<<endl;
-}
-
-
-
-
-void findClientByAccountNumber(string accountNumber,string fileName,string sep) {
-
-    vector<ClientData> clientsData = getAllClientsFromFile(fileName,sep);
-    short check=0;
-    cout<<"The following are the client details :"<<endl;
-    for (ClientData& client:clientsData) {
-        if (client.accountNumber==accountNumber) {
-            printClient(client);
-            check++;
+    for (string& line : vLines) {
+        if (line.find(word)!=string::npos) {
+            line="";
         }
     }
-    if (check<=0) {
-        cout<<"There is NO client with this Account Number"<<endl;
+}
+
+void clearFile(const string& fileName) {
+    ofstream file(fileName, ios::trunc); // Open in truncate mode
+    file.close(); // Optional, but good practice
+}
+
+
+void saveVStringToFile(vector<string>vLines,string fileName ) {
+
+
+    clearFile(fileName);
+
+    for (string& line : vLines) {
+        if (line!="") {
+            saveToFile(fileName,line);
+        }
+
     }
+}
+
+
+void deleteClientByAccountNumber(string accountNumber,string fileName) {
+
+    vector<string> vLines= loadLinesFromFileToVector(fileName);
+    deleteLineFromVector(vLines,accountNumber);
+    saveVStringToFile(vLines,fileName);
+
+    cout<<"Client deleted successfully"<<endl;
+
 
 }
+
+
+
+
+void deleteClientByAccountNumber(string accountNumber,string fileName,string sep) {
+
+
+    char choice;
+    if (findClientByAccountNumber(accountNumber,fileName,sep)) {
+        cout<<"Are you sure you want to delete this Client(Y/N)"<<endl;
+        cin>>choice;
+        if (toupper(choice)=='Y') {
+            deleteClientByAccountNumber(accountNumber,fileName);
+        }
+    }
+
+
+
+}
+
+
 
 
 
@@ -52,8 +82,8 @@ int main() {
 
     //Seeds the random number generator in C++, called only once
     srand((unsigned)time(NULL));
-    string accountNumber=readString("Please enter Account Number :");
-    findClientByAccountNumber(accountNumber,"test.txt","//");
+
+    deleteClientByAccountNumber(readString("Please enter Account Number :"),"test.txt","//");
 
 
 
