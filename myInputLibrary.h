@@ -23,6 +23,22 @@ namespace myInputLib {
         return number;
     }
 
+    double readDouble(string message){
+        double number;
+
+        cout << message;
+        cin >> number;
+
+        while (cin.fail()) {
+            cin.clear(); // clear the error flag
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
+            cout << "Invalid input. Please enter a valid number: ";
+            cin >> number;
+        }
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        return number;
+    }
+
 
     int readInt(string message){
         int number;
