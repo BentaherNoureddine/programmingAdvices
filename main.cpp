@@ -16,28 +16,28 @@ using namespace myMathLib;
 using namespace std;
 
 
-void printLeapYearTimes(int year) {
-    cout<<"Number of Days in Year "<<year<<" is 366"<<endl;
-    cout<<"Number of Hours in Year "<<year<<" is 8784"<<endl;
-    cout<<"Number of Minutes in Year "<<year<<" is 527040"<<endl;
-    cout<<"Number of seconds in Year "<<year<<" is 31622400"<<endl;
-
+int getNumberOfDays(int year) {
+    return isLeapYear(year)? 366:365;
 }
 
-void printYearTimes(int year) {
-    cout<<"Number of Days in Year "<<year<<" is 365"<<endl;
-    cout<<"Number of Hours in Year "<<year<<" is 8760"<<endl;
-    cout<<"Number of Minutes in Year "<<year<<" is 525600"<<endl;
-    cout<<"Number of seconds in Year "<<year<<" is 31536000"<<endl;
+int getNumberOfHours(int year) {
+    return getNumberOfDays(year)*24;
+}
 
+int getNumberOfMinutes(int year) {
+    return getNumberOfHours(year)*60;
+}
+
+
+int getNumberOfSeconds(int year) {
+    return getNumberOfMinutes(year)*60;
 }
 
 void printTimesOfYear(int year) {
-    if (isLeapYear(year)) {
-        printLeapYearTimes(year);
-    }else {
-        printYearTimes(year);
-    }
+    cout<<"Number of Days in Year "<<year<<" is "<<getNumberOfDays(year)<<endl;
+    cout<<"Number of Hours in Year "<<year<<" is "<<getNumberOfHours(year)<<endl;
+    cout<<"Number of Minutes in Year "<<year<<" is "<<getNumberOfMinutes(year)<<endl;
+    cout<<"Number of Seconds in Year "<<year<<" is "<<getNumberOfSeconds(year)<<endl;
 }
 
 
