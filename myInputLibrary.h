@@ -7,7 +7,7 @@ namespace myInputLib {
     
 
 
-    float readFloat(string message){
+float readFloat(string message){
         float number;
 
         cout << message;
@@ -23,7 +23,7 @@ namespace myInputLib {
         return number;
     }
 
-    double readDouble(string message){
+double readDouble(string message){
         double number;
 
         cout << message;
@@ -40,7 +40,7 @@ namespace myInputLib {
     }
 
 
-    int readInt(string message){
+int readInt(string message){
         int number;
 
         cout << message;
