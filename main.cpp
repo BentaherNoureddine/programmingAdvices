@@ -15,7 +15,7 @@ using namespace std;
 
 
 bool isLeapYear(short year) {
-    return (year%100||year%400||year%4)==0;
+    return (year%4==0 && year%400==0)||(year%100==0);
 
 
 
