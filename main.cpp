@@ -19,15 +19,24 @@ using namespace std;
 
 
 
+void convertDaysToDate(short day,short month,int year) {
 
-void numberOfDaysFromTo(short day,short month,int year) {
+    short nDays=numberOfDaysFromTo(day,month,year);
+    short nMonth=1;
 
-    int totalDays=0;
-    for (short i=1;i<=month-1;i++) {
-        totalDays+=getNumberOfDaysInMonth(year,month);
+    while (true) {
+        if (nDays>getNumberOfDaysInMonth(year,nMonth)) {
+            nDays-=getNumberOfDaysInMonth(year,nMonth);
+             nMonth++;
+
+
+        }else {
+            break;
+        }
     }
-    totalDays+=day;
-    cout<<"Number of Days from the beginning of the year is "<<totalDays;
+    cout<<nDays<<"/"<<nMonth<<"/"<<year;
+
+
 }
 
 
@@ -40,7 +49,7 @@ int main() {
     int month=readShort("Please Enter a Month ");
     int year=readInt("Please Enter a year ");
 
-    numberOfDaysFromTo(day,month,year);
+    convertDaysToDate(day,month,year);
 
 
 

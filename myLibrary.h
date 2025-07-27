@@ -183,6 +183,17 @@ void monthCalendar(int year,short month) {
 
   }
 
+    int numberOfDaysFromTo(short day,short month,int year) {
+
+      int totalDays=0;
+      for (short i=1;i<=month-1;i++) {
+          totalDays+=getNumberOfDaysInMonth(year,month);
+      }
+      totalDays+=day;
+      return  totalDays;
+  }
+
+
 
 
 
