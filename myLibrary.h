@@ -171,6 +171,20 @@ void monthCalendar(int year,short month) {
 }
 
 
+    void yearCalendar(int year) {
+
+      cout<<"\t\t_____________________________________________________________\n"<<endl;
+      cout<<"\t\t\t\t\tCalendar - "<<year<<endl;
+      cout<<"\t\t_____________________________________________________________\n"<<endl;
+      for (short i=1;i<=12;i++) {
+          monthCalendar(year,i);
+      }
+
+
+  }
+
+
+
 
 
 

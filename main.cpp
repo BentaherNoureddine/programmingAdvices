@@ -18,26 +18,29 @@ using namespace myMathLib;
 using namespace std;
 
 
-void yearCalendar(int year) {
 
-    cout<<"\t\t_____________________________________________________________\n"<<endl;
-    cout<<"\t\t\t\t\tCalendar - "<<year<<endl;
-    cout<<"\t\t_____________________________________________________________\n"<<endl;
-    for (short i=1;i<=12;i++) {
-        monthCalendar(year,i);
+
+void numberOfDaysFromTo(short day,short month,int year) {
+
+    int totalDays=0;
+    for (short i=1;i<=month-1;i++) {
+        totalDays+=getNumberOfDaysInMonth(year,month);
     }
-
-
+    totalDays+=day;
+    cout<<"Number of Days from the beginning of the year is "<<totalDays;
 }
+
 
 
 int main() {
 
     //Seeds the random number generator in C++, called only once
     srand((unsigned)time(NULL));
+    short day=readShort("Please Enter a Day ");
+    int month=readShort("Please Enter a Month ");
     int year=readInt("Please Enter a year ");
 
-    yearCalendar(year);
+    numberOfDaysFromTo(day,month,year);
 
 
 
