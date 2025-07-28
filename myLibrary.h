@@ -309,7 +309,6 @@ void monthCalendar(int year,short month) {
     }
 
     short getAgeInDays(stDate dateOfBirth) {
-
         time_t t=time(0);
         tm* now=localtime(&t);
 
@@ -318,8 +317,14 @@ void monthCalendar(int year,short month) {
         currentDate.month=now->tm_mon+1;
         currentDate.year=now->tm_year+1900;
         return getDifferenceInDays(dateOfBirth,currentDate);
-
     }
+
+
+
+        string printDate(stDate date) {
+           return to_string(date.day)+"/"+to_string(date.month)+"/"+to_string(date.year)+"\n";
+        }
+
 
 
 
