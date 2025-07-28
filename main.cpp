@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iomanip>
 #include <iostream>
+#include <limits>
 #include <set>
 #include <vector>
 
@@ -19,24 +20,18 @@ using namespace std;
 
 
 
-void lastDayLastMonth(stDate date) {
-
-    date.day==getNumberOfDaysInMonth(date.year,date.month)?cout<<"Yes, Day is Last Day in Month."<<endl:cout<<"No, Day is Not Last Day in Month."<<endl;
-
-
-    date.month==12?cout<<"Yes, Month is Last Month in Year.":cout<<"No, Month is NOT last Month in Year."<<endl;
-}
-
-
-
 
 
 int main() {
 
     //Seeds the random number generator in C++, called only once
     srand((unsigned)time(NULL));
+    cout<<"Please Enter Your Date Of Birth"<<endl;
     stDate date1=readDate();
-    lastDayLastMonth(date1);
+    stDate date2=readDate();
+
+    cout<<"Difference is : "<<getDifferenceInDays(date1,date2)<<endl;;
+    cout<<"Difference (including End Day) is :"<<getDifferenceInDays(date1,date2,true)<<endl;
 
 
 

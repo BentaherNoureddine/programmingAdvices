@@ -194,6 +194,136 @@ void monthCalendar(int year,short month) {
   }
 
 
+    void convertDaysToDate(short day,short month,int year,short daysToAdd) {
+
+      short nDays=numberOfDaysFromTo(day,month,year)+daysToAdd;
+      short nMonth=1;
+
+      while (true) {
+          if (nDays>getNumberOfDaysInMonth(year,nMonth)) {
+              nDays-=getNumberOfDaysInMonth(year,nMonth);
+              if (nMonth+1==13) {
+                  nMonth=1;
+                  year++;
+              }else {
+                  nMonth++;
+              }
+          }else {
+              break;
+          }
+      }
+      cout<<nDays<<"/"<<nMonth<<"/"<<year;
+
+
+  }
+    struct stDate {
+      short day;
+      short month;
+      int   year;
+  };
+
+    bool compareDates(stDate date1,stDate date2) {
+
+      return (date2.year>date1.year)?true:(date2.month>date1.month)?true:(date2.day>date1.day);
+  }
+
+
+
+    stDate readDate() {
+        stDate date;
+        date.day=readShort("please enter a day");
+        date.month=readShort("please enter a month");
+        date.year=readInt("please enter a year");
+        cout<<endl;
+        return date;
+    }
+
+
+
+    bool equalDates(stDate date1,stDate date2) {
+
+        return (date1.year==date2.year)&&(date1.month==date2.month)&&(date1.day==date2.day);
+
+    }
+
+    bool latDayInMonth(stDate date) {
+        return getNumberOfDaysInMonth(date.year,date.month)==date.day;
+    }
+    bool lastMonthInYear(stDate date) {
+        return date.month==12;
+    }
+
+    void lastDayLastMonth(stDate date) {
+
+        latDayInMonth(date)?cout<<"Yes, Day is Last Day in Month."<<endl:cout<<"No, Day is Not Last Day in Month."<<endl;
+
+
+        lastMonthInYear(date)?cout<<"Yes, Month is Last Month in Year.":cout<<"No, Month is NOT last Month in Year."<<endl;
+    }
+
+    stDate addOneDay(stDate date) {
+
+        stDate date1=date;
+        if (latDayInMonth(date)&&lastMonthInYear(date)) {
+            date1.day=1;
+            date1.month=1;
+            date1.year++;
+        }
+        else if (latDayInMonth(date1)) {
+            date1.day=1;
+            date1.month++;
+        }else {
+            date1.day++;
+        }
+        return date1;
+    }
+
+    void readDate1LessThanDate2(stDate& date1,stDate& date2) {
+
+        date1 =readDate();
+
+        do {
+            date2=readDate();
+        }while (!compareDates(date1,date2));
+    }
+
+
+
+
+    int getDifferenceInDays(stDate date1,stDate date2,bool endDay=false) {
+
+        short days=0;
+        if (compareDates(date1,date2)) {
+            while (compareDates(date1,date2)) {
+                date1=addOneDay(date1);
+                days++;
+            }
+            return endDay?++days:days;
+        }
+        while (compareDates(date2,date1)) {
+            date2=addOneDay(date2);
+            days++;
+        }
+        return endDay?(++days*-1):(days*-1);
+
+    }
+
+    short getAgeInDays(stDate dateOfBirth) {
+
+        time_t t=time(0);
+        tm* now=localtime(&t);
+
+        stDate currentDate;
+        currentDate.day=   now->tm_mday;
+        currentDate.month=now->tm_mon+1;
+        currentDate.year=now->tm_year+1900;
+        return getDifferenceInDays(dateOfBirth,currentDate);
+
+    }
+
+
+
+
 
 
 
