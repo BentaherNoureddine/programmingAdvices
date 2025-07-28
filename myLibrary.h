@@ -194,7 +194,7 @@ void monthCalendar(int year,short month) {
   }
 
 
-    void convertDaysToDate(short day,short month,int year,short daysToAdd) {
+    void addDaysToDate(short day,short month,int year,short daysToAdd) {
 
       short nDays=numberOfDaysFromTo(day,month,year)+daysToAdd;
       short nMonth=1;
@@ -326,6 +326,218 @@ void monthCalendar(int year,short month) {
         }
 
 
+
+
+stDate increaseDateByXDays(stDate &date,short nbDays) {
+
+    for (short i=1;i<=nbDays;i++) {
+      date=addOneDay(date);
+    }
+    return date;
+
+
+}
+
+stDate increaseDateByOneWeek(stDate &date) {
+    return increaseDateByXDays(date,7);
+}
+
+stDate increaseDateByXWeek(stDate &date,short nbWeeks) {
+    for (short i=1;i<=nbWeeks;i++) {
+       date=increaseDateByOneWeek(date);
+    }
+    return date;
+
+}
+
+stDate increaseDateByOneMonth(stDate &date) {
+    return increaseDateByXWeek(date,4);
+}
+
+stDate increaseDateByXMonth(stDate &date,short nbMonths) {
+    for (short i=0;i<nbMonths;i++) {
+        date=increaseDateByOneMonth(date);
+    }
+    return date;
+}
+
+stDate increaseDateByOneYear(stDate &date) {
+    return increaseDateByXMonth(date,12);
+}
+
+stDate increaseDateByXYear(stDate &date,short nbYears) {
+
+    for (short i=0;i<nbYears;i++) {
+        date=increaseDateByOneYear(date);
+    }
+    return date;
+}
+
+stDate increaseDateByXYearFaster(stDate &date,short nbYears) {
+    date.year+=nbYears;
+    return date;
+}
+
+stDate increaseDateByOnceDecade(stDate &date) {
+    return increaseDateByXYear(date,10);
+}
+
+stDate increaseDateByXDecade(stDate &date,short nbDecades) {
+    for (short i=0;i<nbDecades;i++) {
+        date=increaseDateByOnceDecade(date);
+    }
+    return date;
+}
+
+stDate increaseDateByXDecadesFaster(stDate &date,short nbDecades) {
+    return increaseDateByXYearFaster(date,nbDecades*10);
+}
+
+stDate increaseDateByOnceCentury(stDate &date) {
+    return increaseDateByXDecadesFaster(date,10);
+}
+
+stDate increaseDateByOneMillennium(stDate &date) {
+    for (short i=0;i<10;i++) {
+        date=increaseDateByOnceCentury(date);
+    }
+    return date;
+}
+
+
+
+void printAllIncreases(stDate date) {
+    cout<<"Date After : "<<endl;
+    cout<<"01-Adding one day is :"<<printDate(increaseDateByXDays(date,1));
+    cout<<"02-Adding 10 days is :"<<printDate(increaseDateByXDays(date,10));
+    cout<<"03-Adding one week is :"<<printDate(increaseDateByOneWeek(date));
+    cout<<"04-Adding 10 weeks is :"<<printDate(increaseDateByXWeek(date,10));
+    cout<<"05-Adding one month is :"<<printDate(increaseDateByOneMonth(date));
+    cout<<"06-Adding 5 months is :"<<printDate(increaseDateByXMonth(date,5));
+    cout<<"07-Adding one Year is :"<<printDate(increaseDateByOneYear(date));
+    cout<<"08-Adding 10 years is :"<<printDate(increaseDateByXYear(date,10));
+    cout<<"09-Adding 10 years (faster) is :"<<printDate(increaseDateByXYearFaster(date,10));
+    cout<<"10-Adding one decade is :"<<printDate(increaseDateByOnceDecade(date));
+    cout<<"11-Adding 10 decades is :"<<printDate(increaseDateByXDecade(date,10));
+    cout<<"12-Adding 10 decades (faster) is :"<<printDate(increaseDateByXDecadesFaster(date,10));
+    cout<<"13-Adding one Century is :"<<printDate(increaseDateByOnceCentury(date));
+    cout<<"14-Adding one Millennium :"<<printDate(increaseDateByOneMillennium(date));
+
+}
+
+    stDate decreaseDateByOneDay(stDate &date) {
+
+    if (date.day==1) {
+        //  1/1/2000
+        if (date.month==1) {
+            date.year--;
+            date.month=12;
+            date.day=getNumberOfDaysInMonth(date.year,date.month);
+        }else {
+            date.month--;
+            date.day=getNumberOfDaysInMonth(date.year,date.month);
+        }
+        return date;
+    }
+    date.day--;
+    return date;
+}
+
+stDate decreaseDateByXDays(stDate &date,short nbDays) {
+    for (short i=0;i<nbDays;i++) {
+        date=decreaseDateByOneDay(date);
+    }
+    return date;
+
+}
+
+stDate decreaseDateByOneWeek(stDate &date) {
+    return decreaseDateByXDays(date,7);
+}
+
+stDate decreaseDateByXWeeks(stDate &date,short nbWeeks) {
+
+    for (short i=0;i<nbWeeks;i++) {
+        date=decreaseDateByOneWeek(date);
+    }
+
+    return date;
+}
+
+stDate decreaseDateByOneMonth(stDate &date) {
+    return decreaseDateByXWeeks(date,4);
+}
+
+stDate decreaseDateByXMonths(stDate date,short nbMonths) {
+    for (short i=0;i<nbMonths;i++) {
+        date=decreaseDateByOneMonth(date);
+    }
+    return date;
+}
+
+stDate decreaseDateByOneYear(stDate date) {
+    return decreaseDateByXMonths(date,12);
+}
+
+stDate decreaseDateByXYears(stDate date,short nbYears) {
+
+    for (short i=0;i<nbYears;i++) {
+        date=decreaseDateByOneYear(date);
+    }
+    return date;
+}
+
+stDate decreaseDateByXYearsFaster(stDate date,short nbYears) {
+    date.year-=nbYears;
+    return date;
+}
+
+stDate decreaseDateByOneDecade(stDate date) {
+    return decreaseDateByXYears(date,10);
+}
+
+stDate decreaseDateByXDecades(stDate date,short nbDecades) {
+    for (short i=0;i<nbDecades;i++){
+        date=decreaseDateByOneDecade(date);
+    }
+    return date;
+}
+
+stDate decreaseDateByXDecadesFaster(stDate date,short nbDecades) {
+    date.year-=nbDecades*10;
+    return date;
+}
+
+stDate decreaseDateByOneCentury(stDate date) {
+    return decreaseDateByXDecades(date,10);
+}
+
+stDate decreaseDateByOneMillennium(stDate date) {
+    for (short i=0;i<10;i++) {
+        date=decreaseDateByOneCentury(date);
+    }
+    return date;
+}
+
+
+void printAllDecreases(stDate date) {
+    cout<<"Date After : "<<endl;
+    cout<<"01-subtracting one day is :"<<printDate(decreaseDateByXDays(date,1));
+    cout<<"02-subtracting 10 days is :"<<printDate(decreaseDateByXDays(date,10));
+    cout<<"03-subtracting one week is :"<<printDate(decreaseDateByOneWeek(date));
+    cout<<"04-subtracting 10 weeks is :"<<printDate(decreaseDateByXWeeks(date,10));
+    cout<<"05-subtracting one month is :"<<printDate(decreaseDateByOneMonth(date));
+    cout<<"06-subtracting 5 months is :"<<printDate(decreaseDateByXMonths(date,5));
+    cout<<"07-subtracting one Year is :"<<printDate(decreaseDateByOneYear(date));
+    cout<<"08-subtracting 10 years is :"<<printDate(decreaseDateByXYears(date,10));
+    cout<<"09-subtracting 10 years (faster) is :"<<printDate(decreaseDateByXYearsFaster(date,10));
+    cout<<"10-subtracting one decade is :"<<printDate(decreaseDateByOneDecade(date));
+    cout<<"11-subtracting 10 decades is :"<<printDate(decreaseDateByXDecades(date,10));
+    cout<<"12-subtracting 10 decades (faster) is :"<<printDate(decreaseDateByXDecadesFaster(date,10));
+    cout<<"13-subtracting one Century is :"<<printDate(decreaseDateByOneCentury(date));
+    cout<<"14-subtracting one Millennium :"<<printDate(decreaseDateByOneMillennium  (date));
+
+}
 
 
 

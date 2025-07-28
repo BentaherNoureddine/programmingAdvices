@@ -20,120 +20,92 @@ using namespace std;
 
 
 
-stDate increaseDateByXDays(stDate &date,short nbDays) {
+stDate getToday() {
+    time_t t=time(0);
+    tm* now=localtime(&t);
 
-    for (short i=1;i<=nbDays;i++) {
-      date=addOneDay(date);
+    stDate currentDate;
+    currentDate.day=   now->tm_mday;
+    currentDate.month=now->tm_mon+1;
+    currentDate.year=now->tm_year+1900;
+    return currentDate;
+}
+
+short getDayNumber(stDate date) {
+    short a = (14 - date.month) / 12;
+    int y = date.year - a;
+    int m = date.month + 12 * a - 2;
+
+    return (date.day + y + y / 4 - y / 100 + y / 400 + (31 * m) / 12) % 7;
+}
+
+bool isEndOfWeek(stDate date) {
+    return getDayNumber(date)==7;
+}
+
+bool isWeekEnd(stDate date) {
+    return getDayNumber(date)==6;
+}
+
+bool isBusinessDay(stDate date) {
+    return !(isEndOfWeek(date)&&isWeekEnd(date));
+}
+
+short daysUntilTheEndOfWeek(stDate date) {
+    short days=0;
+    for (short i=getDayNumber(date);i<7;i++) {
+        days++;
     }
-    return date;
-
-
+    return days;
 }
 
-stDate increaseDateByOneWeek(stDate &date) {
-    return increaseDateByXDays(date,7);
+short daysUntilTheEndOfMonth(stDate date) {
+    return getNumberOfDaysInMonth(date.year,date.month)-date.day;
 }
 
-stDate increaseDateByXWeek(stDate &date,short nbWeeks) {
-    for (short i=1;i<=nbWeeks;i++) {
-       date=increaseDateByOneWeek(date);
+short daysUntilTheEndOfYear(stDate date) {
+
+    stDate endOfYear;
+    endOfYear.year=date.year;
+    endOfYear.month=12;
+    endOfYear.day=31;
+    short days=0;
+    while (compareDates(date,endOfYear)) {
+        days++;
+        increaseDateByXDays(date,1);
     }
-    return date;
+    return days;
+
 
 }
 
-stDate increaseDateByOneMonth(stDate &date) {
-    return increaseDateByXWeek(date,4);
-}
+string getTodayString(stDate date) {
+    string days[]={"Sun","Mon","Tue","Wed","Thir","Fri","Satur",};
 
-stDate increaseDateByXMonth(stDate &date,short nbMonths) {
-    for (short i=0;i<nbMonths;i++) {
-        date=increaseDateByOneMonth(date);
-    }
-    return date;
-}
-
-stDate increaseDateByOneYear(stDate &date) {
-    return increaseDateByXMonth(date,12);
-}
-
-stDate increaseDateByXYear(stDate &date,short nbYears) {
-
-    for (short i=0;i<nbYears;i++) {
-        date=increaseDateByOneYear(date);
-    }
-    return date;
-}
-
-stDate increaseDateByXYearFaster(stDate &date,short nbYears) {
-    date.year+=nbYears;
-    return date;
-}
-
-stDate increaseDateByOnceDecade(stDate &date) {
-    return increaseDateByXYear(date,10);
-}
-
-stDate increaseDateByXDecade(stDate &date,short nbDecades) {
-    for (short i=0;i<nbDecades;i++) {
-        date=increaseDateByOnceDecade(date);
-    }
-    return date;
-}
-
-stDate increaseDateByXDecadesFaster(stDate &date,short nbDecades) {
-    return increaseDateByXYearFaster(date,nbDecades*10);
-}
-
-stDate increaseDateByOnceCentury(stDate &date) {
-    return increaseDateByXDecadesFaster(date,10);
-}
-
-stDate increaseDateByOneMillennium(stDate &date) {
-    for (short i=0;i<10;i++) {
-        date=increaseDateByOnceCentury(date);
-    }
-    return date;
-}
-
-
-
-void printAllIncreases(stDate date) {
-    cout<<"Date After : "<<endl;
-    cout<<"01-Adding one day is :"<<printDate(increaseDateByXDays(date,1));
-    cout<<"02-Adding 10 days is :"<<printDate(increaseDateByXDays(date,10));
-    cout<<"03-Adding one week is :"<<printDate(increaseDateByOneWeek(date));
-    cout<<"04-Adding 10 weeks is :"<<printDate(increaseDateByXWeek(date,10));
-    cout<<"05-Adding one month is :"<<printDate(increaseDateByOneMonth(date));
-    cout<<"06-Adding 5 months is :"<<printDate(increaseDateByXMonth(date,5));
-    cout<<"07-Adding one Year is :"<<printDate(increaseDateByOneYear(date));
-    cout<<"08-Adding 10 years is :"<<printDate(increaseDateByXYear(date,10));
-    cout<<"09-Adding 10 years (faster) is :"<<printDate(increaseDateByXYearFaster(date,10));
-    cout<<"10-Adding one decade is :"<<printDate(increaseDateByOnceDecade(date));
-    cout<<"11-Adding 10 decades is :"<<printDate(increaseDateByXDecade(date,10));
-    cout<<"12-Adding 10 decades (faster) is :"<<printDate(increaseDateByXDecadesFaster(date,10));
-    cout<<"13-Adding one Century is :"<<printDate(increaseDateByOnceCentury(date));
-    cout<<"14-Adding one Millennium :"<<printDate(increaseDateByOneMillennium(date));
-
+    return "Today is "+days[getDayNumber(date)]+" , "+printDate(date);
 }
 
 int main() {
 
     //Seeds the random number generator in C++, called only once
     srand((unsigned)time(NULL));
-    stDate date=readDate();
-    printAllIncreases(date);
+    stDate date=getToday();
+
+    cout<<getTodayString(date);
+
+    cout<<"is it end of week?"<<endl;
+    isEndOfWeek(date)?cout<<"Yes it's end of week."<<endl:cout<<"No it s NOT end of week."<<endl;
+
+    cout<<"is it weekend?"<<endl;
+    isWeekEnd(date)?cout<<"Yes it's weekend."<<endl:cout<<"No it s NOT weekend."<<endl;
 
 
+    cout<<"is it Business Day?"<<endl;
+    isBusinessDay(date)?cout<<"Yes it's Business day."<<endl:cout<<"No it s NOT a business day."<<endl;
 
-
-
-
-
-
-
-
-
+    cout<<"Days until end of week "<<daysUntilTheEndOfWeek(date)<<" Day(s)"<<endl;
+    cout<<"Days until end of month "<<daysUntilTheEndOfMonth(date)<<" Day(s)"<<endl;
+    cout<<"Days until end of year "<<daysUntilTheEndOfYear(date)<<" Day(s)"<<endl;
 
 
 
