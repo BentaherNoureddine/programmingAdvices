@@ -19,25 +19,15 @@ using namespace std;
 
 
 
-void convertDaysToDate(short day,short month,int year) {
+void lastDayLastMonth(stDate date) {
 
-    short nDays=numberOfDaysFromTo(day,month,year);
-    short nMonth=1;
-
-    while (true) {
-        if (nDays>getNumberOfDaysInMonth(year,nMonth)) {
-            nDays-=getNumberOfDaysInMonth(year,nMonth);
-             nMonth++;
+    date.day==getNumberOfDaysInMonth(date.year,date.month)?cout<<"Yes, Day is Last Day in Month."<<endl:cout<<"No, Day is Not Last Day in Month."<<endl;
 
 
-        }else {
-            break;
-        }
-    }
-    cout<<nDays<<"/"<<nMonth<<"/"<<year;
-
-
+    date.month==12?cout<<"Yes, Month is Last Month in Year.":cout<<"No, Month is NOT last Month in Year."<<endl;
 }
+
+
 
 
 
@@ -45,11 +35,11 @@ int main() {
 
     //Seeds the random number generator in C++, called only once
     srand((unsigned)time(NULL));
-    short day=readShort("Please Enter a Day ");
-    int month=readShort("Please Enter a Month ");
-    int year=readInt("Please Enter a year ");
+    stDate date1=readDate();
+    lastDayLastMonth(date1);
 
-    convertDaysToDate(day,month,year);
+
+
 
 
 
