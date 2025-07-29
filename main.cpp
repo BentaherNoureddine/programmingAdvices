@@ -19,21 +19,11 @@ using namespace myMathLib;
 using namespace std;
 
 
-short numberOfVacationDays(stDate startVoc,stDate endVoc) {
 
-    short days=0;
-    while (compareDates(startVoc,endVoc)) {
-        if (isBusinessDay(startVoc)) {
-            days++;
-            startVoc=increaseDateByXDays(startVoc,1);
-        }else {
-            startVoc=increaseDateByXDays(startVoc,1);
-        }
-    }
-    return days;
+int getDifferenceInDays(Period period,bool includeEndDate=false) {
 
+    return getDifferenceInDays(period.startPeriod,period.endPeriod,includeEndDate);
 }
-
 
 
 
@@ -41,17 +31,14 @@ int main() {
 
     //Seeds the random number generator in C++, called only once
     srand((unsigned)time(NULL));
-    cout<<"Vacation Starts :"<<endl;
-    stDate startVac=readDate();
-    cout<<"Vacation Ends : "<<endl;
-    stDate endVac=readDate();
-    cout<<"Vacation from : "<<getDayString(startVac)<<endl;
-    cout<<"Vacation To : "<<getDayString(endVac)<<endl;
-    cout<<"\n\n\n Actual Vacation days is : "<<numberOfVacationDays(startVac,endVac)<<endl;
+
+    cout<<"Enter Period 1"<<endl;
+    Period period1=readPeriod();
 
 
 
-
+    cout<<"Period Length is : "<<getDifferenceInDays(period1)<<endl;
+    cout<<"Period Length (Including End Date) is : "<<getDifferenceInDays(period1,true)<<endl;
 
     return 0;
 }

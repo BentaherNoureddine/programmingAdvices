@@ -222,9 +222,15 @@ void monthCalendar(int year,short month) {
       int   year;
   };
 
+    bool equalDates(stDate date1,stDate date2) {
+
+        return (date1.year==date2.year)&&(date1.month==date2.month)&&(date1.day==date2.day);
+
+    }
+
     bool compareDates(stDate date1,stDate date2) {
 
-      return (date2.year>date1.year)?true:(date2.month>date1.month)?true:(date2.day>date1.day);
+      return (date2.year>date1.year)?true:(date2.month>date1.month)?true:(date2.day>date1.day)&&(!equalDates(date1,date2));
   }
 
 
@@ -240,11 +246,6 @@ void monthCalendar(int year,short month) {
 
 
 
-    bool equalDates(stDate date1,stDate date2) {
-
-        return (date1.year==date2.year)&&(date1.month==date2.month)&&(date1.day==date2.day);
-
-    }
 
     bool latDayInMonth(stDate date) {
         return getNumberOfDaysInMonth(date.year,date.month)==date.day;
@@ -610,6 +611,63 @@ void printAllDecreases(stDate date) {
 
 
 
+
+    short numberOfVacationDays(stDate startVoc,stDate endVoc) {
+
+        short days=0;
+        while (compareDates(startVoc,endVoc)) {
+            if (isBusinessDay(startVoc))
+                days++;
+            startVoc=increaseDateByXDays(startVoc,1);
+        }
+
+        return days;
+
+    }
+
+    stDate getReturnDate(stDate startVacDate,short numVacDays) {
+
+        while (numVacDays>0) {
+            if (isBusinessDay(startVacDate)) {
+                increaseDateByXDays(startVacDate,1);
+                numVacDays--;
+            }else {
+                increaseDateByXDays(startVacDate,1);
+            }
+        }
+        return startVacDate;
+    }
+
+    bool isDate1AfterDate2(stDate date1,stDate date2) {
+        return !compareDates(date1,date2)&&!equalDates(date1,date2);
+    }
+
+
+    struct Period {
+        stDate startPeriod;
+        stDate endPeriod;
+    };
+
+
+    short compareDatesAndGetShort(stDate date1,stDate date2) {
+
+        return equalDates(date1,date2)?0:compareDates(date1,date2)?-1:1;
+    }
+
+
+    bool overlap(stDate period1Start, stDate period1End, stDate period2Start, stDate period2End) {
+
+        return !(compareDatesAndGetShort(period2End,period1Start)==-1||compareDatesAndGetShort(period2Start,period1End)==1);
+
+    }
+    Period readPeriod() {
+        Period period;
+        cout<<"Enter Start Date"<<endl;
+        period.startPeriod=readDate();
+        cout<<"\n Enter ENd Date"<<endl;
+        period.endPeriod=readDate();
+        return  period;
+    }
 
 
 
