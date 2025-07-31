@@ -90,5 +90,15 @@ int readInt(string message){
     }
 
 
+    bool yesNoQuestion(string message) {
+    char yes;
+
+        cout<<message;
+        cin>>yes;
+    return (toupper(yes)=='Y'||yes=='Y');
 
 }
+}
+
+
+

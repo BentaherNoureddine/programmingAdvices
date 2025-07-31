@@ -1,17 +1,5 @@
-
-
-#include "bank_library.h"
-
-using namespace bankLib;
-
-
-
-
-using namespace std;
-
-
-
-
+#include <time.h>
+#include <stdlib.h>
 
 int main() {
 
@@ -19,7 +7,6 @@ int main() {
     srand((unsigned)time(NULL));
 
 
-   loginScreen();
 
 
 
