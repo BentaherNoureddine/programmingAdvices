@@ -3,11 +3,8 @@
 #include <limits> 
 using namespace std;
 
-namespace myInputLib {
-    
-
-
-float readFloat(string message){
+class clsInputValidate {
+    float readFloat(string message){
         float number;
 
         cout << message;
@@ -23,7 +20,7 @@ float readFloat(string message){
         return number;
     }
 
-double readDouble(string message){
+    double readDouble(string message){
         double number;
 
         cout << message;
@@ -40,7 +37,7 @@ double readDouble(string message){
     }
 
 
-int readInt(string message){
+    static int readInt(string message){
         int number;
 
         cout << message;
@@ -54,11 +51,10 @@ int readInt(string message){
         }
         cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return number;
-
     }
 
 
-    string readString(string message){
+    static string readString(string message){
         string str;
         cout << message;
 
@@ -72,8 +68,7 @@ int readInt(string message){
     }
 
 
-
-    short readShort(string message){
+    static short readShort(string message){
         short number;
 
         cout << message;
@@ -90,15 +85,18 @@ int readInt(string message){
     }
 
 
-    bool yesNoQuestion(string message) {
-    char yes;
+    static bool yesNoQuestion(string message) {
+        char yes;
 
         cout<<message;
         cin>>yes;
-    return (toupper(yes)=='Y'||yes=='Y');
+        return (toupper(yes)=='Y');
 
-}
-}
+    }
+
+
+};
+
 
 
 

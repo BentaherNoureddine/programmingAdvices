@@ -2,7 +2,7 @@
 #include <fstream>
 #include <vector>
 
-#include "myInputLibrary.h"
+#include "clsInputValidate.h"
 
 using namespace myInputLib;
 
