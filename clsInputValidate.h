@@ -1,95 +1,138 @@
 #pragma once
 #include <iostream>
-#include <limits> 
-using namespace std;
+#include <limits>
+#include "clsDate.h"
+
 
 class clsInputValidate {
-    float readFloat(string message){
+
+public:
+    static float readFloat( const std::string message){
         float number;
-
-        cout << message;
-        cin >> number;
-
-        while (cin.fail()) {
-            cin.clear(); // clear the error flag
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
-            cout << "Invalid input. Please enter a valid number: ";
-            cin >> number;
+        std::cout << message;
+        while (!(std::cin >> number)) {
+            std::cin.clear(); // clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
+            std::cout << "Invalid input. Please enter a valid number: ";
         }
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return number;
     }
 
-    double readDouble(string message){
+
+
+    static double readDouble(const std::string message){
         double number;
-
-        cout << message;
-        cin >> number;
-
-        while (cin.fail()) {
-            cin.clear(); // clear the error flag
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
-            cout << "Invalid input. Please enter a valid number: ";
-            cin >> number;
+        std::cout << message;
+        while (!(std::cin >> number)) {
+            std::cin.clear(); // clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cout << "Invalid input. Please enter a valid number: ";
         }
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return number;
     }
 
 
-    static int readInt(string message){
+    static int readInt(const std::string message){
         int number;
-
-        cout << message;
-        cin >> number;
-
-        while (cin.fail()) {
-            cin.clear(); // clear the error flag
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
-            cout << "Invalid input. Please enter a valid number: ";
-            cin >> number;
+        std::cout << message;
+        while (!(std::cin >> number)) {
+            std::cin.clear(); // clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
+            std::cout << "Invalid input. Please enter a valid number: ";
         }
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return number;
     }
 
 
-    static string readString(string message){
-        string str;
-        cout << message;
+    static std::string readString (const std::string message){
+        std::string str;
+        std::cout << message;
 
         // Only ignore if the last character read is a newline (i.e., if there’s something to clean)
-        if (cin.peek() == '\n') {
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        if (std::cin.peek() == '\n') {
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
 
-        getline(cin>>ws, str);
+        getline(std::cin>>ws, str);
         return str;
     }
 
 
-    static short readShort(string message){
+    static short readShort(const std::string message){
         short number;
-
-        cout << message;
-        cin >> number;
-
-        while (cin.fail()) {
-            cin.clear(); // clear the error flag
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
-            cout << "Invalid input. Please enter a valid number: ";
-            cin >> number;
+        std::cout << message;
+        while (!(std::cin >> number)) {
+            std::cin.clear(); // clear the error flag
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
+            std::cout << "Invalid input. Please enter a valid number: ";
         }
-        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         return number;
     }
 
 
-    static bool yesNoQuestion(string message) {
+    static int readIntNumberBetween(const int from,int to,const std::string message) {
+        int number=readInt(message);
+
+        while (!isNumberBetween(number,from,to)) {
+            readInt(message);
+        }
+        return number;
+    }
+
+    static int readShortNumberBetween(const short from,const short to,const std::string message) {
+        short number=readShort(message);
+        while (!isNumberBetween(number,from,to)) {
+            readInt(message);
+        }
+        return number;
+    }
+
+    static int readDoubleNumberBetween(const double from,const double to,const std::string message) {
+        double number=readDouble(message);
+        while (!isNumberBetween(number,from,to)) {
+            readInt(message);
+        }
+        return number;
+    }
+
+    static int readFloatNumberBetween(const float from,const float to,const std::string message) {
+        float number=readFloat(message);
+        while (!isNumberBetween(number,from,to)) {
+            readInt(message);
+        }
+        return number;
+    }
+
+    static bool isNumberBetween(const int number,const int from,const int to) {
+        return number>=from&&number<=to;
+    }
+
+    static bool isNumberBetween(const float number,const float from,const float to) {
+        return number>=from&&number<=to;
+    }
+
+    static bool isNumberBetween(const double number,const double from,double  to) {
+        return number>=from&&number<=to;
+    }
+
+    static bool isNumberBetween(const short  number,const short from,const short to) {
+        return number>=from&&number<=to;
+    }
+
+    static bool isDateBetween(clsDate date,const clsDate dateFrom,const clsDate dateTo) {
+        return (date.isDateEqualDate2(dateFrom)||date.isDateEqualDate2(dateTo))||  (clsDate::isDate1BeforeDate2(dateFrom,dateTo)?(date.isDateBeforeDate2(dateTo)&&date.isDateAfterDate2(dateFrom)):(date.isDateBeforeDate2(dateFrom)&&date.isDateAfterDate2(dateTo)));
+    }
+
+    static bool isValidDate(const clsDate date) {
+        return clsDate::isValidDate(date);
+    }
+
+
+    static bool yesNoQuestion(const std::string message) {
         char yes;
 
-        cout<<message;
-        cin>>yes;
+        std::cout<<message;
+        std::cin>>yes;
         return (toupper(yes)=='Y');
 
     }

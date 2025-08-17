@@ -22,7 +22,7 @@ public:
 
 
 
-    static int randomNumber(int from,int to)
+    static int generateRandomNumber(int from,int to)
     {
 
         return rand()%(to-from+1)+from;
@@ -36,30 +36,30 @@ public:
         {
             case enCharType::smallLetter:
             {
-                return char(randomNumber(97, 122));
+                return char(generateRandomNumber(97, 122));
                 break;
             }
             case enCharType::capitalLetter:
             {
-                return char(randomNumber(65, 90));
+                return char(generateRandomNumber(65, 90));
                 break;
             }
 
             case enCharType::digit:
             {
-                return char(randomNumber(48, 57));
+                return char(generateRandomNumber(48, 57));
                 break;
             }
 
             case enCharType::mix:
-                return getRandomCharacter((enCharType)randomNumber(1,3));
+                return getRandomCharacter((enCharType)generateRandomNumber(1,3));
             default:
-                return char(randomNumber(97, 122));
+                return char(generateRandomNumber(97, 122));
                 break;
         }
     }
 
-    static std::string generateWord(enCharType charType,unsigned short nbrChar) {
+    static std::string generateWord(const enCharType charType,const unsigned short nbrChar) {
 
         std::string word;
         for (short i=0;i<nbrChar;i++) {
@@ -70,7 +70,7 @@ public:
 
 
 
-    static std::string generateKey(enCharType charType,unsigned short charNumber,unsigned short nbrSlots) {
+    static std::string generateKey(const enCharType charType,const unsigned short charNumber,const unsigned short nbrSlots) {
 
         std::string key;
         for (short i=0;i<nbrSlots;i++) {
@@ -80,7 +80,7 @@ public:
 
     }
 
-    static void generateKeys(unsigned short nbrKeys,enCharType charType,unsigned short charNumber,unsigned short nbrSlots) {
+    static void generateKeys(const unsigned short nbrKeys,const enCharType charType,const unsigned short charNumber,const unsigned short nbrSlots) {
         for (short i=0;i<nbrKeys;i++) {
             std::cout<<"Key["<<i<<"] : "<<generateKey(charType,charNumber,nbrSlots)<<endl;;
         }
@@ -90,6 +90,12 @@ public:
 
     static void swap(int& a,int& b) {
         const int temp = a;
+        a=b;
+        b=temp;
+    }
+
+    static void swap(short& a,short& b) {
+        const short temp = a;
         a=b;
         b=temp;
     }
@@ -117,8 +123,17 @@ public:
     static void shuffleArray(int arr[],const unsigned short arrLength) {
         short index1,index2;
         for (short i=0;i<arrLength;i++) {
-            index1=randomNumber(0,arrLength-1);
-            index2=randomNumber(0,arrLength-1);
+            index1=generateRandomNumber(0,arrLength-1);
+            index2=generateRandomNumber(0,arrLength-1);
+            swap(arr[index1],arr[index2]);
+        }
+    }
+
+    static void shuffleArray(short arr[],const unsigned short arrLength) {
+        short index1,index2;
+        for (short i=0;i<arrLength;i++) {
+            index1=generateRandomNumber(0,arrLength-1);
+            index2=generateRandomNumber(0,arrLength-1);
             swap(arr[index1],arr[index2]);
         }
     }
@@ -126,8 +141,8 @@ public:
     static void shuffleArray(std::string arr[],const unsigned short arrLength) {
         short index1,index2;
         for (short i=0;i<arrLength;i++) {
-            index1=randomNumber(0,arrLength-1);
-            index2=randomNumber(0,arrLength-1);
+            index1=generateRandomNumber(0,arrLength-1);
+            index2=generateRandomNumber(0,arrLength-1);
             swap(arr[index1],arr[index2]);
         }
     }
@@ -135,10 +150,17 @@ public:
 
 
 
-    static void fillArrayWithRandomNumber(int arr[],unsigned short arrLength,unsigned short randomFrom,unsigned short randomTo) {
+    static void fillArrayWithRandomNumber(int arr[],const unsigned short arrLength,const unsigned short randomFrom,const unsigned short randomTo) {
 
         for (short i=0;i<arrLength;i++) {
-            arr[i]=randomNumber(randomFrom,randomTo);
+            arr[i]=generateRandomNumber(randomFrom,randomTo);
+        }
+    }
+
+    static void fillArrayWithRandomNumber(short arr[],const unsigned short arrLength,const unsigned short randomFrom,const unsigned short randomTo) {
+
+        for (short i=0;i<arrLength;i++) {
+            arr[i]=generateRandomNumber(randomFrom,randomTo);
         }
     }
 

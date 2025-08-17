@@ -25,58 +25,58 @@ public:
     {
         time_t t = time(nullptr);
         tm* now  = localtime(&t);
-        SetDay(static_cast<short>(now->tm_mday));
-        SetMonth(static_cast<short>(now->tm_mon + 1));
-        SetYear(static_cast<short>(now->tm_year + 1900));
+        setDay(static_cast<short>(now->tm_mday));
+        setMonth(static_cast<short>(now->tm_mon + 1));
+        setYear(static_cast<short>(now->tm_year + 1900));
     }
 
     clsDate(string sDate)
     {
         vector<string> vDate = clsString::Split(sDate, "/");
-        SetDay(static_cast<short>(stoi(vDate[0])));
-        SetMonth(static_cast<short>(stoi(vDate[1])));
-        SetYear(static_cast<short>(stoi(vDate[2])));
+        setDay(static_cast<short>(stoi(vDate[0])));
+        setMonth(static_cast<short>(stoi(vDate[1])));
+        setYear(static_cast<short>(stoi(vDate[2])));
     }
 
     clsDate(short Day, short Month, short Year)
     {
-        SetDay(Day);
-        SetMonth(Month);
-        SetYear(Year);
+        setDay(Day);
+        setMonth(Month);
+        setYear(Year);
     }
 
     // Construct from day-order in year
     clsDate(short DateOrderInYear, short Year)
     {
-        clsDate d = GetDateFromDayOrderInYear(DateOrderInYear, Year);
-        SetDay(d.GetDay());
-        SetMonth(d.GetMonth());
-        SetYear(d.GetYear());
+        clsDate d = getDateFromDayOrderInYear(DateOrderInYear, Year);
+        setDay(d.getDay());
+        setMonth(d.getMonth());
+        setYear(d.getYear());
     }
 
     // === Accessors ===
-    void  SetDay(short Day)     { _Day = Day; }
-    short GetDay()        const { return _Day; }
+    void  setDay(short Day)     { _Day = Day; }
+    short getDay()        const { return _Day; }
 
-    void  SetMonth(short Month) { _Month = Month; }
-    short GetMonth()      const { return _Month; }
+    void  setMonth(short Month) { _Month = Month; }
+    short getMonth()      const { return _Month; }
 
-    void  SetYear(short Year)   { _Year = Year; }
-    short GetYear()       const { return _Year; }
+    void  setYear(short Year)   { _Year = Year; }
+    short getYear()       const { return _Year; }
 
     // === I/O ===
-    static string DateToString(const clsDate& Date)
+    static string dateToString(const clsDate& Date)
     {
-        return to_string(Date.GetDay()) + "/" +
-               to_string(Date.GetMonth()) + "/" +
-               to_string(Date.GetYear());
+        return to_string(Date.getDay()) + "/" +
+               to_string(Date.getMonth()) + "/" +
+               to_string(Date.getYear());
     }
 
-    string DateToString() const { return DateToString(*this); }
+    string dateToString() const { return dateToString(*this); }
 
-    void Print() const { cout << DateToString() << endl; }
+    void print() const { cout << dateToString() << endl; }
 
-    static clsDate GetSystemDate()
+    static clsDate getSystemDate()
     {
         time_t t = time(nullptr);
         tm* now  = localtime(&t);
@@ -94,83 +94,83 @@ public:
         return (Year % 4 == 0 && Year % 100 != 0) || (Year % 400 == 0);
     }
 
-    bool isLeapYear() const { return isLeapYear(GetYear()); }
+    bool isLeapYear() const { return isLeapYear(getYear()); }
 
-    static short NumberOfDaysInAMonth(short Month, short Year)
+    static short numberOfDaysInaMonth(short Month, short Year)
     {
         if (Month < 1 || Month > 12) return 0;
         static const short days[12] = {31,28,31,30,31,30,31,31,30,31,30,31};
         return (Month == 2) ? (isLeapYear(Year) ? 29 : 28) : days[Month - 1];
     }
 
-    short NumberOfDaysInAMonth() const
+    short numberOfDaysInaMonth() const
     {
-        return NumberOfDaysInAMonth(GetMonth(), GetYear());
+        return numberOfDaysInaMonth(getMonth(), getYear());
     }
 
-    static short NumberOfDaysInAYear(short Year)
+    static short numberOfDaysInaYear(short Year)
     {
         return isLeapYear(Year) ? 366 : 365; // fixed
     }
 
-    short NumberOfDaysInAYear() const { return NumberOfDaysInAYear(GetYear()); }
+    short numberOfDaysInaYear() const { return numberOfDaysInaYear(getYear()); }
 
-    static int NumberOfHoursInAYear(short Year)
+    static int numberOfHoursInAYear(short Year)
     {
-        return NumberOfDaysInAYear(Year) * 24;
+        return numberOfDaysInaYear(Year) * 24;
     }
 
-    int NumberOfHoursInAYear() const { return NumberOfHoursInAYear(GetYear()); }
+    int numberOfHoursInAYear() const { return numberOfHoursInAYear(getYear()); }
 
-    static int NumberOfMinutesInAYear(short Year)
+    static int numberOfMinutesInAYear(short Year)
     {
-        return NumberOfHoursInAYear(Year) * 60;
+        return numberOfHoursInAYear(Year) * 60;
     }
 
-    int NumberOfMinutesInAYear() const { return NumberOfMinutesInAYear(GetYear()); }
+    int numberOfMinutesInAYear() const { return numberOfMinutesInAYear(getYear()); }
 
-    static long long NumberOfSecondsInAYear(short Year)
+    static long long numberOfSecondsInAYear(short Year)
     {
-        return static_cast<long long>(NumberOfMinutesInAYear(Year)) * 60;
+        return static_cast<long long>(numberOfMinutesInAYear(Year)) * 60;
     }
 
-    long long NumberOfSecondsInAYear() const
+    long long numberOfSecondsInAYear() const
     {
-        return NumberOfSecondsInAYear(GetYear()); // fixed (no recursion)
+        return numberOfSecondsInAYear(getYear()); // fixed (no recursion)
     }
 
-    static short NumberOfHoursInAMonth(short Month, short Year)
+    static short numberOfHoursInAMonth(short Month, short Year)
     {
-        return NumberOfDaysInAMonth(Month, Year) * 24;
+        return numberOfDaysInaMonth(Month, Year) * 24;
     }
 
-    short NumberOfHoursInAMonth() const
+    short numberOfHoursInAMonth() const
     {
-        return NumberOfDaysInAMonth(GetMonth(), GetYear()) * 24;
+        return numberOfDaysInaMonth(getMonth(), getYear()) * 24;
     }
 
-    static int NumberOfMinutesInAMonth(short Month, short Year)
+    static int numberOfMinutesInAMonth(short Month, short Year)
     {
-        return NumberOfHoursInAMonth(Month, Year) * 60;
+        return numberOfHoursInAMonth(Month, Year) * 60;
     }
 
-    int NumberOfMinutesInAMonth() const
+    int numberOfMinutesInAMonth() const
     {
-        return NumberOfHoursInAMonth(GetMonth(), GetYear()) * 60;
+        return numberOfHoursInAMonth(getMonth(), getYear()) * 60;
     }
 
-    static int NumberOfSecondsInAMonth(short Month, short Year)
+    static int numberOfSecondsInAMonth(short Month, short Year)
     {
-        return NumberOfMinutesInAMonth(Month, Year) * 60;
+        return numberOfMinutesInAMonth(Month, Year) * 60;
     }
 
-    int NumberOfSecondsInAMonth() const
+    int numberOfSecondsInAMonth() const
     {
-        return NumberOfMinutesInAMonth(GetMonth(), GetYear()) * 60;
+        return numberOfMinutesInAMonth(getMonth(), getYear()) * 60;
     }
 
     // === Day-of-week & names ===
-    static short DayOfWeekOrder(short Day, short Month, short Year)
+    static short dayOfWeekOrder(short Day, short Month, short Year)
     {
         short a = static_cast<short>((14 - Month) / 12);
         int y = Year - a;
@@ -179,40 +179,40 @@ public:
         return static_cast<short>((Day + y + (y / 4) - (y / 100) + (y / 400) + ((31 * m) / 12)) % 7);
     }
 
-    short DayOfWeekOrder() const
+    short dayOfWeekOrder() const
     {
-        return DayOfWeekOrder(GetDay(), GetMonth(), GetYear());
+        return dayOfWeekOrder(getDay(), getMonth(), getYear());
     }
 
-    static string DayShortName(short DayOfWeekOrder)
+    static string dayShortName(short DayOfWeekOrder)
     {
         static const string arrDayNames[] = {"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
         return arrDayNames[DayOfWeekOrder];
     }
 
-    static string DayShortName(short Day, short Month, short Year)
+    static string dayShortName(short Day, short Month, short Year)
     {
-        return DayShortName(DayOfWeekOrder(Day, Month, Year));
+        return dayShortName(dayOfWeekOrder(Day, Month, Year));
     }
 
-    string DayShortName() const { return DayShortName(GetDay(), GetMonth(), GetYear()); }
+    string dayShortName() const { return dayShortName(getDay(), getMonth(), getYear()); }
 
-    static string MonthShortName(short MonthNumber)
+    static string monthShortName(short MonthNumber)
     {
         static const string Months[12] =
             {"Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"};
         return Months[MonthNumber - 1];
     }
 
-    string MonthShortName() const { return MonthShortName(GetMonth()); }
+    string monthShortName() const { return monthShortName(getMonth()); }
 
     // === Calendars ===
-    static void PrintMonthCalendar(short Month, short Year)
+    static void printMonthCalendar(short Month, short Year)
     {
-        int current = DayOfWeekOrder(1, Month, Year);
-        int NumberOfDays = NumberOfDaysInAMonth(Month, Year);
+        int current = dayOfWeekOrder(1, Month, Year);
+        int NumberOfDays = numberOfDaysInaMonth(Month, Year);
 
-        printf("\n  _______________%s_______________\n\n", MonthShortName(Month).c_str());
+        printf("\n  _______________%s_______________\n\n", monthShortName(Month).c_str());
         printf("  Sun  Mon  Tue  Wed  Thu  Fri  Sat\n");
 
         for (int i = 0; i < current; ++i) printf("     ");
@@ -226,48 +226,48 @@ public:
         printf("\n  _________________________________\n");
     }
 
-    void PrintMonthCalendar() const { PrintMonthCalendar(GetMonth(), GetYear()); }
+    void printMonthCalendar() const { printMonthCalendar(getMonth(), getYear()); }
 
     static void PrintYearCalendar(int Year)
     {
         printf("\n  _________________________________\n\n");
         printf("           Calendar - %d\n", Year);
         printf("  _________________________________\n");
-        for (int m = 1; m <= 12; ++m) PrintMonthCalendar(static_cast<short>(m), static_cast<short>(Year));
+        for (int m = 1; m <= 12; ++m) printMonthCalendar(static_cast<short>(m), static_cast<short>(Year));
     }
 
-    void PrintYearCalendar() const { PrintYearCalendar(GetYear()); }
+    void printYearCalendar() const { PrintYearCalendar(getYear()); }
 
     // === Date math ===
-    static short DaysFromTheBeginingOfTheYear(short Day, short Month, short Year)
+    static short daysFromTheBeginingOfTheYear(short Day, short Month, short Year)
     {
         short total = 0;
         for (short m = 1; m <= Month - 1; ++m)
-            total = static_cast<short>(total + NumberOfDaysInAMonth(m, Year));
+            total = static_cast<short>(total + numberOfDaysInaMonth(m, Year));
         return static_cast<short>(total + Day);
     }
 
-    short DaysFromTheBeginingOfTheYear() const
+    short daysFromTheBeginingOfTheYear() const
     {
-        return DaysFromTheBeginingOfTheYear(GetDay(), GetMonth(), GetYear());
+        return daysFromTheBeginingOfTheYear(getDay(), getMonth(), getYear());
     }
 
-    static clsDate GetDateFromDayOrderInYear(short DateOrderInYear, short Year)
+    static clsDate getDateFromDayOrderInYear(short DateOrderInYear, short Year)
     {
         clsDate d(1, 1, Year);
         short remaining = DateOrderInYear;
 
         while (true)
         {
-            short md = NumberOfDaysInAMonth(d.GetMonth(), Year);
+            short md = numberOfDaysInaMonth(d.getMonth(), Year);
             if (remaining > md)
             {
                 remaining = static_cast<short>(remaining - md);
-                d.SetMonth(static_cast<short>(d.GetMonth() + 1));
+                d.setMonth(static_cast<short>(d.getMonth() + 1));
             }
             else
             {
-                d.SetDay(remaining);
+                d.setDay(remaining);
                 break;
             }
         }
@@ -276,454 +276,454 @@ public:
 
     void AddDays(short Days)
     {
-        short remaining = static_cast<short>(Days + DaysFromTheBeginingOfTheYear(GetDay(), GetMonth(), GetYear()));
-        SetMonth(1);
+        short remaining = static_cast<short>(Days + daysFromTheBeginingOfTheYear(getDay(), getMonth(), getYear()));
+        setMonth(1);
 
         while (true)
         {
-            short md = NumberOfDaysInAMonth(GetMonth(), GetYear());
+            short md = numberOfDaysInaMonth(getMonth(), getYear());
             if (remaining > md)
             {
                 remaining = static_cast<short>(remaining - md);
-                SetMonth(static_cast<short>(GetMonth() + 1));
+                setMonth(static_cast<short>(getMonth() + 1));
 
-                if (GetMonth() > 12)
+                if (getMonth() > 12)
                 {
-                    SetMonth(1);
-                    SetYear(static_cast<short>(GetYear() + 1));
+                    setMonth(1);
+                    setYear(static_cast<short>(getYear() + 1));
                 }
             }
             else
             {
-                SetDay(remaining);
+                setDay(remaining);
                 break;
             }
         }
     }
 
-    // === Comparisons ===
-    static bool IsDate1BeforeDate2(clsDate Date1, clsDate Date2)
+    // === comarisons ===
+    static bool isDate1BeforeDate2(clsDate Date1, clsDate Date2)
     {
-        if (Date1.GetYear() != Date2.GetYear())
-            return Date1.GetYear() < Date2.GetYear();
-        if (Date1.GetMonth() != Date2.GetMonth())
-            return Date1.GetMonth() < Date2.GetMonth();
-        return Date1.GetDay() < Date2.GetDay();
+        if (Date1.getYear() != Date2.getYear())
+            return Date1.getYear() < Date2.getYear();
+        if (Date1.getMonth() != Date2.getMonth())
+            return Date1.getMonth() < Date2.getMonth();
+        return Date1.getDay() < Date2.getDay();
     }
 
-    bool IsDateBeforeDate2(clsDate Date2) { return IsDate1BeforeDate2(*this, Date2); }
+    bool isDateBeforeDate2(clsDate Date2) { return isDate1BeforeDate2(*this, Date2); }
 
-    static bool IsDate1EqualDate2(clsDate Date1, clsDate Date2)
+    static bool isDate1EqualDate2(clsDate Date1, clsDate Date2)
     {
-        return Date1.GetYear() == Date2.GetYear() &&
-               Date1.GetMonth() == Date2.GetMonth() &&
-               Date1.GetDay() == Date2.GetDay();
+        return Date1.getYear() == Date2.getYear() &&
+               Date1.getMonth() == Date2.getMonth() &&
+               Date1.getDay() == Date2.getDay();
     }
 
-    bool IsDateEqualDate2(clsDate Date2) { return IsDate1EqualDate2(*this, Date2); }
+    bool isDateEqualDate2(clsDate Date2) { return isDate1EqualDate2(*this, Date2); }
 
-    static bool IsDate1AfterDate2(clsDate Date1, clsDate Date2)
+    static bool isDate1AfterDate2(clsDate Date1, clsDate Date2)
     {
-        return !IsDate1BeforeDate2(Date1, Date2) && !IsDate1EqualDate2(Date1, Date2);
+        return !isDate1BeforeDate2(Date1, Date2) && !isDate1EqualDate2(Date1, Date2);
     }
 
-    bool IsDateAfterDate2(clsDate Date2) { return IsDate1AfterDate2(*this, Date2); }
+    bool isDateAfterDate2(clsDate Date2) { return isDate1AfterDate2(*this, Date2); }
 
-    enum enDateCompare { Before = -1, Equal = 0, After = 1 };
+    enum enDatecomare { Before = -1, Equal = 0, After = 1 };
 
-    static enDateCompare CompareDates(clsDate Date1, clsDate Date2)
+    static enDatecomare comareDates(clsDate Date1, clsDate Date2)
     {
-        if (IsDate1BeforeDate2(Date1, Date2)) return enDateCompare::Before;
-        if (IsDate1EqualDate2(Date1, Date2))  return enDateCompare::Equal;
-        return enDateCompare::After;
+        if (isDate1BeforeDate2(Date1, Date2)) return enDatecomare::Before;
+        if (isDate1EqualDate2(Date1, Date2))  return enDatecomare::Equal;
+        return enDatecomare::After;
     }
 
-    enDateCompare CompareDates(clsDate Date2) { return CompareDates(*this, Date2); }
+    enDatecomare comareDates(clsDate Date2) { return comareDates(*this, Date2); }
 
     // === Utils ===
-    static bool IsLastDayInMonth(clsDate Date)
+    static bool isLastDayinMonth(clsDate Date)
     {
-        return Date.GetDay() == NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear());
+        return Date.getDay() == numberOfDaysInaMonth(Date.getMonth(), Date.getYear());
     }
 
-    bool IsLastDayInMonth() { return IsLastDayInMonth(*this); }
+    bool isLastDayinMonth() { return isLastDayinMonth(*this); }
 
-    static bool IsLastMonthInYear(short Month) { return Month == 12; }
+    static bool isLastMonthinYear(short Month) { return Month == 12; }
 
     static clsDate AddOneDay(clsDate Date)
     {
-        if (IsLastDayInMonth(Date))
+        if (isLastDayinMonth(Date))
         {
-            if (IsLastMonthInYear(Date.GetMonth()))
+            if (isLastMonthinYear(Date.getMonth()))
             {
-                Date.SetMonth(1);
-                Date.SetDay(1);
-                Date.SetYear(static_cast<short>(Date.GetYear() + 1));
+                Date.setMonth(1);
+                Date.setDay(1);
+                Date.setYear(static_cast<short>(Date.getYear() + 1));
             }
             else
             {
-                Date.SetDay(1);
-                Date.SetMonth(static_cast<short>(Date.GetMonth() + 1));
+                Date.setDay(1);
+                Date.setMonth(static_cast<short>(Date.getMonth() + 1));
             }
         }
         else
         {
-            Date.SetDay(static_cast<short>(Date.GetDay() + 1));
+            Date.setDay(static_cast<short>(Date.getDay() + 1));
         }
         return Date;
     }
 
-    void AddOneDay() { *this = AddOneDay(*this); }
+    void addOneDay() { *this = AddOneDay(*this); }
 
-    static void SwapDates(clsDate& Date1, clsDate& Date2)
+    static void swapDates(clsDate& Date1, clsDate& Date2)
     {
         clsDate tmp = Date1;
         Date1 = Date2;
         Date2 = tmp;
     }
 
-    static int GetDifferenceInDays(clsDate Date1, clsDate Date2, bool IncludeEndDay = false)
+    static int getDifferenceinDays(clsDate Date1, clsDate Date2, bool includeEndDay = false)
     {
         int days = 0;
         short sign = 1;
 
-        if (!IsDate1BeforeDate2(Date1, Date2))
+        if (!isDate1BeforeDate2(Date1, Date2))
         {
-            SwapDates(Date1, Date2);
+            swapDates(Date1, Date2);
             sign = -1;
         }
 
-        while (IsDate1BeforeDate2(Date1, Date2))
+        while (isDate1BeforeDate2(Date1, Date2))
         {
             ++days;
             Date1 = AddOneDay(Date1);
         }
 
-        return IncludeEndDay ? (days + 1) * sign : days * sign;
+        return includeEndDay ? (days + 1) * sign : days * sign;
     }
 
-    int GetDifferenceInDays(clsDate Date2, bool IncludeEndDay = false)
+    int getDifferenceinDays(clsDate Date2, bool includeEndDay = false)
     {
-        return GetDifferenceInDays(*this, Date2, IncludeEndDay);
+        return getDifferenceinDays(*this, Date2, includeEndDay);
     }
 
-    static short CalculateMyAgeInDays(clsDate DateOfBirth)
+    static short calculateMyAgeinDays(clsDate DateOfBirth)
     {
-        return static_cast<short>(GetDifferenceInDays(DateOfBirth, clsDate::GetSystemDate(), true));
+        return static_cast<short>(getDifferenceinDays(DateOfBirth, clsDate::getSystemDate(), true));
     }
 
-    // === Increase helpers ===
-    static clsDate IncreaseDateByOneWeek(clsDate& Date)
+    // === increase helpers ===
+    static clsDate increaseDateByOneWeek(clsDate& Date)
     {
         for (int i = 0; i < 7; ++i) Date = AddOneDay(Date);
         return Date;
     }
 
-    void IncreaseDateByOneWeek() { IncreaseDateByOneWeek(*this); }
+    void increaseDateByOneWeek() { increaseDateByOneWeek(*this); }
 
-    static clsDate IncreaseDateByXWeeks(short Weeks, clsDate& Date)
+    static clsDate increaseDateByXWeeks(short Weeks, clsDate& Date)
     {
-        for (short i = 0; i < Weeks; ++i) Date = IncreaseDateByOneWeek(Date);
+        for (short i = 0; i < Weeks; ++i) Date = increaseDateByOneWeek(Date);
         return Date;
     }
 
-    void IncreaseDateByXWeeks(short Weeks) { IncreaseDateByXWeeks(Weeks, *this); }
+    void increaseDateByXWeeks(short Weeks) { increaseDateByXWeeks(Weeks, *this); }
 
-    static clsDate IncreaseDateByOneMonth(clsDate& Date)
+    static clsDate increaseDateByOneMonth(clsDate& Date)
     {
-        if (Date.GetMonth() == 12)
+        if (Date.getMonth() == 12)
         {
-            Date.SetMonth(1);
-            Date.SetYear(static_cast<short>(Date.GetYear() + 1));
+            Date.setMonth(1);
+            Date.setYear(static_cast<short>(Date.getYear() + 1));
         }
         else
         {
-            Date.SetMonth(static_cast<short>(Date.GetMonth() + 1));
+            Date.setMonth(static_cast<short>(Date.getMonth() + 1));
         }
 
-        short maxDay = NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear());
-        if (Date.GetDay() > maxDay) Date.SetDay(maxDay);
+        short maxDay = numberOfDaysInaMonth(Date.getMonth(), Date.getYear());
+        if (Date.getDay() > maxDay) Date.setDay(maxDay);
 
         return Date;
     }
 
-    void IncreaseDateByOneMonth() { IncreaseDateByOneMonth(*this); }
+    void increaseDateByOneMonth() { increaseDateByOneMonth(*this); }
 
-    static clsDate IncreaseDateByXDays(short Days, clsDate& Date)
+    static clsDate increaseDateByXDays(short Days, clsDate& Date)
     {
         for (short i = 0; i < Days; ++i) Date = AddOneDay(Date);
         return Date;
     }
 
-    void IncreaseDateByXDays(short Days) { IncreaseDateByXDays(Days, *this); }
+    void increaseDateByXDays(short Days) { increaseDateByXDays(Days, *this); }
 
-    static clsDate IncreaseDateByXMonths(short Months, clsDate& Date)
+    static clsDate increaseDateByXMonths(short Months, clsDate& Date)
     {
-        for (short i = 0; i < Months; ++i) Date = IncreaseDateByOneMonth(Date);
+        for (short i = 0; i < Months; ++i) Date = increaseDateByOneMonth(Date);
         return Date;
     }
 
-    void IncreaseDateByXMonths(short Months) { IncreaseDateByXMonths(Months, *this); }
+    void increaseDateByXMonths(short Months) { increaseDateByXMonths(Months, *this); }
 
-    static clsDate IncreaseDateByOneYear(clsDate& Date)
+    static clsDate increaseDateByOneYear(clsDate& Date)
     {
-        Date.SetYear(static_cast<short>(Date.GetYear() + 1));
+        Date.setYear(static_cast<short>(Date.getYear() + 1));
         // Adjust Feb 29 → Feb 28 on non-leap target years
-        short maxDay = NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear());
-        if (Date.GetDay() > maxDay) Date.SetDay(maxDay);
+        short maxDay = numberOfDaysInaMonth(Date.getMonth(), Date.getYear());
+        if (Date.getDay() > maxDay) Date.setDay(maxDay);
         return Date;
     }
 
-    void IncreaseDateByOneYear() { IncreaseDateByOneYear(*this); }
+    void increaseDateByOneYear() { increaseDateByOneYear(*this); }
 
-    static clsDate IncreaseDateByXYears(short Years, clsDate& Date)
+    static clsDate increaseDateByXYears(short Years, clsDate& Date)
     {
-        Date.SetYear(static_cast<short>(Date.GetYear() + Years));
-        short maxDay = NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear());
-        if (Date.GetDay() > maxDay) Date.SetDay(maxDay);
+        Date.setYear(static_cast<short>(Date.getYear() + Years));
+        short maxDay = numberOfDaysInaMonth(Date.getMonth(), Date.getYear());
+        if (Date.getDay() > maxDay) Date.setDay(maxDay);
         return Date;
     }
 
-    void IncreaseDateByXYears(short Years) { IncreaseDateByXYears(Years, *this); } // fixed recursion
+    void increaseDateByXYears(short Years) { increaseDateByXYears(Years, *this); } // fixed recursion
 
-    static clsDate IncreaseDateByOneDecade(clsDate& Date)
+    static clsDate increaseDateByOneDecade(clsDate& Date)
     {
-        return IncreaseDateByXYears(10, Date);
+        return increaseDateByXYears(10, Date);
     }
 
-    void IncreaseDateByOneDecade() { IncreaseDateByOneDecade(*this); }
+    void increaseDateByOneDecade() { increaseDateByOneDecade(*this); }
 
-    static clsDate IncreaseDateByXDecades(short Decades, clsDate& Date)
+    static clsDate increaseDateByXDecades(short Decades, clsDate& Date)
     {
-        return IncreaseDateByXYears(static_cast<short>(Decades * 10), Date);
+        return increaseDateByXYears(static_cast<short>(Decades * 10), Date);
     }
 
-    void IncreaseDateByXDecades(short Decades) { IncreaseDateByXDecades(Decades, *this); }
+    void increaseDateByXDecades(short Decades) { increaseDateByXDecades(Decades, *this); }
 
-    static clsDate IncreaseDateByOneCentury(clsDate& Date)
+    static clsDate increaseDateByOneCentury(clsDate& Date)
     {
-        return IncreaseDateByXYears(100, Date);
+        return increaseDateByXYears(100, Date);
     }
 
-    void IncreaseDateByOneCentury() { IncreaseDateByOneCentury(*this); }
+    void increaseDateByOneCentury() { increaseDateByOneCentury(*this); }
 
-    static clsDate IncreaseDateByOneMillennium(clsDate& Date)
+    static clsDate increaseDateByOneMillennium(clsDate& Date)
     {
-        return IncreaseDateByXYears(1000, Date);
+        return increaseDateByXYears(1000, Date);
     }
 
-    void IncreaseDateByOneMillennium() { IncreaseDateByOneMillennium(*this); }
+    void increaseDateByOneMillennium() { increaseDateByOneMillennium(*this); }
 
     // === Decrease helpers ===
-    static clsDate DecreaseDateByOneDay(clsDate Date)
+    static clsDate decreaseDateByOneDay(clsDate Date)
     {
-        if (Date.GetDay() == 1)
+        if (Date.getDay() == 1)
         {
-            if (Date.GetMonth() == 1)
+            if (Date.getMonth() == 1)
             {
-                Date.SetMonth(12);
-                Date.SetYear(static_cast<short>(Date.GetYear() - 1));
-                Date.SetDay(31);
+                Date.setMonth(12);
+                Date.setYear(static_cast<short>(Date.getYear() - 1));
+                Date.setDay(31);
             }
             else
             {
-                Date.SetMonth(static_cast<short>(Date.GetMonth() - 1));
-                Date.SetDay(NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear()));
+                Date.setMonth(static_cast<short>(Date.getMonth() - 1));
+                Date.setDay(numberOfDaysInaMonth(Date.getMonth(), Date.getYear()));
             }
         }
         else
         {
-            Date.SetDay(static_cast<short>(Date.GetDay() - 1));
+            Date.setDay(static_cast<short>(Date.getDay() - 1));
         }
         return Date;
     }
 
-    void DecreaseDateByOneDay() { *this = DecreaseDateByOneDay(*this); }
+    void decreaseDateByOneDay() { *this = decreaseDateByOneDay(*this); }
 
-    static clsDate DecreaseDateByOneWeek(clsDate& Date)
+    static clsDate decreaseDateByOneWeek(clsDate& Date)
     {
-        for (int i = 0; i < 7; ++i) Date = DecreaseDateByOneDay(Date);
+        for (int i = 0; i < 7; ++i) Date = decreaseDateByOneDay(Date);
         return Date;
     }
 
-    void DecreaseDateByOneWeek() { DecreaseDateByOneWeek(*this); }
+    void decreaseDateByOneWeek() { decreaseDateByOneWeek(*this); }
 
-    static clsDate DecreaseDateByXWeeks(short Weeks, clsDate& Date)
+    static clsDate decreaseDateByXWeeks(short Weeks, clsDate& Date)
     {
-        for (short i = 0; i < Weeks; ++i) Date = DecreaseDateByOneWeek(Date);
+        for (short i = 0; i < Weeks; ++i) Date = decreaseDateByOneWeek(Date);
         return Date;
     }
 
-    void DecreaseDateByXWeeks(short Weeks) { DecreaseDateByXWeeks(Weeks, *this); }
+    void decreaseDateByXWeeks(short Weeks) { decreaseDateByXWeeks(Weeks, *this); }
 
-    static clsDate DecreaseDateByOneMonth(clsDate& Date)
+    static clsDate decreaseDateByOneMonth(clsDate& Date)
     {
-        if (Date.GetMonth() == 1)
+        if (Date.getMonth() == 1)
         {
-            Date.SetMonth(12);
-            Date.SetYear(static_cast<short>(Date.GetYear() - 1));
+            Date.setMonth(12);
+            Date.setYear(static_cast<short>(Date.getYear() - 1));
         }
         else
         {
-            Date.SetMonth(static_cast<short>(Date.GetMonth() - 1));
+            Date.setMonth(static_cast<short>(Date.getMonth() - 1));
         }
 
-        short maxDay = NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear());
-        if (Date.GetDay() > maxDay) Date.SetDay(maxDay);
+        short maxDay = numberOfDaysInaMonth(Date.getMonth(), Date.getYear());
+        if (Date.getDay() > maxDay) Date.setDay(maxDay);
 
         return Date;
     }
 
-    void DecreaseDateByOneMonth() { DecreaseDateByOneMonth(*this); }
+    void decreaseDateByOneMonth() { decreaseDateByOneMonth(*this); }
 
-    static clsDate DecreaseDateByXDays(short Days, clsDate& Date)
+    static clsDate decreaseDateByXDays(short Days, clsDate& Date)
     {
-        for (short i = 0; i < Days; ++i) Date = DecreaseDateByOneDay(Date);
+        for (short i = 0; i < Days; ++i) Date = decreaseDateByOneDay(Date);
         return Date;
     }
 
-    void DecreaseDateByXDays(short Days) { DecreaseDateByXDays(Days, *this); }
+    void decreaseDateByXDays(short Days) { decreaseDateByXDays(Days, *this); }
 
-    static clsDate DecreaseDateByXMonths(short Months, clsDate& Date)
+    static clsDate decreaseDateByXMonths(short Months, clsDate& Date)
     {
-        for (short i = 0; i < Months; ++i) Date = DecreaseDateByOneMonth(Date);
+        for (short i = 0; i < Months; ++i) Date = decreaseDateByOneMonth(Date);
         return Date;
     }
 
-    void DecreaseDateByXMonths(short Months) { DecreaseDateByXMonths(Months, *this); }
+    void decreaseDateByXMonths(short Months) { decreaseDateByXMonths(Months, *this); }
 
-    static clsDate DecreaseDateByOneYear(clsDate& Date)
+    static clsDate decreaseDateByOneYear(clsDate& Date)
     {
-        Date.SetYear(static_cast<short>(Date.GetYear() - 1));
-        short maxDay = NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear());
-        if (Date.GetDay() > maxDay) Date.SetDay(maxDay);
+        Date.setYear(static_cast<short>(Date.getYear() - 1));
+        short maxDay = numberOfDaysInaMonth(Date.getMonth(), Date.getYear());
+        if (Date.getDay() > maxDay) Date.setDay(maxDay);
         return Date;
     }
 
-    void DecreaseDateByOneYear() { DecreaseDateByOneYear(*this); }
+    void decreaseDateByOneYear() { decreaseDateByOneYear(*this); }
 
-    static clsDate DecreaseDateByXYears(short Years, clsDate& Date)
+    static clsDate decreaseDateByXYears(short Years, clsDate& Date)
     {
-        Date.SetYear(static_cast<short>(Date.GetYear() - Years));
-        short maxDay = NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear());
-        if (Date.GetDay() > maxDay) Date.SetDay(maxDay);
+        Date.setYear(static_cast<short>(Date.getYear() - Years));
+        short maxDay = numberOfDaysInaMonth(Date.getMonth(), Date.getYear());
+        if (Date.getDay() > maxDay) Date.setDay(maxDay);
         return Date;
     }
 
-    void DecreaseDateByXYears(short Years) { DecreaseDateByXYears(Years, *this); }
+    void decreaseDateByXYears(short Years) { decreaseDateByXYears(Years, *this); }
 
-    static clsDate DecreaseDateByOneDecade(clsDate& Date)
+    static clsDate decreaseDateByOneDecade(clsDate& Date)
     {
-        return DecreaseDateByXYears(10, Date);
+        return decreaseDateByXYears(10, Date);
     }
 
-    void DecreaseDateByOneDecade() { DecreaseDateByOneDecade(*this); }
+    void decreaseDateByOneDecade() { decreaseDateByOneDecade(*this); }
 
-    static clsDate DecreaseDateByXDecades(short Decades, clsDate& Date)
+    static clsDate decreaseDateByXDecades(short Decades, clsDate& Date)
     {
-        return DecreaseDateByXYears(static_cast<short>(Decades * 10), Date);
+        return decreaseDateByXYears(static_cast<short>(Decades * 10), Date);
     }
 
-    void DecreaseDateByXDecades(short Decades) { DecreaseDateByXDecades(Decades, *this); }
+    void decreaseDateByXDecades(short Decades) { decreaseDateByXDecades(Decades, *this); }
 
-    static clsDate DecreaseDateByOneCentury(clsDate& Date)
+    static clsDate decreaseDateByOneCentury(clsDate& Date)
     {
-        return DecreaseDateByXYears(100, Date);
+        return decreaseDateByXYears(100, Date);
     }
 
-    void DecreaseDateByOneCentury() { DecreaseDateByOneCentury(*this); }
+    void decreaseDateByOneCentury() { decreaseDateByOneCentury(*this); }
 
-    static clsDate DecreaseDateByOneMillennium(clsDate& Date)
+    static clsDate decreaseDateByOneMillennium(clsDate& Date)
     {
-        return DecreaseDateByXYears(1000, Date);
+        return decreaseDateByXYears(1000, Date);
     }
 
-    void DecreaseDateByOneMillennium() { DecreaseDateByOneMillennium(*this); }
+    void decreaseDateByOneMillennium() { decreaseDateByOneMillennium(*this); }
 
     // === Week/Business helpers ===
-    static short IsEndOfWeek(clsDate Date)
+    static short isEndOfWeek(clsDate Date)
     {
-        return DayOfWeekOrder(Date.GetDay(), Date.GetMonth(), Date.GetYear()) == 6;
+        return dayOfWeekOrder(Date.getDay(), Date.getMonth(), Date.getYear()) == 6;
     }
 
-    short IsEndOfWeek() { return IsEndOfWeek(*this); }
+    short isEndOfWeek() { return isEndOfWeek(*this); }
 
-    static bool IsWeekEnd(clsDate Date)
+    static bool isWeekEnd(clsDate Date)
     {
-        short idx = DayOfWeekOrder(Date.GetDay(), Date.GetMonth(), Date.GetYear());
+        short idx = dayOfWeekOrder(Date.getDay(), Date.getMonth(), Date.getYear());
         return (idx == 5 || idx == 6); // Fri/Sat as weekend
     }
 
-    bool IsWeekEnd() { return IsWeekEnd(*this); }
+    bool isWeekEnd() { return isWeekEnd(*this); }
 
-    static bool IsBusinessDay(clsDate Date)
+    static bool isBusinessDay(clsDate Date)
     {
-        return !IsWeekEnd(Date);
+        return !isWeekEnd(Date);
     }
 
-    bool IsBusinessDay() { return IsBusinessDay(*this); }
+    bool isBusinessDay() { return isBusinessDay(*this); }
 
-    static short DaysUntilTheEndOfWeek(clsDate Date)
+    static short daysUntilTheEndOfWeek(clsDate Date)
     {
-        return static_cast<short>(6 - DayOfWeekOrder(Date.GetDay(), Date.GetMonth(), Date.GetYear()));
+        return static_cast<short>(6 - dayOfWeekOrder(Date.getDay(), Date.getMonth(), Date.getYear()));
     }
 
-    short DaysUntilTheEndOfWeek()
+    short daysUntilTheEndOfWeek()
     {
-        return DaysUntilTheEndOfWeek(*this);
+        return daysUntilTheEndOfWeek(*this);
     }
 
-    static short DaysUntilTheEndOfMonth(clsDate Date1)
+    static short daysUntilTheEndOfMonth(clsDate Date1)
     {
         clsDate endOfMonth;
-        endOfMonth.SetYear(Date1.GetYear());
-        endOfMonth.SetMonth(Date1.GetMonth());
-        endOfMonth.SetDay(NumberOfDaysInAMonth(Date1.GetMonth(), Date1.GetYear()));
-        return static_cast<short>(GetDifferenceInDays(Date1, endOfMonth, true));
+        endOfMonth.setYear(Date1.getYear());
+        endOfMonth.setMonth(Date1.getMonth());
+        endOfMonth.setDay(numberOfDaysInaMonth(Date1.getMonth(), Date1.getYear()));
+        return static_cast<short>(getDifferenceinDays(Date1, endOfMonth, true));
     }
 
-    short DaysUntilTheEndOfMonth()
+    short daysUntilTheEndOfMonth()
     {
-        return DaysUntilTheEndOfMonth(*this);
+        return daysUntilTheEndOfMonth(*this);
     }
 
-    static short DaysUntilTheEndOfYear(clsDate Date1)
+    static short daysUntilTheEndOfYear(clsDate Date1)
     {
         clsDate endOfYear;
-        endOfYear.SetYear(Date1.GetYear());
-        endOfYear.SetMonth(12);
-        endOfYear.SetDay(31);
-        return static_cast<short>(GetDifferenceInDays(Date1, endOfYear, true));
+        endOfYear.setYear(Date1.getYear());
+        endOfYear.setMonth(12);
+        endOfYear.setDay(31);
+        return static_cast<short>(getDifferenceinDays(Date1, endOfYear, true));
     }
 
-    short DaysUntilTheEndOfYear()
+    short daysUntilTheEndOfYear()
     {
-        return DaysUntilTheEndOfYear(*this);
+        return daysUntilTheEndOfYear(*this);
     }
 
-    static short CalculateBusinessDays(clsDate DateFrom, clsDate DateTo)
+    static short calculateBusinessDays(clsDate DateFrom, const clsDate DateTo)
     {
         short days = 0;
-        while (IsDate1BeforeDate2(DateFrom, DateTo))
+        while (isDate1BeforeDate2(DateFrom, DateTo))
         {
-            if (IsBusinessDay(DateFrom)) ++days;
+            if (isBusinessDay(DateFrom)) ++days;
             DateFrom = AddOneDay(DateFrom);
         }
         return days;
     }
 
-    static short CalculateVacationDays(clsDate DateFrom, clsDate DateTo)
+    static short calculateVacationDays(clsDate DateFrom, clsDate DateTo)
     {
-        return CalculateBusinessDays(DateFrom, DateTo);
+        return calculateBusinessDays(DateFrom, DateTo);
     }
 
-    static clsDate CalculateVacationReturnDate(clsDate DateFrom, short VacationDays)
+    static clsDate calculateVacationReturnDate(clsDate DateFrom, short VacationDays)
     {
         short weekendCount = 0;
 
         for (short i = 0; i < VacationDays; ++i)
         {
-            if (IsWeekEnd(DateFrom)) ++weekendCount;
+            if (isWeekEnd(DateFrom)) ++weekendCount;
             DateFrom = AddOneDay(DateFrom);
         }
         for (short i = 0; i < weekendCount; ++i)
@@ -733,28 +733,28 @@ public:
     }
 
     // === Validation (moved to bottom to use fixed funcs) ===
-    static bool IsValidDate(clsDate Date)
+    static bool isValidDate(clsDate Date)
     {
-        if (Date.GetDay()   < 1 || Date.GetDay()   > 31) return false;
-        if (Date.GetMonth() < 1 || Date.GetMonth() > 12) return false;
+        if (Date.getDay()   < 1 || Date.getDay()   > 31) return false;
+        if (Date.getMonth() < 1 || Date.getMonth() > 12) return false;
 
-        if (Date.GetMonth() == 2)
+        if (Date.getMonth() == 2)
         {
-            if (isLeapYear(Date.GetYear()))
+            if (isLeapYear(Date.getYear()))
             {
-                if (Date.GetDay() > 29) return false;
+                if (Date.getDay() > 29) return false;
             }
             else
             {
-                if (Date.GetDay() > 28) return false;
+                if (Date.getDay() > 28) return false;
             }
         }
 
-        short dim = NumberOfDaysInAMonth(Date.GetMonth(), Date.GetYear()); // fixed (Year, not Month)
-        if (Date.GetDay() > dim) return false;
+        short dim = numberOfDaysInaMonth(Date.getMonth(), Date.getYear()); // fixed (Year, not Month)
+        if (Date.getDay() > dim) return false;
 
         return true;
     }
 
-    bool IsValid() { return IsValidDate(*this); }
+    bool isValid() { return isValidDate(*this); }
 };

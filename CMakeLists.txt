@@ -7,4 +7,6 @@ add_executable(untitled main.cpp
         read_save_from_file.h
         clsString.h
         clsDate.h
+        clsUtility.h
+        clsPeriod.h
 )

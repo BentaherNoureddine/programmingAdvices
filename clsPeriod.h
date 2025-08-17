@@ -1,22 +1,22 @@
 #pragma once
 #include "clsDate.h"
 
-class clsPeriod
-{
+class clsPeriod{
+
+
 public:
 
     clsDate StartDate;
     clsDate EndDate;
 
-    clsPeriod(clsDate StartDate, clsDate DateTo)
-    {
+    clsPeriod(const clsDate StartDate,const  clsDate DateTo){
         this->StartDate = StartDate;
-        this->EndDate = EndDate;
+        this->EndDate = DateTo;
 
     }
 
-    static bool IsOverlapPeriods(clsPeriod Period1, clsPeriod Period2)
-    {
+
+    static bool IsOverlapPeriods(const clsPeriod Period1,const  clsPeriod Period2){
 
         if (
             clsDate::CompareDates(Period2.EndDate, Period1.StartDate) == clsDate::enDateCompare::Before
@@ -30,21 +30,19 @@ public:
     }
 
 
-    bool IsOverLapWith(clsPeriod Period2)
-    {
+
+    bool IsOverLapWith(const clsPeriod Period2){
         return IsOverlapPeriods(*this, Period2);
     }
 
-    void Print()
-    {
+    void Print(){
+
         cout << "Period Start: ";
         StartDate.Print();
 
 
         cout << "Period End: ";
         EndDate.Print();
-
-
     }
 
 };
