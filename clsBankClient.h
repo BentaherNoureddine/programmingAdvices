@@ -155,6 +155,16 @@ private:
         return enSaveResults::svDeleted;
     }
 
+    static double _getTotalBalances() {
+        vector<clsBankClient> clients=_getAllClientsObjectsFromFile();
+        double totalBalances=0;
+
+        for (clsBankClient& client:clients) {
+            totalBalances+=client.getBalance();
+        }
+        return totalBalances;
+    }
+
 
 
 
@@ -407,6 +417,35 @@ public:
         }
 
         cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
+    }
+
+    static void printClientBalanceLine(clsBankClient client) {
+        cout<<"| "<<left<<setw(15)<<client.getAccountNumber()<<"| "<<left<<setw(30)<<client.fullName()<<"| "<<left<<setw(30)<<client.getBalance()<<endl;
+    }
+
+    static void showTotalBalances() {
+
+        std::vector<clsBankClient> vClients=getClientsList();
+
+        //HEADER
+        std::cout<<"\n\t\t\t\t\t\t\t\t\t\t\tClients List ("<<vClients.size()<<") Client(s)"<<endl;
+        cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
+        cout<<"| "<<left<<setw(15)<<"Account Number"<<"| "<<left<<setw(30)<<"Client Name"<<"| "<<left<<setw(30)<<"Balance"<<endl;
+        cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
+
+        //PRINT CLIENT BALANCES LIST
+        for (clsBankClient& client:vClients) {
+            printClientBalanceLine(client);
+        }
+
+        cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
+
+        const double _totalBalances=_getTotalBalances();
+
+        cout<<"\n\t\t\t\t\t\t\t\tTotal balances = "<<_totalBalances<<endl;
+        cout<<"\n\t\t\t\t\t\t\t\t("<<clsUtility::numberToText(_totalBalances)<<")"<<endl;
+
+
     }
 
 
