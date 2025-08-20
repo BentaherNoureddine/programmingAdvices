@@ -4,14 +4,14 @@
 
 #include "clsInputValidate.h"
 
-using namespace myInputLib;
+#include "clsInputValidate.h"
 
 namespace fileClientData {
 
-string fileName="test.txt";
-string usersFileName="users.txt";
-string authenticatedUsersFileName="authenticatedUsers.txt";
-string sep="//";
+const std::string fileName="test.txt";
+const std::string usersFileName="users.txt";
+const std::string authenticatedUsersFileName="authenticatedUsers.txt";
+const std::string sep="//";
 
 
 void saveToFile(string fileName,string str) {

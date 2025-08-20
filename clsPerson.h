@@ -7,110 +7,82 @@ class clsPerson
 {
 
 private:
-    int _ID;
-    string _FirstName;
-    string _LastName;
-    string _Email;
-    string _Phone;
+
+    string _firstName;
+    string _lastName;
+    string _email;
+    string _phone;
 
 public:
 
-    clsPerson(int ID, string FirstName, string LastName, string Email, string Phone)
+    clsPerson( string firstName, string lastName, string email, string phone)
     {
-        _ID = ID;
-        _FirstName = FirstName;
-        _LastName = LastName;
-        _Email = Email;
-        _Phone = Phone;
+
+        _firstName = firstName;
+        _lastName = lastName;
+        _email = email;
+        _phone = phone;
     }
 
-    //Read Only Property
-    int ID()
-    {
-        return _ID;
-    }
+
+
+
 
     //Property Set
-    void setFirstName(string FirstName)
+    void setFirstName(string firstName)
     {
-        _FirstName = FirstName;
+        _firstName = firstName;
     }
 
     //Property Get
-    string FirstName()
+    string getFirstName()
     {
-        return _FirstName;
+        return _firstName;
     }
 
     //Property Set
-    void setLastName(string LastName)
+    void setLastName(string lastName)
     {
-        _LastName = LastName;
+        _lastName = lastName;
     }
 
     //Property Get
-    string LastName()
+    string getLastName()
     {
-        return _LastName;
+        return _lastName;
     }
 
     //Property Set
-    void setEmail(string Email)
+    void setEmail(string email)
     {
-        _Email = Email;
+        _email = email;
     }
 
     //Property Get
-    string Email()
+    string getEmail()
     {
-        return _Email;
+        return _email;
     }
 
     //Property Set
-    void setPhone(string Phone)
+    void setPhone(string phone)
     {
-        _Phone = Phone;
+        _phone = phone;
     }
 
     //Property Get
-    string Phone()
+    string getPhone()
     {
-        return _Phone;
+        return _phone;
     }
 
-    string FullName()
+    string fullName()
     {
-        return _FirstName + " " + _LastName;
+        return _firstName + " " + _lastName;
     }
 
-    void Print()
-    {
-        cout << "\nInfo:";
-        cout << "\n___________________";
-        cout << "\nID       : " << _ID;
-        cout << "\nFirstName: " << _FirstName;
-        cout << "\nLastName : " << _LastName;
-        cout << "\nFull Name: " << FullName();
-        cout << "\nEmail    : " << _Email;
-        cout << "\nPhone    : " << _Phone;
-        cout << "\n___________________\n";
 
-    }
 
-    void SendEmail(string Subject, string Body)
-    {
-
-        cout << "\nThe following message sent successfully to email: " << _Email;
-        cout << "\nSubject: " << Subject;
-        cout << "\nBody: " << Body << endl;
-
-    }
-
-    void SendSMS(string TextMessage)
-    {
-        cout << "\nThe following SMS sent successfully to phone: " << _Phone;
-        cout << "\n" << TextMessage << endl;
-    }
 
 
 };

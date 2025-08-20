@@ -9,4 +9,6 @@ add_executable(untitled main.cpp
         clsDate.h
         clsUtility.h
         clsPeriod.h
+        clsPerson.h
+        clsBankClient.h
 )

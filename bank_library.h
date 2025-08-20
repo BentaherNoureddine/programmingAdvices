@@ -4,6 +4,8 @@
 #include "read_save_from_file.h"
 using namespace fileClientData;
 
+#include "clsInputValidate.h"
+
 namespace bankLib {
 
 
@@ -96,11 +98,11 @@ void readClientData(ClientData& clientData) {
 
     showScreentype("Add New Client Screen");
     cout<<"Please Enter Client Data"<<endl;
-    clientData.accountNumber = readString("Enter account Number");
-    clientData.pinCode = readString("Enter PinCode");
-    clientData.name = readString("Enter your Name");
-    clientData.phone = readString("Enter PhoneNumber");
-    clientData.accountBalance = readFloat("Enter Account Balance");
+    clientData.accountNumber = clsInputValidate::readString("Enter account Number");
+    clientData.pinCode = clsInputValidate::readString("Enter PinCode");
+    clientData.name = clsInputValidate::readString("Enter your Name");
+    clientData.phone = clsInputValidate::readString("Enter PhoneNumber");
+    clientData.accountBalance = clsInputValidate::readFloat("Enter Account Balance");
 
 }
 
@@ -444,7 +446,7 @@ void addBalance(string accountNumber,float amount) {
 
 void deposit(string accountNumber) {
 
-    float amount =readFloat("Please Enter deposit amount");
+    float amount =clsInputValidate::readFloat("Please Enter deposit amount");
     char choice;
     cout<<"Are you sure you want to deposit(Y/N)"<<endl;
     cin>>choice;
@@ -460,17 +462,17 @@ void deposit(string accountNumber) {
 
 void depositAction() {
 
-    string accountNumber=readString("Please Enter Account Number");
+    string accountNumber=clsInputValidate::readString("Please Enter Account Number");
 
     while (!findClientByAccountNumber(accountNumber,fileName,sep,getAuthenticatedUser())) {
 
-        accountNumber=readString("Please Enter Account Number");
+        accountNumber=clsInputValidate::readString("Please Enter Account Number");
     }
     deposit(accountNumber);
 }
 
 void withdraw(string accountNumber) {
-    float amount =readFloat("Please Enter withdraw amount");
+    float amount =clsInputValidate::readFloat("Please Enter withdraw amount");
     char choice;
 
     vector<ClientData> vClients=getAllClientsFromFile(fileName,sep);
@@ -482,7 +484,7 @@ void withdraw(string accountNumber) {
             }else {
                 cout<<"Amount Exceeds the balance, you can withdraw up to : "<<client.accountBalance<<endl;
                 do {
-                    amount=readFloat("Please Enter deposit amount");
+                    amount=clsInputValidate::readFloat("Please Enter deposit amount");
                 }while (amount>=client.accountBalance);
                 client.accountBalance-=amount;
             }
@@ -500,11 +502,11 @@ void withdraw(string accountNumber) {
 }
 
 void withDrowAction() {
-    string accountNumber=readString("Please Enter Account Number");
+    string accountNumber=clsInputValidate::readString("Please Enter Account Number");
 
     while (!findClientByAccountNumber(accountNumber,fileName,sep,getAuthenticatedUser())) {
 
-        accountNumber=readString("Please Enter Account Number");
+        accountNumber=clsInputValidate::readString("Please Enter Account Number");
     }
     withdraw(accountNumber);
 }
@@ -630,15 +632,15 @@ void chooseAction() {
             getBackToMenu();
             break;
         case enDeleteClient:
-            deleteClientByAccountNumberScreen(readString("Please Enter Account Number"),fileName,sep,getAuthenticatedUser());
+            deleteClientByAccountNumberScreen(clsInputValidate::readString("Please Enter Account Number"),fileName,sep,getAuthenticatedUser());
             getBackToMenu();
             break;
         case enUpdateClient:
-            updateClientByAccountNumber(readString("Please Enter Account Number"),fileName,sep,getAuthenticatedUser());
+            updateClientByAccountNumber(clsInputValidate::readString("Please Enter Account Number"),fileName,sep,getAuthenticatedUser());
             getBackToMenu();
             break;
         case enFindClient:
-            findClientByAccountNumber(readString("Please Enter Account Number"),fileName,sep,getAuthenticatedUser());
+            findClientByAccountNumber(clsInputValidate::readString("Please Enter Account Number"),fileName,sep,getAuthenticatedUser());
             getBackToMenu();
             break;
         case enTransactions:
@@ -765,30 +767,30 @@ int giveAllPermissions() {
 
 void getAuthorities(User& user) {
 
-        if (yesNoQuestion("Do you want to give full access? y/n")) {
+        if (clsInputValidate::yesNoQuestion("Do you want to give full access? y/n")) {
             user.permissions=giveAllPermissions();
             return;
         }
         cout<<"do you want to give access to : "<<endl;
-        if (yesNoQuestion("Show Client List? y/n")) {
+        if (clsInputValidate::yesNoQuestion("Show Client List? y/n")) {
             user.permissions=user.permissions|enListAllUsers;
         }
-        if (yesNoQuestion("Add New Client? y/n")) {
+        if (clsInputValidate::yesNoQuestion("Add New Client? y/n")) {
             user.permissions=user.permissions|enAddNewUser;
         }
-        if (yesNoQuestion("Delete Client ? y/n")) {
+        if (clsInputValidate::yesNoQuestion("Delete Client ? y/n")) {
             user.permissions=user.permissions|enDeleteUser;
         }
-        if (yesNoQuestion("Update Client ? y/n")) {
+        if (clsInputValidate::yesNoQuestion("Update Client ? y/n")) {
             user.permissions=user.permissions|enUpdateUser;
         }
-        if (yesNoQuestion("Find Client? y/n")) {
+        if (clsInputValidate::yesNoQuestion("Find Client? y/n")) {
             user.permissions=user.permissions|enFindUser;
         }
-        if (yesNoQuestion("Transactions? y/n")) {
+        if (clsInputValidate::yesNoQuestion("Transactions? y/n")) {
             user.permissions=user.permissions|enTransactions;
         }
-        if (yesNoQuestion("Manage Users? y/n")) {
+        if (clsInputValidate::yesNoQuestion("Manage Users? y/n")) {
             user.permissions=user.permissions|enManageUsers;
         }
 
@@ -810,12 +812,12 @@ User readUser() {
     User user;
     cout<<"Adding New User"<<endl;
 
-    user.userName=readString("Enter UserName");
+    user.userName=clsInputValidate::readString("Enter UserName");
     while(userExists(user.userName,usersFileName,sep)) {
         cout<<"User with ["<<user.userName<<"] already exists, Enter another Username"<<endl;
-        user.userName=readString("Enter UserName");
+        user.userName=clsInputValidate::readString("Enter UserName");
     }
-    user.password=readString("Enter Password");
+    user.password=clsInputValidate::readString("Enter Password");
     getAuthorities(user);
 
     return user;
@@ -877,7 +879,7 @@ void addNewUser() {
         user=readUser();
         saveUserToFile(user,usersFileName,sep);
 
-    }while (yesNoQuestion("Do you want to add more users?"));
+    }while (clsInputValidate::yesNoQuestion("Do you want to add more users?"));
 
 }
 
@@ -923,7 +925,7 @@ void deleteUserMenu(string userName,string usersFileName,string sep) {
     if (userExists(userName,usersFileName,sep)) {
         cout<<"The following are the client details :"<<endl;
         printUser(getUserByUserName(userName,usersFileName,sep));
-        if (yesNoQuestion("Are you sure you want to delete this user? y/n")) {
+        if (clsInputValidate::yesNoQuestion("Are you sure you want to delete this user? y/n")) {
             deleteUser(getUserByUserName(userName,usersFileName,sep),usersFileName);
             cout<<"User deleted Successfully."<<endl;
         }else {
@@ -951,7 +953,7 @@ void updateUserMenu(string userName,string usersFileName,string sep) {
     if (userExists(userName,usersFileName,sep)) {
         cout<<"The following are the client details :"<<endl;
         printUser(getUserByUserName(userName,usersFileName,sep));
-        if (yesNoQuestion("Are you sure you want to update this user? y/n")) {
+        if (clsInputValidate::yesNoQuestion("Are you sure you want to update this user? y/n")) {
             updateUser(getUserByUserName(userName,usersFileName,sep),usersFileName,sep);
             cout<<"User updated Successfully."<<endl;
             getBackToManageUsersMenu(getAuthenticatedUser());
@@ -966,7 +968,7 @@ void updateUserMenu(string userName,string usersFileName,string sep) {
 
 void deleteUserScreen(string usersFileName,string sep) {
     showScreentype("Delete Users Screen");
-    string userName=readString("Plsease enter userName");
+    string userName=clsInputValidate::readString("Plsease enter userName");
     deleteUserMenu(userName,usersFileName,sep);
 }
 
@@ -983,7 +985,7 @@ void updateUserByUserNameScreen(string userName,string usersFileName,string sep)
 
 void findUserByUserNameMenu(string usersFileName,string sep) {
     showScreentype("Find User");
-    string userName=readString("Please enter a UserName");
+    string userName=clsInputValidate::readString("Please enter a UserName");
     if (userExists(userName,usersFileName,sep)) {
         printUser(getUserByUserName(userName,usersFileName,sep));
         getBackToManageUsersMenu(getAuthenticatedUser());
@@ -1013,7 +1015,7 @@ void getManageUsersMenueChoice() {
                     getBackToManageUsersMenu(getAuthenticatedUser());
                     break;
                 case enUpdateUser:
-                    updateUserByUserNameScreen(readString("Please Enter UserName"),usersFileName,sep);
+                    updateUserByUserNameScreen(clsInputValidate::readString("Please Enter UserName"),usersFileName,sep);
                     getBackToManageUsersMenu(getAuthenticatedUser());
                     break;
                 case enFindUser:
@@ -1066,8 +1068,8 @@ void unAuthenticateUser() {
 }
 
 void login() {
-        string userName=readString("Enter username ");
-        string password=readString("Enter password");
+        const string userName=clsInputValidate::readString("Enter username ");
+        const string password=clsInputValidate::readString("Enter password");
         if (userExists(userName,usersFileName,sep)&&
             getUserByUserName(userName,usersFileName,sep).password==password) {
             authenticateUser(userName);
