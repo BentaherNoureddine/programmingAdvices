@@ -169,6 +169,9 @@ public:
         return numberOfMinutesInAMonth(getMonth(), getYear()) * 60;
     }
 
+
+
+
     // === Day-of-week & names ===
     static short dayOfWeekOrder(short Day, short Month, short Year)
     {
@@ -205,6 +208,12 @@ public:
     }
 
     string monthShortName() const { return monthShortName(getMonth()); }
+
+
+
+
+
+
 
     // === Calendars ===
     static void printMonthCalendar(short Month, short Year)
@@ -300,6 +309,15 @@ public:
             }
         }
     }
+
+
+
+
+
+
+
+
+
 
     // === comarisons ===
     static bool isDate1BeforeDate2(clsDate Date1, clsDate Date2)
@@ -447,6 +465,10 @@ public:
         return Date;
     }
 
+
+
+
+
     void increaseDateByOneMonth() { increaseDateByOneMonth(*this); }
 
     static clsDate increaseDateByXDays(short Days, clsDate& Date)
@@ -455,7 +477,14 @@ public:
         return Date;
     }
 
+
+
+
     void increaseDateByXDays(short Days) { increaseDateByXDays(Days, *this); }
+
+
+
+
 
     static clsDate increaseDateByXMonths(short Months, clsDate& Date)
     {
@@ -463,7 +492,16 @@ public:
         return Date;
     }
 
+
+
+
+
     void increaseDateByXMonths(short Months) { increaseDateByXMonths(Months, *this); }
+
+
+
+
+
 
     static clsDate increaseDateByOneYear(clsDate& Date)
     {
@@ -474,7 +512,13 @@ public:
         return Date;
     }
 
+
+
+
     void increaseDateByOneYear() { increaseDateByOneYear(*this); }
+
+
+
 
     static clsDate increaseDateByXYears(short Years, clsDate& Date)
     {
@@ -484,35 +528,66 @@ public:
         return Date;
     }
 
+
+
+
     void increaseDateByXYears(short Years) { increaseDateByXYears(Years, *this); } // fixed recursion
+
+
+
 
     static clsDate increaseDateByOneDecade(clsDate& Date)
     {
         return increaseDateByXYears(10, Date);
     }
 
+
+
+
+
     void increaseDateByOneDecade() { increaseDateByOneDecade(*this); }
+
+
+
 
     static clsDate increaseDateByXDecades(short Decades, clsDate& Date)
     {
         return increaseDateByXYears(static_cast<short>(Decades * 10), Date);
     }
 
+
+
+
     void increaseDateByXDecades(short Decades) { increaseDateByXDecades(Decades, *this); }
+
+
+
 
     static clsDate increaseDateByOneCentury(clsDate& Date)
     {
         return increaseDateByXYears(100, Date);
     }
 
+
+
+
     void increaseDateByOneCentury() { increaseDateByOneCentury(*this); }
+
+
+
 
     static clsDate increaseDateByOneMillennium(clsDate& Date)
     {
         return increaseDateByXYears(1000, Date);
     }
 
+
+
+
     void increaseDateByOneMillennium() { increaseDateByOneMillennium(*this); }
+
+
+
 
     // === Decrease helpers ===
     static clsDate decreaseDateByOneDay(clsDate Date)
@@ -538,7 +613,13 @@ public:
         return Date;
     }
 
+
+
+
     void decreaseDateByOneDay() { *this = decreaseDateByOneDay(*this); }
+
+
+
 
     static clsDate decreaseDateByOneWeek(clsDate& Date)
     {
@@ -546,7 +627,13 @@ public:
         return Date;
     }
 
+
+
+
     void decreaseDateByOneWeek() { decreaseDateByOneWeek(*this); }
+
+
+
 
     static clsDate decreaseDateByXWeeks(short Weeks, clsDate& Date)
     {
@@ -554,7 +641,13 @@ public:
         return Date;
     }
 
+
+
+
     void decreaseDateByXWeeks(short Weeks) { decreaseDateByXWeeks(Weeks, *this); }
+
+
+
 
     static clsDate decreaseDateByOneMonth(clsDate& Date)
     {
@@ -574,7 +667,13 @@ public:
         return Date;
     }
 
+
+
+
     void decreaseDateByOneMonth() { decreaseDateByOneMonth(*this); }
+
+
+
 
     static clsDate decreaseDateByXDays(short Days, clsDate& Date)
     {
@@ -582,7 +681,13 @@ public:
         return Date;
     }
 
+
+
+
     void decreaseDateByXDays(short Days) { decreaseDateByXDays(Days, *this); }
+
+
+
 
     static clsDate decreaseDateByXMonths(short Months, clsDate& Date)
     {
@@ -590,7 +695,13 @@ public:
         return Date;
     }
 
+
+
+
     void decreaseDateByXMonths(short Months) { decreaseDateByXMonths(Months, *this); }
+
+
+
 
     static clsDate decreaseDateByOneYear(clsDate& Date)
     {
@@ -600,7 +711,13 @@ public:
         return Date;
     }
 
+
+
+
     void decreaseDateByOneYear() { decreaseDateByOneYear(*this); }
+
+
+
 
     static clsDate decreaseDateByXYears(short Years, clsDate& Date)
     {
@@ -610,28 +727,51 @@ public:
         return Date;
     }
 
+
+
+
     void decreaseDateByXYears(short Years) { decreaseDateByXYears(Years, *this); }
+
+
+
 
     static clsDate decreaseDateByOneDecade(clsDate& Date)
     {
         return decreaseDateByXYears(10, Date);
     }
 
+
+
     void decreaseDateByOneDecade() { decreaseDateByOneDecade(*this); }
+
+
+
 
     static clsDate decreaseDateByXDecades(short Decades, clsDate& Date)
     {
         return decreaseDateByXYears(static_cast<short>(Decades * 10), Date);
     }
 
+
+
+
     void decreaseDateByXDecades(short Decades) { decreaseDateByXDecades(Decades, *this); }
+
+
+
 
     static clsDate decreaseDateByOneCentury(clsDate& Date)
     {
         return decreaseDateByXYears(100, Date);
     }
 
+
+
+
     void decreaseDateByOneCentury() { decreaseDateByOneCentury(*this); }
+
+
+
 
     static clsDate decreaseDateByOneMillennium(clsDate& Date)
     {
@@ -640,13 +780,24 @@ public:
 
     void decreaseDateByOneMillennium() { decreaseDateByOneMillennium(*this); }
 
+
+
+
+
     // === Week/Business helpers ===
     static short isEndOfWeek(clsDate Date)
     {
         return dayOfWeekOrder(Date.getDay(), Date.getMonth(), Date.getYear()) == 6;
     }
 
+
+
+
     short isEndOfWeek() { return isEndOfWeek(*this); }
+
+
+
+
 
     static bool isWeekEnd(clsDate Date)
     {
@@ -654,12 +805,22 @@ public:
         return (idx == 5 || idx == 6); // Fri/Sat as weekend
     }
 
+
+
+
+
     bool isWeekEnd() { return isWeekEnd(*this); }
+
+
+
 
     static bool isBusinessDay(clsDate Date)
     {
         return !isWeekEnd(Date);
     }
+
+
+
 
     bool isBusinessDay() { return isBusinessDay(*this); }
 
@@ -668,10 +829,16 @@ public:
         return static_cast<short>(6 - dayOfWeekOrder(Date.getDay(), Date.getMonth(), Date.getYear()));
     }
 
+
+
+
     short daysUntilTheEndOfWeek()
     {
         return daysUntilTheEndOfWeek(*this);
     }
+
+
+
 
     static short daysUntilTheEndOfMonth(clsDate Date1)
     {
@@ -682,10 +849,15 @@ public:
         return static_cast<short>(getDifferenceinDays(Date1, endOfMonth, true));
     }
 
+
+
+
     short daysUntilTheEndOfMonth()
     {
         return daysUntilTheEndOfMonth(*this);
     }
+
+
 
     static short daysUntilTheEndOfYear(clsDate Date1)
     {
@@ -696,10 +868,16 @@ public:
         return static_cast<short>(getDifferenceinDays(Date1, endOfYear, true));
     }
 
+
+
+
+
     short daysUntilTheEndOfYear()
     {
         return daysUntilTheEndOfYear(*this);
     }
+
+
 
     static short calculateBusinessDays(clsDate DateFrom, const clsDate DateTo)
     {
@@ -712,10 +890,14 @@ public:
         return days;
     }
 
+
+
     static short calculateVacationDays(clsDate DateFrom, clsDate DateTo)
     {
         return calculateBusinessDays(DateFrom, DateTo);
     }
+
+
 
     static clsDate calculateVacationReturnDate(clsDate DateFrom, short VacationDays)
     {
@@ -731,6 +913,9 @@ public:
 
         return DateFrom;
     }
+
+
+
 
     // === Validation (moved to bottom to use fixed funcs) ===
     static bool isValidDate(clsDate Date)
@@ -756,5 +941,15 @@ public:
         return true;
     }
 
+
+
     bool isValid() { return isValidDate(*this); }
+
+
+
+    static string getCurrentDateAndTimeString() {
+        time_t t = time(nullptr);
+        tm* now  = localtime(&t);
+        return dateToString(getSystemDate())+" - "+to_string(now->tm_hour)+":"+to_string(now->tm_min)+":"+to_string(now->tm_sec);
+    }
 };

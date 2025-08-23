@@ -1,15 +1,14 @@
-#include "clsListAllUsersScreen.h"
-#include "clsTransactionMenuScreen.h"
-#include "clsMainMenuScreen.h"
-
-#include "clsMainMenuScreen.h"
+#include "clsLoginScreen.h"
 
 int main()
 
 {
 
+    while (clsLoginScreen::showLoginScreen()) {
+    }
 
-    clsMainMenuScreen::displayMainMenu();
+
+
 
 
 

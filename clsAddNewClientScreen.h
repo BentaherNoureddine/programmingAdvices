@@ -9,7 +9,10 @@ private:
 
 public:
 
-    static void addNewClient() {
+    static void showAddNewClientScreen() {
+
+        if (!checkAccessRights(clsBankUser::enAddClient))
+            return;
 
 
         showScreenType("Add new Client Screen");

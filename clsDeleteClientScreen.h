@@ -12,6 +12,9 @@ public:
 
     static void deleteClientScreen() {
 
+        if (!checkAccessRights(clsBankUser::enDeleteClient))
+            return;
+
         showScreenType("Delete Client Screen");
 
         clsBankClient client=clsBankClient::find(clsBankClient::readValidAccountNumber());

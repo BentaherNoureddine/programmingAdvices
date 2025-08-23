@@ -3,6 +3,7 @@
 #include "clsBankScreen.h"
 #include "clsDeleteUserScreen.h"
 #include "clsFindUserScreen.h"
+#include "clsListAllUsersScreen.h"
 #include "clsUpdateUserScreen.h"
 
 

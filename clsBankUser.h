@@ -7,6 +7,7 @@
 #include "clsInputValidate.h"
 #include "clsString.h"
 
+
 class clsBankUser:public clsPerson {
 
 private:
@@ -14,17 +15,6 @@ private:
 
     enum enMode{EmptyMode=0,UpdateMode=1,AddNewMode=2,DeleteMode=3};
     enum enSaveResults{svFailedEmptyObject=0,svSucceeded=1,svCreated=2,svFailedAccountExists=3,svDeleted=4};
-    enum enPermissions {
-        enAllPermissions=-1,
-        enShowClients=1,
-        enAddClient=2,
-        enDeleteClient=3,
-        enUpdateClient=4,
-        enFindClient=5,
-        enTransactions=6,
-        enManageUsers=7,
-        enLogout=8,
-    };
 
 
     string _userName;
@@ -33,6 +23,11 @@ private:
     short  _permissions=0;
 
 
+
+
+    std::string _getLogLine(std::string sep="//") {
+        return clsDate::getCurrentDateAndTimeString()+sep+_userName+sep+_password+sep+to_string(_permissions);
+    }
 
     static clsBankUser _convertLineToUserObject(string line, string sep = "//") {
         vector<string> vItems=clsString::Split(line,sep);
@@ -107,6 +102,18 @@ private:
 
 public:
 
+    enum enPermissions {
+        enAllPermissions=-1,
+        enShowClients=1,
+        enAddClient=2,
+        enDeleteClient=3,
+        enUpdateClient=4,
+        enFindClient=5,
+        enTransactions=6,
+        enManageUsers=7,
+        enLogout=8,
+    };
+
 
     bool isEmpty() {
         return this->_mode==enMode::EmptyMode;
@@ -173,6 +180,24 @@ public:
         return getEmptyUserObject();
     }
 
+    static clsBankUser find(const string userName,string password) {
+
+        fstream file;
+        file.open("usersFile.txt",ios::in);
+        if (file.is_open()) {
+            string line;
+            clsBankUser user=getEmptyUserObject();
+            while (getline(file,line)) {
+                user=_convertLineToUserObject(line);
+                if (userName==user._userName&&password==user._password) {
+                    return user;
+                }
+            }
+            file.close();
+        }
+        return getEmptyUserObject();
+    }
+
 
 
 
@@ -182,7 +207,7 @@ public:
 
 
     static bool isUserExists(const string userName,const string password) {
-        return !find(userName).isEmpty();
+        return !find(userName,password).isEmpty();
     }
 
 
@@ -324,5 +349,27 @@ public:
         cout << "\n"<<clsUtility::tabs(10)<<"Permissions     : " << user.getPermissions();
         cout << "\n"<<clsUtility::tabs(10)<<"___________________\n";
     }
+
+
+    bool hasPermissions(enPermissions permissions) {
+
+        if ((this->getPermissions()==enPermissions::enAllPermissions)||((this->getPermissions()&permissions)==permissions)) {
+            return true;
+        }
+        return false;
+
+    }
+
+
+    void registerLogin() {
+        std::fstream file;
+        file.open("logFile.txt",ios::app);
+        if (file.is_open()) {
+            file<<_getLogLine()<<endl;
+            file.close();
+        }
+    }
+
+
 
 };

@@ -11,6 +11,9 @@ public:
 
     static void updateClientScreen() {
 
+        if (!checkAccessRights(clsBankUser::enAddClient))
+            return;
+
         showScreenType("Update Client Screen");
 
         clsBankClient client=clsBankClient::find(clsBankClient::readValidAccountNumber());

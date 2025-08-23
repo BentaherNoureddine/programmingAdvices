@@ -12,10 +12,16 @@ public:
 
 
     static void displayAddUserScreen() {
+        if (!checkAccessRights(clsBankUser::enAddClient))
+            return;
 
         showScreenType("Add New User Screen");
 
-        const string userName=clsBankUser::readValidUserName();
+        string userName=clsInputValidate::readString("Please enter a username");
+
+        while (clsBankUser::isUserExists(userName)) {
+            userName=clsInputValidate::readString("UserName already exists Please enter a new username");
+        }
 
         clsBankUser newUser=clsBankUser::getAddNewUserObject(userName);
 

@@ -82,6 +82,9 @@ public:
 
     static void showTransactionMenuScreen() {
 
+        if (!checkAccessRights(clsBankUser::enAddClient))
+            return;
+
         system("clear");
         showScreenType("Transactions Screen");
         showHeader("Transactions Menu");

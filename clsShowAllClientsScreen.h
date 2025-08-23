@@ -18,6 +18,8 @@ public:
 
     static void showAllClients() {
 
+        if (!checkAccessRights(clsBankUser::enAddClient))
+            return;
 
     std::vector<clsBankClient> vClients=clsBankClient::getClientsList();
 

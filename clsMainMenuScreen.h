@@ -9,11 +9,10 @@
 #include "clsShowAllClientsScreen.h"
 #include "clsTransactionMenuScreen.h"
 #include "clsUpdateClientScreen.h"
-
+#include "global.h"
 
 
 class clsMainMenuScreen :protected clsBankScreen {
-
 private:
 
     enum enMainMenuOptions {
@@ -41,22 +40,22 @@ private:
     }
 
     static enMainMenuOptions readMainMenuOption(const std::string message) {
-         return (enMainMenuOptions)clsInputValidate::readShortNumberBetween(1,8,message);
+        return (enMainMenuOptions)clsInputValidate::readShortNumberBetween(1,8,message);
     }
 
 
     static void _showAllClientsScreen() {
-
         clsShowAllClientsScreen::showAllClients();
     }
 
     static void _showAddClientsScreen() {
-        clsAddNewClientScreen::addNewClient();
+        clsAddNewClientScreen::showAddNewClientScreen();
     }
 
     static void _showDeleteClientsScreen() {
         clsDeleteClientScreen::deleteClientScreen();
     }
+
 
     static void _showUpdateClientsScreen() {
         clsUpdateClientScreen::updateClientScreen();
@@ -74,11 +73,17 @@ private:
         clsManageUsersScreen::showManageUsersScreen();
     }
 
+
     static void _goBackToMainMenu() {
 
-        clsInputValidate::readString("\npress any thing to getBack to Main Menu");
+        clsInputValidate::readString("\nPress any thing to getBack to Main Menu");
 
         displayMainMenu();
+    }
+
+    static void _logout() {
+        CurrentUser=clsBankUser::getEmptyUserObject();
+
     }
 
     static void _performMainMenuAction(const std::string message) {
@@ -121,8 +126,7 @@ private:
                 break;
             case enLogout:
                 system("clear");
-                _showAllClientsScreen();
-                _goBackToMainMenu();
+                _logout();
                 break;
             default:
                 system("clear");
@@ -133,7 +137,6 @@ private:
 
 
     }
-
 
 
 public:

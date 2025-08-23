@@ -2,6 +2,8 @@
 #include <string>
 
 #include "clsBankClient.h"
+#include "clsBankUser.h"
+#include "global.h"
 #pragma once
 
 class clsBankScreen {
@@ -9,6 +11,13 @@ class clsBankScreen {
 private:
 
 
+   static  void _showAccessDeniedScreen() {
+
+        std::system("clear");
+        std::cout<<"\n\t\t\t\t\t\t\t----------------------------------------------------------------------------------------------------"<<std::endl;
+        std::cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t Access Denied Please Contact Your Admin                                  "<<std::endl;
+        std::cout<<"\t\t\t\t\t\t\t------------------------------------------------------------------------------------------------------\n"<<std::endl;
+    }
 
 
 protected:
@@ -19,6 +28,8 @@ protected:
         std::cout<<"\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"<<title<<"                                 "<<std::endl;
         std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t"<<subTitle<<"                                 "<<std::endl;
         std::cout<<"\t\t\t\t\t\t\t-------------------------------------------------------------------------\n"<<std::endl;
+        std::cout<<"\t\t\t\t\t\t\tuser: "<<CurrentUser.getUserName()<<std::endl;
+        std::cout<<"\t\t\t\t\t\t\tDate: "<<clsDate::getSystemDate().dateToString()<<endl;
     }
 
 
@@ -42,6 +53,17 @@ protected:
         cout << "\n"<<clsUtility::tabs(10)<<"Password        : " << client.getPinCode();
         cout << "\n"<<clsUtility::tabs(10)<<"Balance         : " << client.getBalance();
         cout << "\n"<<clsUtility::tabs(10)<<"___________________\n";
+    }
+
+
+
+    static bool checkAccessRights(clsBankUser::enPermissions permissions) {
+        if (CurrentUser.hasPermissions(permissions)) {
+            return true;
+        }
+        _showAccessDeniedScreen();
+        return false;
+
     }
 
 

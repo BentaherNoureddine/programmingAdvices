@@ -12,6 +12,9 @@ public:
 
     static void findClientScreen() {
 
+        if (!checkAccessRights(clsBankUser::enFindClient))
+            return;
+
         showScreenType("Find Client Screen");
 
         clsBankClient client = clsBankClient::find(clsBankClient::readValidAccountNumber());

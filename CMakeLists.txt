@@ -29,4 +29,7 @@ add_executable(untitled main.cpp
         clsDeleteUserScreen.h
         clsUpdateUserScreen.h
         clsFindUserScreen.h
+        clsLoginScreen.h
+        global.h
+        clsLog.h
 )
