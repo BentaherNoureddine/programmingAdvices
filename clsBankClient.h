@@ -1,12 +1,10 @@
 #pragma once
 #include <fstream>
-#include <set>
 #include <vector>
-
 #include "bank_library.h"
 #include "clsPerson.h"
 #include "clsUtility.h"
-#include "strings.h"
+
 
 class clsBankClient: public clsPerson{
 
@@ -49,7 +47,7 @@ private:
 
 
     static std::string _convertClientObjectToLine(clsBankClient client,const std::string sep="//") {
-        return client.getFirstName()+sep+client.getLastName()+sep+client.getEmail()+sep+client.getAccountNumber()+sep+client.getPinCode()+sep+to_string(client.getBalance());
+        return client.getFirstName()+sep+client.getLastName()+sep+client.getEmail()+sep+client.getPhone()+sep+client.getAccountNumber()+sep+client.getPinCode()+sep+to_string(client.getBalance());
     }
 
     static void _saveVClientsObjectsToFile(vector<clsBankClient> vClients,const std::string sep="//") {
@@ -87,34 +85,7 @@ private:
     }
 
 
-    static std::string _readValidAccountNumber() {
-        std::string accountNumber=clsInputValidate::readString("Please enter client account Number : ");
 
-        while (!isClientExists(accountNumber)) {
-            std::cout<<"Account Number is not found, choose an other one: ";
-            accountNumber=clsInputValidate::readString("");
-        }
-        return accountNumber;
-    }
-
-
-    static std::string _getSaveStatusMessage(const enSaveResults saveResult) {
-        switch (saveResult) {
-            case enSaveResults::svFailedEmptyObject:
-                return "\nError Account was not saved because it's empty\n";
-            case enSaveResults::svSucceeded:
-                return "\nAccount updated Successfully\n";
-            case  enSaveResults::svCreated:
-                return "\n Account Created Successfully\n";
-            case enSaveResults::svFailedAccountNumberExists:
-                return "\n Error account Already exists with this account number\n";
-            case enSaveResults::svDeleted:
-                return "\n Account Deleted Successfully\n";
-            default:
-                return "\nError Account was not saved because it's empty\n";
-        }
-
-    }
 
 
 
@@ -140,40 +111,6 @@ private:
 
 
 
-    static enSaveResults _delete(const std::string accountNumber) {
-
-        vector<clsBankClient> vClients =_getAllClientsObjectsFromFile();
-
-        for (clsBankClient& c : vClients) {
-            if (c.getAccountNumber()==accountNumber) {
-                c._mode=enMode::DeleteMode;
-                _saveVClientsObjectsToFile(vClients);
-                break;
-            }
-        }
-
-        return enSaveResults::svDeleted;
-    }
-
-    static double _getTotalBalances() {
-        vector<clsBankClient> clients=_getAllClientsObjectsFromFile();
-        double totalBalances=0;
-
-        for (clsBankClient& client:clients) {
-            totalBalances+=client.getBalance();
-        }
-        return totalBalances;
-    }
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -181,6 +118,34 @@ private:
 
 
 public:
+
+    static std::string readValidAccountNumber() {
+        std::string accountNumber=clsInputValidate::readString("Please enter client account Number : ");
+
+        while (!isClientExists(accountNumber)) {
+            std::cout<<"Account Number is not found, choose an other one: ";
+            accountNumber=clsInputValidate::readString("");
+        }
+        return accountNumber;
+    }
+
+    static std::string getSaveStatusMessage(const enSaveResults saveResult) {
+        switch (saveResult) {
+            case enSaveResults::svFailedEmptyObject:
+                return "\nError Account was not saved because it's empty\n";
+            case enSaveResults::svSucceeded:
+                return "\nAccount updated Successfully\n";
+            case  enSaveResults::svCreated:
+                return "\n Account Created Successfully\n";
+            case enSaveResults::svFailedAccountNumberExists:
+                return "\n Error account Already exists with this account number\n";
+            case enSaveResults::svDeleted:
+                return "\n Account Deleted Successfully\n";
+            default:
+                return "\nError Account was not saved because it's empty\n";
+        }
+
+    }
 
 
     clsBankClient( enMode mode, std::string firstName, std::string lastName ,std::string email, std::string phone,std::string accountNumber, std::string pinCode,float balance):
@@ -220,19 +185,7 @@ public:
     }
 
 
-    void print() {
-        cout << "\nClient Card:";
-        cout << "\n___________________";
-        cout << "\nFirstName       : " << getFirstName();
-        cout << "\nLastName        : " << getLastName();
-        cout << "\nFull Name       : " << fullName();
-        cout << "\nEmail           : " << getEmail();
-        cout << "\nPhone           : " << getPhone();
-        cout << "\nAccount. Number : " << getAccountNumber();
-        cout << "\nPassword        : " << getPinCode();
-        cout << "\nBalance         : " << getBalance();
-        cout << "\n___________________\n";
-    }
+
 
 
 
@@ -260,7 +213,6 @@ public:
 
     static clsBankClient find(std::string accountNumber,std::string password) {
 
-        std::vector<clsBankClient> vClients;
         std::fstream file;
 
         file.open("bank_file.txt",std::ios::in);
@@ -277,6 +229,8 @@ public:
         }
         return _getEmptyClientObject();
     }
+
+
 
 
 
@@ -300,7 +254,7 @@ public:
 
     enSaveResults save() {
 
-        if (isClientExists(this->getAccountNumber())) {
+        if (isClientExists(this->getAccountNumber())&&this->_mode!=enMode::UpdateMode) {
             return enSaveResults::svFailedAccountNumberExists;
         }
 
@@ -322,20 +276,7 @@ public:
     }
 
 
-    static void updateClient() {
 
-        clsBankClient client=find(_readValidAccountNumber());
-        client.print();
-
-        std::cout<<"Update Client Info :"<<std::endl;
-        std::cout<<"_________________________"<<std::endl;
-
-        readClientInfo(client);
-
-        _getSaveStatusMessage(client.save());
-        client.print();
-
-    }
 
     static clsBankClient getAddNewClientObject(const std::string accountNumber) {
         clsBankClient client=_getEmptyClientObject();
@@ -344,109 +285,69 @@ public:
         return client;
     }
 
+    static enSaveResults deleteClient(const std::string accountNumber) {
 
+        vector<clsBankClient> vClients =_getAllClientsObjectsFromFile();
 
-    static void addNewClient() {
-
-        std::string accountNumber= clsInputValidate::readString("Please enter account Number");
-
-
-        while (isClientExists(accountNumber)) {
-            cout<<"\n Account Number is already used, choose an other one : ";
-            accountNumber=clsInputValidate::readString("Please enter account Number");
+        for (clsBankClient& c : vClients) {
+            if (c.getAccountNumber()==accountNumber) {
+                c._mode=enMode::DeleteMode;
+                _saveVClientsObjectsToFile(vClients);
+                break;
+            }
         }
 
-        clsBankClient newClient=getAddNewClientObject(accountNumber);
-
-        readClientInfo(newClient);
-
-        _getSaveStatusMessage(newClient.save());
-
-        newClient.print();
+        return enSaveResults::svDeleted;
     }
 
 
 
 
-
-
-
-    static void deleteClient() {
-
-        std::string accountNumber=_readValidAccountNumber();
-
-        clsBankClient client=find(accountNumber);
-        client.print();
-
-        if (clsInputValidate::yesNoQuestion("Are you sure you want to delete this Client Y/N? ")) {
-            cout<<_getSaveStatusMessage(_delete(accountNumber));
-            client=_getEmptyClientObject();
-
-        }
-        client.print();
+    static clsBankClient getEmptyClientObject() {
+        return _getEmptyClientObject();
     }
+
+
+
+
 
     static vector<clsBankClient> getClientsList() {
         return _getAllClientsObjectsFromFile();
     }
 
-    static void printClientRecordLine(clsBankClient client) {
-        cout<<"| "<<left<<setw(15)<<client.getAccountNumber()<<"| "<<left<<setw(22)<<client.fullName()<<"| "<<left<<setw(17)<<client.getPhone();
-        cout<<"| "<<left<<setw(26)<<client.getEmail()<<"| "<<left<<setw(15)<<client.getPinCode()<<"| "<<left<<setw(20)<<client.getBalance()<<endl;
 
+
+
+
+     void deposit(const float amount) {
+        this->_balance+=amount;
+        this->save();
     }
 
 
-    static void listAllClients() {
+    bool withdraw(const float amount) {
 
-        std::vector<clsBankClient> vClients=getClientsList();
-
-        std::cout<<"\n\t\t\t\t\t\t\t\t\t\t\tClients List ("<<vClients.size()<<") Client(s)"<<endl;
-        cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
-        cout<<"| "<<left<<setw(15)<<"Account Number"<<"| "<<left<<setw(22)<<"Client Name"<<"| "<<left<<setw(17)<<"Phone Number";
-        cout<<"| "<<left<<setw(26)<<"Email"<<"| "<<left<<setw(15)<<"Pin Code"<<"| "<<left<<setw(20)<<"Balance"<<endl;
-        cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
-
-        if (vClients.empty()) {
-            cout<<"\n\t\t\t\t\t\t\t\t\t\tNo clients available in the system"<<endl;
-            return;
+        if (amount>this->getBalance()) {
+            return false;
         }
 
-        for (clsBankClient& client:vClients) {
-           printClientRecordLine(client);
+        this->_balance-=amount;
+        this->save();
+
+        return true;
+    }
+
+
+    static double getTotalBalances() {
+        vector<clsBankClient> clients=_getAllClientsObjectsFromFile();
+        double totalBalances=0;
+
+        for (clsBankClient& client:clients) {
+            totalBalances+=client.getBalance();
         }
-
-        cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
+        return totalBalances;
     }
 
-    static void printClientBalanceLine(clsBankClient client) {
-        cout<<"| "<<left<<setw(15)<<client.getAccountNumber()<<"| "<<left<<setw(30)<<client.fullName()<<"| "<<left<<setw(30)<<client.getBalance()<<endl;
-    }
-
-    static void showTotalBalances() {
-
-        std::vector<clsBankClient> vClients=getClientsList();
-
-        //HEADER
-        std::cout<<"\n\t\t\t\t\t\t\t\t\t\t\tClients List ("<<vClients.size()<<") Client(s)"<<endl;
-        cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
-        cout<<"| "<<left<<setw(15)<<"Account Number"<<"| "<<left<<setw(30)<<"Client Name"<<"| "<<left<<setw(30)<<"Balance"<<endl;
-        cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
-
-        //PRINT CLIENT BALANCES LIST
-        for (clsBankClient& client:vClients) {
-            printClientBalanceLine(client);
-        }
-
-        cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
-
-        const double _totalBalances=_getTotalBalances();
-
-        cout<<"\n\t\t\t\t\t\t\t\tTotal balances = "<<_totalBalances<<endl;
-        cout<<"\n\t\t\t\t\t\t\t\t("<<clsUtility::numberToText(_totalBalances)<<")"<<endl;
-
-
-    }
 
 
 

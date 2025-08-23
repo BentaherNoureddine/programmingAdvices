@@ -1,14 +1,15 @@
-#include <iostream>
+#include "clsListAllUsersScreen.h"
+#include "clsTransactionMenuScreen.h"
+#include "clsMainMenuScreen.h"
 
-#include "clsBankClient.h"
-#include "clsInputValidate.h"
+#include "clsMainMenuScreen.h"
 
 int main()
 
 {
 
 
-    clsBankClient::showTotalBalances();
+    clsMainMenuScreen::displayMainMenu();
 
 
 

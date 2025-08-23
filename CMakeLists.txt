@@ -11,4 +11,22 @@ add_executable(untitled main.cpp
         clsPeriod.h
         clsPerson.h
         clsBankClient.h
+        clsBankScreen.h
+        clsMainMenuScreen.h
+        clsShowAllClientsScreen.h
+        clsAddNewClientScreen.h
+        clsUpdateClientScreen.h
+        clsFindClientScreen.h
+        clsDeleteClientScreen.h
+        clsTransactionMenuScreen.h
+        clsDepositScreen.h
+        clsWithdrawScreen.h
+        clsTotalbalancesScreen.h
+        clsManageUsersScreen.h
+        clsBankUser.h
+        clsListAllUsersScreen.h
+        clsAddNewUserScreen.h
+        clsDeleteUserScreen.h
+        clsUpdateUserScreen.h
+        clsFindUserScreen.h
 )

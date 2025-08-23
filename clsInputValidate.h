@@ -52,7 +52,6 @@ public:
         if (std::cin.peek() == '\n') {
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
         }
-
         getline(std::cin>>ws, str);
         return str;
     }
@@ -74,31 +73,31 @@ public:
         int number=readInt(message);
 
         while (!isNumberBetween(number,from,to)) {
-            readInt(message);
+            number=readInt("Please Enter a number between "+to_string(from)+" AND "+to_string(to));
         }
         return number;
     }
 
-    static int readShortNumberBetween(const short from,const short to,const std::string message) {
-        short number=readShort(message);
+    static short  readShortNumberBetween(const short from,const short to,const std::string message) {
+         short number=readShort(message);
         while (!isNumberBetween(number,from,to)) {
-            readInt(message);
+            number=readShort("Please Enter a number between "+to_string(from)+" AND "+to_string(to));
         }
         return number;
     }
 
-    static int readDoubleNumberBetween(const double from,const double to,const std::string message) {
+    static double readDoubleNumberBetween(const double from,const double to,const std::string message) {
         double number=readDouble(message);
         while (!isNumberBetween(number,from,to)) {
-            readInt(message);
+            number=readDouble("Please Enter a number between "+to_string(from)+" AND "+to_string(to));
         }
         return number;
     }
 
-    static int readFloatNumberBetween(const float from,const float to,const std::string message) {
+    static float readFloatNumberBetween(const float from,const float to,const std::string message) {
         float number=readFloat(message);
         while (!isNumberBetween(number,from,to)) {
-            readInt(message);
+            number=readFloat("Please Enter a number between "+to_string(from)+" AND "+to_string(to));
         }
         return number;
     }
