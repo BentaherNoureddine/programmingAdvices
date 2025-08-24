@@ -5,6 +5,7 @@
 #include "clsDeleteClientScreen.h"
 #include "clsFindClientScreen.h"
 #include "clsInputValidate.h"
+#include "clsLoginRegisterScreen.h"
 #include "clsManageUsersScreen.h"
 #include "clsShowAllClientsScreen.h"
 #include "clsTransactionMenuScreen.h"
@@ -23,7 +24,8 @@ private:
         enFindClient=5,
         enTransactions=6,
         enManageUsers=7,
-        enLogout=8,
+        enLoginRegister=8,
+        enLogout=9,
     };
 
     static void _printMainMenuActionsList() {
@@ -34,13 +36,14 @@ private:
         std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t[5] Find Client."<<std::endl;
         std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t[6] Transactions."<<std::endl;
         std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t[7] Manage Users."<<std::endl;
-        std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t[8] Logout."<<std::endl;
+        std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t[8] Login Register."<<std::endl;
+        std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t[9] Logout."<<std::endl;
         std::cout<<"\n\t\t\t\t\t\t\t============================================================================\n"<<std::endl;
 
     }
 
     static enMainMenuOptions readMainMenuOption(const std::string message) {
-        return (enMainMenuOptions)clsInputValidate::readShortNumberBetween(1,8,message);
+        return (enMainMenuOptions)clsInputValidate::readShortNumberBetween(1,9,message);
     }
 
 
@@ -71,6 +74,10 @@ private:
 
     static void _showManageUsersScreen() {
         clsManageUsersScreen::showManageUsersScreen();
+    }
+
+    static void _showLoginRegisterScreen() {
+        clsLoginRegisterScreen::showLoginRegisterScreen();
     }
 
 
@@ -124,6 +131,10 @@ private:
                 _showManageUsersScreen();
                 _goBackToMainMenu();
                 break;
+            case enLoginRegister:
+                system("clear");
+                _showLoginRegisterScreen();
+                _goBackToMainMenu();
             case enLogout:
                 system("clear");
                 _logout();
@@ -145,7 +156,7 @@ public:
         showScreenType("Main Menu");
         showHeader("Main Menu");
         _printMainMenuActionsList();
-        _performMainMenuAction("choose what do you want to do [1 to 8]");
+        _performMainMenuAction("choose what do you want to do [1 to 9]");
 
     }
 

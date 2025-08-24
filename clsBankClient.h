@@ -2,11 +2,25 @@
 #include <fstream>
 #include <vector>
 #include "bank_library.h"
+#include "clsBankUser.h"
 #include "clsPerson.h"
 #include "clsUtility.h"
+#include "global.h"
 
 
-class clsBankClient: public clsPerson{
+class clsBankClient: public clsPerson {
+public:
+
+    struct stLogTransfer {
+        string dateTime;
+        string sourceAccountNumber;
+        string destinationAccountNumber;
+        double amount;
+        double sourceBalance;
+        double destinationBalance;
+        string userUserName;
+    };
+
 
 private:
 
@@ -24,6 +38,45 @@ private:
 
 
 
+    static stLogTransfer _convertLineToStTransferLog(string line,string sep="//") {
+        stLogTransfer logTransfer;
+        vector<string> vItems=clsString::Split(line,sep);
+        logTransfer.dateTime=vItems[0];
+        logTransfer.sourceAccountNumber=vItems[1];
+        logTransfer.destinationAccountNumber=vItems[2];
+        logTransfer.amount=static_cast<double>(stoi(vItems[3]));
+        logTransfer.sourceBalance=static_cast<double>(stoi(vItems[4]));
+        logTransfer.destinationBalance=static_cast<double>(stoi(vItems[5]));
+        logTransfer.userUserName=vItems[6];
+        return logTransfer;
+    }
+
+    static vector<stLogTransfer> _getAllTransferLogsFromFile(const string sep="//") {
+        fstream file;
+        vector<stLogTransfer> vLogs;
+        file.open("transferFile.txt",ios::in);
+        if (file.is_open()) {
+            string line;
+            while (getline(file,line)) {
+                vLogs.push_back(_convertLineToStTransferLog(line));
+            }
+        }
+        return vLogs;
+    }
+
+    static string _getLogTransferString(clsBankClient from,clsBankClient to,const double amount,string sep="//") {
+        return clsDate::getCurrentDateAndTimeString()+sep+from.getAccountNumber()+sep+to.getAccountNumber()+sep+to_string(amount)+sep+to_string(from._balance)+sep+to_string(to._balance)+sep+CurrentUser.getUserName();
+    }
+
+    static void _logTransferInFile(clsBankClient from,clsBankClient to,const double amount,string sep="//") {
+
+        fstream file;
+        file.open("transferFile.txt",ios::app);
+        if (file.is_open()) {
+            file<<_getLogTransferString(from,to,amount,sep)<<endl;
+            file.close();
+        }
+    }
 
 
     static clsBankClient _convertLineToClientObject(const std::string line,const std::string sep="//") {
@@ -35,7 +88,7 @@ private:
         std::vector<clsBankClient> vClients;
         fstream file;
         std::string line;
-        file.open("bank_file.txt",ios::in);
+        file.open("clientsFile.txt",ios::in);
         if (file.is_open()) {
             while (getline(file,line)&&!line.empty()) {
                 vClients.push_back(_convertLineToClientObject(line,sep));
@@ -54,7 +107,7 @@ private:
 
         fstream file;
         std::string line;
-        file.open("bank_file.txt",std::ios::out);
+        file.open("clientsFile.txt",std::ios::out);
         if (file.is_open()) {
             for (clsBankClient& client:vClients) {
                 if (client._mode!=enMode::DeleteMode) {
@@ -70,7 +123,7 @@ private:
     void _addDataLineToFile(std::string line,std::string delim="//") {
 
         fstream file;
-        file.open("bank_file.txt",ios::app);
+        file.open("clientsFile.txt",ios::out | ios::app);
         if (file.is_open()) {
             file<<line<<endl;;
         }
@@ -116,8 +169,11 @@ private:
 
 
 
-
 public:
+
+
+
+
 
     static std::string readValidAccountNumber() {
         std::string accountNumber=clsInputValidate::readString("Please enter client account Number : ");
@@ -193,7 +249,7 @@ public:
 
         std::fstream file;
 
-        file.open("bank_file.txt",std::ios::in);
+        file.open("clientsFile.txt",std::ios::in);
         if (file.is_open()) {
             string line;
             while (getline(file,line)) {
@@ -215,7 +271,7 @@ public:
 
         std::fstream file;
 
-        file.open("bank_file.txt",std::ios::in);
+        file.open("clientsFile.txt",std::ios::in);
         if (file.is_open()) {
             string line;
             while (getline(file,line)) {
@@ -347,6 +403,23 @@ public:
         }
         return totalBalances;
     }
+
+
+    static bool transfer(clsBankClient& from ,clsBankClient& to,const double amount) {
+
+        from.withdraw(amount);
+        to.deposit(amount);
+        _logTransferInFile(from,to,amount);
+        return (from.save()==enSaveResults::svSucceeded)&&(to.save()==enSaveResults::svSucceeded);
+    }
+
+
+    static vector<stLogTransfer> getAllTransferLogs() {
+        return _getAllTransferLogsFromFile();
+    }
+
+
+
 
 
 

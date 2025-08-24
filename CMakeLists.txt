@@ -32,4 +32,7 @@ add_executable(untitled main.cpp
         clsLoginScreen.h
         global.h
         clsLog.h
+        clsLoginRegisterScreen.h
+        clsTransferScreen.h
+        clsTransfereLogScreen.h
 )

@@ -3,12 +3,20 @@
 
 #include "clsPerson.h"
 #include <vector>
-
+#include "clsUtility.h"
 #include "clsInputValidate.h"
 #include "clsString.h"
 
 
 class clsBankUser:public clsPerson {
+
+public:
+    struct stLog {
+        string dateTime;
+        string userName;
+        string password;
+        short permissions;
+    };
 
 private:
 
@@ -25,8 +33,35 @@ private:
 
 
 
+
+
     std::string _getLogLine(std::string sep="//") {
         return clsDate::getCurrentDateAndTimeString()+sep+_userName+sep+_password+sep+to_string(_permissions);
+    }
+
+    static stLog _convertLineToStLog(const string line,const string sep="//") {
+        const vector<string> vItems=clsString::Split(line,sep);
+        stLog log;
+        log.dateTime=vItems[0];
+        log.userName=vItems[1];
+        log.password=vItems[2];
+        log.permissions=static_cast<short>(stoi(vItems[3]));
+        return log;
+    }
+
+    static vector<stLog> _loadAllLogsFromFile(const string sep="//") {
+        fstream file;
+        file.open("logFile.txt",ios::in);
+        vector<stLog> vLogs;
+        if (file.is_open()) {
+
+            string line;
+            while (getline(file,line)) {
+                vLogs.push_back(_convertLineToStLog(line,sep));
+            }
+            file.close();
+        }
+        return vLogs;
     }
 
     static clsBankUser _convertLineToUserObject(string line, string sep = "//") {
@@ -111,8 +146,11 @@ public:
         enFindClient=5,
         enTransactions=6,
         enManageUsers=7,
-        enLogout=8,
+        enLogRegister=8,
+        enLogout=9,
     };
+
+
 
 
     bool isEmpty() {
@@ -284,6 +322,9 @@ public:
         if (clsInputValidate::yesNoQuestion("Manage Users? y/n")) {
             permissions=permissions|enPermissions::enManageUsers;
         }
+        if (clsInputValidate::yesNoQuestion("Login Register? y/n")) {
+            permissions=permissions|enPermissions::enLogRegister;
+        }
         return permissions;
     }
 
@@ -369,6 +410,12 @@ public:
             file.close();
         }
     }
+
+    static vector<stLog> getAllLogs() {
+        return _loadAllLogsFromFile();
+    }
+
+
 
 
 

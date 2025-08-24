@@ -18,29 +18,29 @@ public:
 
     static void showAllClients() {
 
-        if (!checkAccessRights(clsBankUser::enAddClient))
+        if (!checkAccessRights(clsBankUser::enPermissions::enShowClients))
             return;
 
-    std::vector<clsBankClient> vClients=clsBankClient::getClientsList();
+        std::vector<clsBankClient> vClients=clsBankClient::getClientsList();
 
-    showScreenType("Client List Screen","("+to_string(vClients.size())+") Client(s)");
+        showScreenType("Client List Screen","("+to_string(vClients.size())+") Client(s)");
 
 
-    cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
-    cout<<"| "<<left<<setw(15)<<"Account Number"<<"| "<<left<<setw(22)<<"Client Name"<<"| "<<left<<setw(17)<<"Phone Number";
-    cout<<"| "<<left<<setw(30)<<"Email"<<"| "<<left<<setw(15)<<"Pin Code"<<"| "<<left<<setw(20)<<"Balance"<<endl;
-    cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
+        cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
+        cout<<"| "<<left<<setw(15)<<"Account Number"<<"| "<<left<<setw(22)<<"Client Name"<<"| "<<left<<setw(17)<<"Phone Number";
+        cout<<"| "<<left<<setw(30)<<"Email"<<"| "<<left<<setw(15)<<"Pin Code"<<"| "<<left<<setw(20)<<"Balance"<<endl;
+        cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
 
-    if (vClients.empty()) {
-        cout<<"\n\t\t\t\t\t\t\t\t\t\tNo clients available in the system"<<endl;
-        return;
-    }
+        if (vClients.empty()) {
+            cout<<"\n\t\t\t\t\t\t\t\t\t\tNo clients available in the system"<<endl;
+            return;
+        }
 
-    for (clsBankClient& client:vClients) {
-        _printClientRecordLine(client);
-    }
+        for (clsBankClient& client:vClients) {
+            _printClientRecordLine(client);
+        }
 
-    cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
+        cout<<"\n__________________________________________________________________________________________________________________________\n"<<endl;
 
-    }
+        }
 };
