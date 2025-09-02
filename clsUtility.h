@@ -198,7 +198,7 @@ public:
     {
         for (int i = 0; i < Text.length(); i++)
         {
-            Text[i] = char((int)Text[i] + EncryptionKey);
+            Text[i] = static_cast<char>(static_cast<int>(Text[i]) + EncryptionKey);
         }
         return Text;
     }
@@ -207,7 +207,7 @@ public:
     {
         for (int i = 0; i < Text.length(); i++)
         {
-            Text[i] = char((int)Text[i] - EncryptionKey);
+            Text[i] = static_cast<char>(static_cast<int>(Text[i]) - EncryptionKey);
         }
         return Text;
     }

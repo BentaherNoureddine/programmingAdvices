@@ -6,6 +6,7 @@
 #include "clsPerson.h"
 #include "clsUtility.h"
 #include "global.h"
+#include "secrets.h"
 
 
 class clsBankClient: public clsPerson {
@@ -15,9 +16,9 @@ public:
         string dateTime;
         string sourceAccountNumber;
         string destinationAccountNumber;
-        double amount;
-        double sourceBalance;
-        double destinationBalance;
+        double amount=0;
+        double sourceBalance=0;
+        double destinationBalance=0;
         string userUserName;
     };
 
@@ -40,7 +41,7 @@ private:
 
     static stLogTransfer _convertLineToStTransferLog(string line,string sep="//") {
         stLogTransfer logTransfer;
-        vector<string> vItems=clsString::Split(line,sep);
+        const vector<string> vItems=clsString::Split(line,sep);
         logTransfer.dateTime=vItems[0];
         logTransfer.sourceAccountNumber=vItems[1];
         logTransfer.destinationAccountNumber=vItems[2];
@@ -68,7 +69,7 @@ private:
         return clsDate::getCurrentDateAndTimeString()+sep+from.getAccountNumber()+sep+to.getAccountNumber()+sep+to_string(amount)+sep+to_string(from._balance)+sep+to_string(to._balance)+sep+CurrentUser.getUserName();
     }
 
-    static void _logTransferInFile(clsBankClient from,clsBankClient to,const double amount,string sep="//") {
+    static void _logTransferInFile(const clsBankClient& from, const clsBankClient& to,const double amount, const string &sep="//") {
 
         fstream file;
         file.open("transferFile.txt",ios::app);
@@ -79,12 +80,12 @@ private:
     }
 
 
-    static clsBankClient _convertLineToClientObject(const std::string line,const std::string sep="//") {
+    static clsBankClient _convertLineToClientObject(const std::string& line,const std::string& sep="//") {
         std::vector<std::string> vItems=clsString::Split(line,sep);
-        return clsBankClient(enMode::UpdateMode,vItems[0],vItems[1],vItems[2],vItems[3],vItems[4],vItems[5],stof(vItems[6]));
+        return clsBankClient(enMode::UpdateMode,vItems[0],vItems[1],vItems[2],vItems[3],vItems[4],clsUtility::encryptText(vItems[5],EncryptionKey),stof(vItems[6]));
     }
 
-    static std::vector<clsBankClient> _getAllClientsObjectsFromFile(const std::string sep="//") {
+    static std::vector<clsBankClient> _getAllClientsObjectsFromFile(const std::string& sep="//") {
         std::vector<clsBankClient> vClients;
         fstream file;
         std::string line;
@@ -99,19 +100,18 @@ private:
     }
 
 
-    static std::string _convertClientObjectToLine(clsBankClient client,const std::string sep="//") {
-        return client.getFirstName()+sep+client.getLastName()+sep+client.getEmail()+sep+client.getPhone()+sep+client.getAccountNumber()+sep+client.getPinCode()+sep+to_string(client.getBalance());
+    static std::string _convertClientObjectToLine(clsBankClient client,const std::string& sep="//") {
+        return client.getFirstName()+sep+client.getLastName()+sep+client.getEmail()+sep+client.getPhone()+sep+client.getAccountNumber()+sep+clsUtility::decryptText(client.getPinCode(),EncryptionKey)+sep+to_string(client.getBalance());
     }
 
-    static void _saveVClientsObjectsToFile(vector<clsBankClient> vClients,const std::string sep="//") {
+    static void _saveVClientsObjectsToFile( vector<clsBankClient>& vClients,const std::string& sep="//") {
 
         fstream file;
-        std::string line;
         file.open("clientsFile.txt",std::ios::out);
         if (file.is_open()) {
             for (clsBankClient& client:vClients) {
                 if (client._mode!=enMode::DeleteMode) {
-                    line=_convertClientObjectToLine(client,sep);
+                    std::string line = _convertClientObjectToLine(client, sep);
                     file <<line<<endl;
                 }
             }
@@ -120,7 +120,7 @@ private:
     }
 
 
-    void _addDataLineToFile(std::string line,std::string delim="//") {
+    static void _addDataLineToFile(const std::string& line,const std::string& delim="//") {
 
         fstream file;
         file.open("clientsFile.txt",ios::out | ios::app);
@@ -267,7 +267,7 @@ public:
 
 
 
-    static clsBankClient find(std::string accountNumber,std::string password) {
+    static clsBankClient find(const std::string& accountNumber,const std::string& password) {
 
         std::fstream file;
 
@@ -290,7 +290,7 @@ public:
 
 
 
-    static bool isClientExists(const std::string accountNumber) {
+    static bool isClientExists(const std::string& accountNumber) {
 
         return !find(accountNumber).isEmpty();
     }
@@ -334,14 +334,14 @@ public:
 
 
 
-    static clsBankClient getAddNewClientObject(const std::string accountNumber) {
+    static clsBankClient getAddNewClientObject(const std::string& accountNumber) {
         clsBankClient client=_getEmptyClientObject();
         client._mode=enMode::AddNewMode;
         client._accountNumber=accountNumber;
         return client;
     }
 
-    static enSaveResults deleteClient(const std::string accountNumber) {
+    static enSaveResults deleteClient(const std::string& accountNumber) {
 
         vector<clsBankClient> vClients =_getAllClientsObjectsFromFile();
 
@@ -405,7 +405,7 @@ public:
     }
 
 
-    static bool transfer(clsBankClient& from ,clsBankClient& to,const double amount) {
+    static bool transfer(clsBankClient& from ,clsBankClient& to,const double& amount) {
 
         from.withdraw(amount);
         to.deposit(amount);

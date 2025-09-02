@@ -35,4 +35,6 @@ add_executable(untitled main.cpp
         clsLoginRegisterScreen.h
         clsTransferScreen.h
         clsTransfereLogScreen.h
+        clsCurrency.h
+        clsCurrencyScreen.h
 )

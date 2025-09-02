@@ -6,6 +6,7 @@
 #include "clsUtility.h"
 #include "clsInputValidate.h"
 #include "clsString.h"
+#include "secrets.h"
 
 
 class clsBankUser:public clsPerson {
@@ -35,11 +36,11 @@ private:
 
 
 
-    std::string _getLogLine(std::string sep="//") {
-        return clsDate::getCurrentDateAndTimeString()+sep+_userName+sep+_password+sep+to_string(_permissions);
+    std::string _convertLogToLine(const std::string& sep="//") {
+        return clsDate::getCurrentDateAndTimeString()+sep+_userName+sep+clsUtility::encryptText(_password,EncryptionKey)+sep+to_string(_permissions);
     }
 
-    static stLog _convertLineToStLog(const string line,const string sep="//") {
+    static stLog _convertLineToStLog(const string& line,const string& sep="//") {
         const vector<string> vItems=clsString::Split(line,sep);
         stLog log;
         log.dateTime=vItems[0];
@@ -49,7 +50,7 @@ private:
         return log;
     }
 
-    static vector<stLog> _loadAllLogsFromFile(const string sep="//") {
+    static vector<stLog> _loadAllLogsFromFile(const string& sep="//") {
         fstream file;
         file.open("logFile.txt",ios::in);
         vector<stLog> vLogs;
@@ -64,22 +65,22 @@ private:
         return vLogs;
     }
 
-    static clsBankUser _convertLineToUserObject(string line, string sep = "//") {
+    static clsBankUser _convertLineToUserObject(const string& line,const string& sep = "//") {
         vector<string> vItems=clsString::Split(line,sep);
-        return clsBankUser(enMode::UpdateMode,vItems[0],vItems[1],vItems[2],vItems[3],vItems[4],vItems[5],static_cast<short>(stoi(vItems[6])));
+        return clsBankUser(enMode::UpdateMode,vItems[0],vItems[1],vItems[2],vItems[3],vItems[4],clsUtility::decryptText(vItems[5],EncryptionKey),static_cast<short>(stoi(vItems[6])));
     }
 
 
-    static string _convertUserObjectToLine(clsBankUser user,string sep="//") {
+    static string _convertUserObjectToLine(clsBankUser user,const string& sep="//") {
         return user.getFirstName()+sep+user.getLastName()+sep+user.getEmail()+sep+user.getPhone()+sep+user._userName+sep+user._password+sep+to_string(user._permissions);
     }
 
-    static vector<clsBankUser> _loadAllUsersFromFile(const string sep="//") {
+    static vector<clsBankUser> _loadAllUsersFromFile(const string& sep="//") {
         vector<clsBankUser> vUsers;
         fstream file;
         file.open("usersFile.txt",ios::in);
-        string line;
         if (file.is_open()) {
+            string line;
             while (getline(file,line)) {
                 vUsers.push_back(_convertLineToUserObject(line,sep));
             }
@@ -88,12 +89,12 @@ private:
         return vUsers;
     }
 
-    static void _saveVUsersObjectsTofile(vector<clsBankUser> vUsers,string sep="//") {
+    static void _saveVUsersObjectsTofile(const vector<clsBankUser>& vUsers,const string& sep="//") {
 
         fstream file;
         file.open("usersFile.txt",ios::out);
         if (file.is_open()) {
-            for (clsBankUser& user:vUsers) {
+            for (const clsBankUser& user:vUsers) {
                 if (user._mode!=enMode::DeleteMode)
                 file<<_convertUserObjectToLine(user,sep)<<endl;
             }
@@ -101,7 +102,7 @@ private:
         }
     }
 
-     void _addDataLineToFile(clsBankUser user,string sep="//") {
+     void _addDataLineToFile(const clsBankUser& user,const string& sep="//") {
         fstream file;
         file.open("usersFile.txt",ios::app);
         if (file.is_open()) {
@@ -180,15 +181,15 @@ public:
         return this->_permissions;
     }
 
-    void setUserName(const string userName) {
+    void setUserName(const string& userName) {
         this->_userName=userName;
     }
 
-    void setPassword(const string password) {
+    void setPassword(const string& password) {
         this->_password=password;
     }
 
-    void setPermissions(const short permissions) {
+    void setPermissions(const short& permissions) {
         this->_permissions=permissions;
     }
 
@@ -200,7 +201,7 @@ public:
 
 
 
-    static clsBankUser find(const string userName) {
+    static clsBankUser find(const string& userName) {
 
         fstream file;
         file.open("usersFile.txt",ios::in);
@@ -218,7 +219,7 @@ public:
         return getEmptyUserObject();
     }
 
-    static clsBankUser find(const string userName,string password) {
+    static clsBankUser find(const string& userName,const string& password) {
 
         fstream file;
         file.open("usersFile.txt",ios::in);
@@ -239,12 +240,12 @@ public:
 
 
 
-    static bool isUserExists(const string userName) {
+    static bool isUserExists(const string& userName) {
         return !find(userName).isEmpty();
     }
 
 
-    static bool isUserExists(const string userName,const string password) {
+    static bool isUserExists(const string& userName,const string& password) {
         return !find(userName,password).isEmpty();
     }
 
@@ -367,7 +368,7 @@ public:
         return _loadAllUsersFromFile();
     }
 
-    static clsBankUser getAddNewUserObject(const string userName) {
+    static clsBankUser getAddNewUserObject(const string& userName) {
         clsBankUser newUser=getEmptyUserObject();
         newUser._userName=userName;
         newUser._mode=enMode::AddNewMode;
@@ -392,7 +393,7 @@ public:
     }
 
 
-    bool hasPermissions(enPermissions permissions) {
+    bool hasPermissions(const enPermissions& permissions) {
 
         if ((this->getPermissions()==enPermissions::enAllPermissions)||((this->getPermissions()&permissions)==permissions)) {
             return true;
@@ -406,7 +407,7 @@ public:
         std::fstream file;
         file.open("logFile.txt",ios::app);
         if (file.is_open()) {
-            file<<_getLogLine()<<endl;
+            file<<_convertLogToLine()<<endl;
             file.close();
         }
     }
