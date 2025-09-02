@@ -1,6 +1,7 @@
 #pragma once
 #include "clsBankScreen.h"
 #include "clsCurrency.h"
+#include "clsListCurrenciesScreen.h"
 
 
 class clsCurrencyExchangeMainScreen:protected clsBankScreen {
@@ -24,7 +25,7 @@ private:
     }
 
     static void _showListCurrenciesScreen() {
-        cout<<"List all currencies Screen"<<endl;
+        clsListCurrenciesScreen::showListCurrenciesScreen();
     }
 
 
@@ -59,7 +60,7 @@ private:
         switch (_readCurrencyOption()) {
             case ListCurrencies:
                 system("clear");
-                _showCurrencyCalculatorScreen();
+                _showListCurrenciesScreen();
                 _getBackToCurrencyExchangeMainScreen();
                 break;
             case FindCurrency:
