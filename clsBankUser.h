@@ -148,7 +148,8 @@ public:
         enTransactions=6,
         enManageUsers=7,
         enLogRegister=8,
-        enLogout=9,
+        enCurrencyExchange=9,
+        enLogout=10,
     };
 
 
@@ -325,6 +326,9 @@ public:
         }
         if (clsInputValidate::yesNoQuestion("Login Register? y/n")) {
             permissions=permissions|enPermissions::enLogRegister;
+        }
+        if (clsInputValidate::yesNoQuestion("Currency Exchange? y/n")) {
+            permissions=permissions|enPermissions::enCurrencyExchange;
         }
         return permissions;
     }

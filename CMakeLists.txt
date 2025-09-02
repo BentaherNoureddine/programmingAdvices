@@ -37,4 +37,5 @@ add_executable(untitled main.cpp
         clsTransfereLogScreen.h
         clsCurrency.h
         clsCurrencyScreen.h
+        clsCurrencyExchangeMainScreen.h
 )

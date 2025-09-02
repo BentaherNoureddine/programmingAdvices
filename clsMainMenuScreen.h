@@ -2,6 +2,7 @@
 #include "clsAddNewClientScreen.h"
 #include "string"
 #include "clsBankScreen.h"
+#include "clsCurrencyExchangeMainScreen.h"
 #include "clsDeleteClientScreen.h"
 #include "clsFindClientScreen.h"
 #include "clsInputValidate.h"
@@ -25,7 +26,8 @@ private:
         enTransactions=6,
         enManageUsers=7,
         enLoginRegister=8,
-        enLogout=9,
+        enCurrencyExchange=9,
+        enLogout=10,
     };
 
     static void _printMainMenuActionsList() {
@@ -37,7 +39,8 @@ private:
         std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t[6] Transactions."<<std::endl;
         std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t[7] Manage Users."<<std::endl;
         std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t[8] Login Register."<<std::endl;
-        std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t[9] Logout."<<std::endl;
+        std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t[9] Currency Exchange."<<std::endl;
+        std::cout<<"\t\t\t\t\t\t\t\t\t\t\t\t\t[10] Logout."<<std::endl;
         std::cout<<"\n\t\t\t\t\t\t\t============================================================================\n"<<std::endl;
 
     }
@@ -74,6 +77,10 @@ private:
 
     static void _showManageUsersScreen() {
         clsManageUsersScreen::showManageUsersScreen();
+    }
+
+    static void _showCurrencyExchangeScreen() {
+        clsCurrencyExchangeMainScreen::showCurrencyExchangeMainScreen();
     }
 
     static void _showLoginRegisterScreen() {
@@ -135,6 +142,10 @@ private:
                 system("clear");
                 _showLoginRegisterScreen();
                 _goBackToMainMenu();
+            case enCurrencyExchange:
+                system("clear");
+                _showCurrencyExchangeScreen();
+                _goBackToMainMenu();
             case enLogout:
                 system("clear");
                 _logout();
@@ -156,7 +167,7 @@ public:
         showScreenType("Main Menu");
         showHeader("Main Menu");
         _printMainMenuActionsList();
-        _performMainMenuAction("choose what do you want to do [1 to 9]");
+        _performMainMenuAction("choose what do you want to do [1 to 10]");
 
     }
 
