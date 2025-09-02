@@ -128,7 +128,7 @@ public:
 
         const std::vector<clsCurrency> vCurrencies=_loadAllCurrenciesFromFile();
         for (const clsCurrency& currency:vCurrencies) {
-            if (currency._countryCode==clsString::UpperAllString(countryCode)) {
+            if (clsString::UpperAllString(currency._countryCode)==clsString::UpperAllString(countryCode)) {
                 return currency;
             }
         }
@@ -138,7 +138,7 @@ public:
     static clsCurrency findByCountry(const std::string& country) {
         const std::vector<clsCurrency> vCurrencies=_loadAllCurrenciesFromFile();
         for (const clsCurrency& currency:vCurrencies) {
-            if (currency._country==clsString::UpperAllString(country)) {
+            if (clsString::UpperAllString(currency._country)==clsString::UpperAllString(country)) {
                 return currency;
             }
         }
@@ -154,6 +154,15 @@ public:
         return _loadAllCurrenciesFromFile();
     }
 
+
+    void print() {
+        cout<<"_________________________________________"<<endl;
+        cout<<"Country         :"<<this->getCountry()<<endl;
+        cout<<"Code            :"<<this->getCurrencyCode()<<endl;
+        cout<<"Name            :"<<this->getCurrencyName()<<endl;
+        cout<<"Rate(1$) =      :"<<this->getExchangeRateToUSD()<<endl;
+        cout<<"_________________________________________"<<endl;
+    }
 
 
 

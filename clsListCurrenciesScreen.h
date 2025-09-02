@@ -20,8 +20,8 @@ private:
     }
 
 
-    static void _printCurrencyList() {
-        vector<clsCurrency> vCurrencies=clsCurrency::getCurrenciesList();
+    static void _printCurrencyList(vector<clsCurrency>& vCurrencies) {
+
 
         for (clsCurrency& currency:vCurrencies) {
             _printCurrencyLine(currency);
@@ -38,7 +38,9 @@ public:
 
     static void showListCurrenciesScreen() {
 
+        vector<clsCurrency> vCurrencies=clsCurrency::getCurrenciesList();
+        showScreenType("Currencies List Screen","("+to_string(vCurrencies.size())+") Currency.");
         _printHeader();
-        _printCurrencyList();
+        _printCurrencyList(vCurrencies);
     }
 };

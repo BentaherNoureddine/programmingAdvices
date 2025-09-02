@@ -1,6 +1,7 @@
 #pragma once
 #include "clsBankScreen.h"
 #include "clsCurrency.h"
+#include "clsFindCurrencyScreen.h"
 #include "clsListCurrenciesScreen.h"
 
 
@@ -30,7 +31,7 @@ private:
 
 
     static void _showFindCurrencyScreen() {
-        cout<<"find Currency Screen"<<endl;
+       clsFindCurrencyScreen::showFindCurrencyScreen();
     }
 
     static void _showUpdateCurrencyScreen() {
