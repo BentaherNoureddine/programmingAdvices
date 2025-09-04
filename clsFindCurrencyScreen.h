@@ -13,7 +13,7 @@ private:
 
 
     static enFindByOptions _readFindOption() {
-        return (enFindByOptions)clsInputValidate::readShortNumberBetween(1,2,"Find By: [1] Code or [2] Country ?");
+        return (enFindByOptions)clsInputValidate::readNumberBetween<short>(1,2,"Find By: [1] Code or [2] Country ?");
     }
 
     static void _findByCode() {

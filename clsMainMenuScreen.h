@@ -46,7 +46,7 @@ private:
     }
 
     static enMainMenuOptions readMainMenuOption(const std::string message) {
-        return (enMainMenuOptions)clsInputValidate::readShortNumberBetween(1,9,message);
+        return (enMainMenuOptions)clsInputValidate::readNumberBetween<short>(1,9,message);
     }
 
 

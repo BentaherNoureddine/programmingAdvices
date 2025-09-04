@@ -302,7 +302,7 @@ public:
         client.setEmail(clsInputValidate::readString("Enter Email :"));
         client.setPhone(clsInputValidate::readString("Enter Phone :"));
         client.setPinCode(clsInputValidate::readString("Enter PinCode :"));
-        client.setBalance(clsInputValidate::readFloat("Enter Account Balance :"));
+        client.setBalance(clsInputValidate::readNumber<float>("Enter Account Balance :"));
     }
 
 

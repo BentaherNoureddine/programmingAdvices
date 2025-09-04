@@ -40,4 +40,9 @@ add_executable(untitled main.cpp
         clsCurrencyExchangeMainScreen.h
         clsListCurrenciesScreen.h
         clsFindCurrencyScreen.h
+        clsUpdateCurrencyRateScreen.h
+        clsCurrencyCalculatorScreen.h
+        clsEmployee.h
+        date_library.h
+        atmSystem.h
 )

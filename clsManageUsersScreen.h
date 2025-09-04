@@ -32,7 +32,7 @@ private:
     }
 
     static enManageUsersOptions _readManageUsersOption() {
-        return (enManageUsersOptions)clsInputValidate::readShortNumberBetween(1,6,"Choose what you want to do [1 to 6]");
+        return (enManageUsersOptions)clsInputValidate::readNumberBetween<short>(1,6,"Choose what you want to do [1 to 6]");
     }
 
     static void _listAllUsersScreen() {

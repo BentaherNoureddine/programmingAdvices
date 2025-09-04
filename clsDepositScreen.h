@@ -18,7 +18,7 @@ public:
 
         printClient(client);
 
-        const float amount =clsInputValidate::readFloat("Please enter deposit amount");
+        const float amount =clsInputValidate::readNumber<float>("Please enter deposit amount");
 
         if (clsInputValidate::yesNoQuestion("Are you sure you want to perform this this transaction?")) {
             client.deposit(amount);

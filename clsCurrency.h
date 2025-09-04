@@ -24,7 +24,7 @@ private:
 
     static clsCurrency _convertLineToCurrencyObject(const std::string& line,const std::string& sep="//") {
         const std::vector<std::string> vItems=clsString::Split(line,sep);
-        return clsCurrency(enMode::UpdateMode,vItems[0],vItems[1],vItems[2],static_cast<short>(stoi(vItems[3])));
+        return clsCurrency(enMode::UpdateMode,vItems[0],vItems[1],vItems[2],stof(vItems[3]));
     }
 
     static std::string _convertCurrencyObjectToLine(const clsCurrency& currency,const std::string& sep="//") {
@@ -152,6 +152,11 @@ public:
 
     static vector<clsCurrency> getCurrenciesList() {
         return _loadAllCurrenciesFromFile();
+    }
+
+    static float getCurrencyRate(clsCurrency from,clsCurrency to,const float amount) {
+        const float usdtAMount=amount/from.getExchangeRateToUSD();
+        return usdtAMount*to.getExchangeRateToUSD();
     }
 
 

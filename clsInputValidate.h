@@ -7,44 +7,20 @@
 class clsInputValidate {
 
 public:
-    static float readFloat( const std::string message){
-        float number;
+
+    template  <typename T>
+    static T readNumber(const std::string& message ) {
+        T number;
         std::cout << message;
         while (!(std::cin >> number)) {
             std::cin.clear(); // clear the error flag
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
             std::cout << "Invalid input. Please enter a valid number: ";
         }
-        return number;
+        return (T)number;
     }
 
-
-
-    static double readDouble(const std::string message){
-        double number;
-        std::cout << message;
-        while (!(std::cin >> number)) {
-            std::cin.clear(); // clear the error flag
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            std::cout << "Invalid input. Please enter a valid number: ";
-        }
-        return number;
-    }
-
-
-    static int readInt(const std::string message){
-        int number;
-        std::cout << message;
-        while (!(std::cin >> number)) {
-            std::cin.clear(); // clear the error flag
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
-            std::cout << "Invalid input. Please enter a valid number: ";
-        }
-        return number;
-    }
-
-
-    static std::string readString (const std::string message){
+    static std::string readString (const std::string& message){
         std::string str;
         std::cout << message;
 
@@ -57,66 +33,23 @@ public:
     }
 
 
-    static short readShort(const std::string message){
-        short number;
-        std::cout << message;
-        while (!(std::cin >> number)) {
-            std::cin.clear(); // clear the error flag
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // discard invalid input
-            std::cout << "Invalid input. Please enter a valid number: ";
-        }
-        return number;
-    }
 
-
-    static int readIntNumberBetween(const int from,int to,const std::string message) {
-        int number=readInt(message);
+    template <typename T>
+    static T readNumberBetween(const T from,T to,const std::string message) {
+        T number=readNumber<T>(message);
 
         while (!isNumberBetween(number,from,to)) {
-            number=readInt("Please Enter a number between "+to_string(from)+" AND "+to_string(to));
+            number=readNumber<T>("Please Enter a number between "+to_string(from)+" AND "+to_string(to));
         }
-        return number;
+        return (T)number;
     }
 
-    static short  readShortNumberBetween(const short from,const short to,const std::string message) {
-         short number=readShort(message);
-        while (!isNumberBetween(number,from,to)) {
-            number=readShort("Please Enter a number between "+to_string(from)+" AND "+to_string(to));
-        }
-        return number;
-    }
 
-    static double readDoubleNumberBetween(const double from,const double to,const std::string message) {
-        double number=readDouble(message);
-        while (!isNumberBetween(number,from,to)) {
-            number=readDouble("Please Enter a number between "+to_string(from)+" AND "+to_string(to));
-        }
-        return number;
-    }
-
-    static float readFloatNumberBetween(const float from,const float to,const std::string message) {
-        float number=readFloat(message);
-        while (!isNumberBetween(number,from,to)) {
-            number=readFloat("Please Enter a number between "+to_string(from)+" AND "+to_string(to));
-        }
-        return number;
-    }
-
-    static bool isNumberBetween(const int number,const int from,const int to) {
+    template <typename T>
+    static bool isNumberBetween(const T number,const T from,const T to) {
         return number>=from&&number<=to;
     }
 
-    static bool isNumberBetween(const float number,const float from,const float to) {
-        return number>=from&&number<=to;
-    }
-
-    static bool isNumberBetween(const double number,const double from,double  to) {
-        return number>=from&&number<=to;
-    }
-
-    static bool isNumberBetween(const short  number,const short from,const short to) {
-        return number>=from&&number<=to;
-    }
 
     static bool isDateBetween(clsDate date,const clsDate dateFrom,const clsDate dateTo) {
         return (date.isDateEqualDate2(dateFrom)||date.isDateEqualDate2(dateTo))||  (clsDate::isDate1BeforeDate2(dateFrom,dateTo)?(date.isDateBeforeDate2(dateTo)&&date.isDateAfterDate2(dateFrom)):(date.isDateBeforeDate2(dateFrom)&&date.isDateAfterDate2(dateTo)));

@@ -102,7 +102,7 @@ void readClientData(ClientData& clientData) {
     clientData.pinCode = clsInputValidate::readString("Enter PinCode");
     clientData.name = clsInputValidate::readString("Enter your Name");
     clientData.phone = clsInputValidate::readString("Enter PhoneNumber");
-    clientData.accountBalance = clsInputValidate::readFloat("Enter Account Balance");
+    clientData.accountBalance = clsInputValidate::readNumber<float>("Enter Account Balance");
 
 }
 
@@ -446,7 +446,7 @@ void addBalance(string accountNumber,float amount) {
 
 void deposit(string accountNumber) {
 
-    float amount =clsInputValidate::readFloat("Please Enter deposit amount");
+    float amount =clsInputValidate::readNumber<float>("Please Enter deposit amount");
     char choice;
     cout<<"Are you sure you want to deposit(Y/N)"<<endl;
     cin>>choice;
@@ -472,7 +472,7 @@ void depositAction() {
 }
 
 void withdraw(string accountNumber) {
-    float amount =clsInputValidate::readFloat("Please Enter withdraw amount");
+    float amount =clsInputValidate::readNumber<float>("Please Enter withdraw amount");
     char choice;
 
     vector<ClientData> vClients=getAllClientsFromFile(fileName,sep);
@@ -484,7 +484,7 @@ void withdraw(string accountNumber) {
             }else {
                 cout<<"Amount Exceeds the balance, you can withdraw up to : "<<client.accountBalance<<endl;
                 do {
-                    amount=clsInputValidate::readFloat("Please Enter deposit amount");
+                    amount=clsInputValidate::readNumber<float>("Please Enter deposit amount");
                 }while (amount>=client.accountBalance);
                 client.accountBalance-=amount;
             }

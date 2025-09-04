@@ -18,9 +18,9 @@ private:
 
 
     static double _readAmount(clsBankClient sourceClient) {
-        double amount=clsInputValidate::readDouble("Enter Transfer Amount");
+        double amount=clsInputValidate::readNumber<double>("Enter Transfer Amount");
         while (amount>sourceClient.getBalance()) {
-            amount=clsInputValidate::readDouble("Amount exceeded the sender client, Please  Enter new Transfer Amount");
+            amount=clsInputValidate::readNumber<double>("Amount exceeded the sender client, Please  Enter new Transfer Amount");
         }
         return amount;
     }

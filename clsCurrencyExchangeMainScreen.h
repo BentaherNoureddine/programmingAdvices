@@ -1,8 +1,10 @@
 #pragma once
 #include "clsBankScreen.h"
 #include "clsCurrency.h"
+#include "clsCurrencyCalculatorScreen.h"
 #include "clsFindCurrencyScreen.h"
 #include "clsListCurrenciesScreen.h"
+#include "clsUpdateCurrencyRateScreen.h"
 
 
 class clsCurrencyExchangeMainScreen:protected clsBankScreen {
@@ -22,7 +24,7 @@ private:
     }
 
     static enCurrencyExchangeOptions _readCurrencyOption() {
-        return (enCurrencyExchangeOptions)clsInputValidate::readShortNumberBetween(1,5,"Choose what you want to do [1 to 5]");
+        return (enCurrencyExchangeOptions)clsInputValidate::readNumberBetween<short>(1,5,"Choose what you want to do [1 to 5]");
     }
 
     static void _showListCurrenciesScreen() {
@@ -35,11 +37,11 @@ private:
     }
 
     static void _showUpdateCurrencyScreen() {
-        cout<<"update currency screen"<<endl;
+        clsUpdateCurrencyRateScreen::showUpdateCurrencyRateScreen();
     }
 
     static void _showCurrencyCalculatorScreen() {
-        cout<<"currency calculator screen"<<endl;
+       clsCurrencyCalculatorScreen::showCurrencyCalculatorScreen();
     }
 
     static void _showMainMenu() {

@@ -28,7 +28,7 @@ private:
     }
 
     static enTransactionsOptions _readTransactionOption() {
-        return (enTransactionsOptions)clsInputValidate::readShortNumberBetween(1,6,"chose what you want to do [1 to 6]");
+        return (enTransactionsOptions)clsInputValidate::readNumberBetween<short>(1,6,"chose what you want to do [1 to 6]");
     }
 
     static void _depositScreen() {
