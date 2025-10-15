@@ -108,6 +108,12 @@ void deleteNode(Node<T>* &head,T data) {
     }
 }
 
+template<typename T>
+void deleteFirstNode(Node<T> * &head) {
+    const Node<T> *temp=head;
+    head=head->next;
+    delete temp;
+}
 
 
 
@@ -125,7 +131,7 @@ int main()
     std::cout<<"before"<<std::endl;
     printList(head);
     insertAtEnd<short>(head,7);
-    deleteNode<short>(head,1);
+    deleteFirstNode(head);
     std::cout<<"after"<<std::endl;
     printList<short>(head);
 
