@@ -110,9 +110,36 @@ void deleteNode(Node<T>* &head,T data) {
 
 template<typename T>
 void deleteFirstNode(Node<T> * &head) {
+    if (head==nullptr) {
+        return;
+    }
+
+    if (head->next==nullptr) {
+        delete head;
+        return;
+    }
+
     const Node<T> *temp=head;
     head=head->next;
     delete temp;
+}
+
+template<typename T>
+void deleteLastNode(Node<T> *head) {
+    Node<T> * prev=head,*current=head;
+
+    if (head==nullptr) {
+        return;
+    }
+    if (head->next==nullptr) {
+        delete head;
+    }
+    while (current->next!=nullptr) {
+        prev=current;
+        current=current->next;
+    }
+    prev->next=nullptr;
+    delete current;
 }
 
 
@@ -127,11 +154,11 @@ int main()
     insertAtEnd<short>(head,1);
     insertAtEnd<short>(head,2);
     insertAtEnd<short>(head,3);
-
+    insertAtEnd<short>(head,7);
     std::cout<<"before"<<std::endl;
     printList(head);
-    insertAtEnd<short>(head,7);
-    deleteFirstNode(head);
+
+    deleteLastNode<short>(head);
     std::cout<<"after"<<std::endl;
     printList<short>(head);
 
