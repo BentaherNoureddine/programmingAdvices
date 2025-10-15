@@ -47,13 +47,32 @@ Node<T> *findNode(Node<T> *head,T data) {
 
 
 template<typename T>
-void insertAfter(Node<T>*head,Node<T> *position,Node<T> *newNode) {
-
-   if (findNode<short>(head,position->data)!=nullptr) {
+void insertAfter(Node<T> *position,T data) {
+       Node<T> *newNode = new Node<T>;
        newNode->next=position->next;
+       newNode->data=data;
        position->next=newNode;
-   }
+}
 
+template<typename T>
+void insertAtEnd(Node<T> *&head,T data) {
+
+    Node<T> *newNode =new Node<T>;
+    newNode->data=data;
+    newNode->next=nullptr;
+
+
+    if (head==nullptr) {
+        head = new Node<T>();
+        head=newNode;
+        return;
+    }
+
+    Node<short> *node=head;
+    while (node->next!=nullptr) {
+        node=node->next;
+    }
+    node->next=newNode;
 }
 
 int main()
@@ -63,17 +82,13 @@ int main()
 
 
 
-    addAtTheBeginning<short>(head,1);
-
-    addAtTheBeginning<short>(head,2);
-
-    addAtTheBeginning<short>(head,3);
+    insertAtEnd<short>(head,1);
+    insertAtEnd<short>(head,2);
+    insertAtEnd<short>(head,3);
 
     std::cout<<"before"<<std::endl;
     printList(head);
-    Node<short>* newNode=new Node<short>;
-    newNode->data=7;
-    insertAfter(head,findNode<short>(head,2),newNode);
+    insertAtEnd<short>(head,7);
     std::cout<<"after"<<std::endl;
     printList<short>(head);
 
