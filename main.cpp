@@ -53,15 +53,13 @@ Node<T> *findNode(Node<T> *head,T data) {
 }
 
 template <typename T>
-void insertAfter(Node<T> *head,T after,T data) {
-    if (head==nullptr) {
-        return;
-    }
+void insertAfter(Node<T> *node,T data) {
+
 
     Node<T> *newNode= new Node<T>;
     newNode->data=data;
 
-    Node<T> *node=findNode<short>(head,after);
+
 
     Node<T> *nextNode=node->next;
 
@@ -90,7 +88,8 @@ int main()
     std::cout<<"before"<<std::endl;
     printList(head);
 
-    insertAfter<short>(head,2,7);
+    Node<short> *node=findNode<short>(head,2);
+    insertAfter<short>(node,7);
 
 
     std::cout<<"after"<<std::endl;
