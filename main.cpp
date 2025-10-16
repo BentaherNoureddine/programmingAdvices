@@ -95,12 +95,13 @@ void insertAtEnd(Node<T> *&head,T data) {
 
 template<typename T>
 void deleteNode(Node<T> *&head,T data) {
-    if (head==nullptr) {
+    if (head==nullptr||findNode<T>(head,data)==nullptr) {
         return;
     }
     if (head->data==data) {
         head=nullptr;
     }
+
     Node<T> *temp = head;
 
     while (temp->data!=data) {
