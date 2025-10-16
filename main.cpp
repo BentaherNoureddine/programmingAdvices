@@ -99,13 +99,22 @@ void deleteNode(Node<T> *&head,T data) {
         return;
     }
     if (head->data==data) {
+        head=head->next;
+    }
+    if (head->next==nullptr) {
         head=nullptr;
     }
+
 
     Node<T> *temp = head;
 
     while (temp->data!=data) {
         temp=temp->next;
+    }
+
+    if (temp->next==nullptr) {
+        temp->prev->next=nullptr;
+        return;
     }
 
     temp->prev->next=temp->next;
