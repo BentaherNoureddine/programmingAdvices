@@ -6,8 +6,8 @@ class Node {
 
 public:
     T data;
-    Node *next ;
-    Node *prev;
+    Node *next=nullptr ;
+    Node *prev=nullptr;
 };
 
 
@@ -70,9 +70,30 @@ void insertAfter(Node<T> *node,T data) {
     newNode->next=nextNode;
     nextNode->prev=newNode;
 
+}
 
+template<typename T>
+void insertAtEnd(Node<T> *&head,T data) {
+
+    Node<T> *newNode =new Node<T>;
+    newNode->data=data;
+
+
+    if (head==nullptr) {
+        head=newNode;
+        return;
+    }
+    Node<T> *temp =head;
+    while (temp->next!=nullptr) {
+        temp=temp->next;
+    }
+    temp->next=newNode;
+    newNode->prev=temp;
 
 }
+
+
+
 
 
 int main()
@@ -89,7 +110,7 @@ int main()
     printList(head);
 
     Node<short> *node=findNode<short>(head,2);
-    insertAfter<short>(node,7);
+    insertAtEnd<short>(head,10);
 
 
     std::cout<<"after"<<std::endl;
