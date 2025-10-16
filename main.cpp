@@ -93,7 +93,27 @@ void insertAtEnd(Node<T> *&head,T data) {
 }
 
 
+template<typename T>
+void deleteNode(Node<T> *&head,T data) {
+    if (head==nullptr) {
+        return;
+    }
+    if (head->data==data) {
+        head=nullptr;
+    }
+    Node<T> *temp = head;
 
+    while (temp->data!=data) {
+        temp=temp->next;
+    }
+
+    temp->prev->next=temp->next;
+    temp->next->prev=temp->prev;
+
+    delete temp;
+
+
+}
 
 
 int main()
@@ -109,8 +129,8 @@ int main()
     std::cout<<"before"<<std::endl;
     printList(head);
 
-    Node<short> *node=findNode<short>(head,2);
-    insertAtEnd<short>(head,10);
+
+    deleteNode<short>(head,2);
 
 
     std::cout<<"after"<<std::endl;
