@@ -143,6 +143,29 @@ void deleteFirstNode(Node<T> *&head) {
 }
 
 
+template<typename T>
+void deleteLastNode(Node<T> *&head) {
+
+    if (head==nullptr) {
+        return;
+    }
+
+    if (head->next==nullptr) {
+        delete head;
+        head=nullptr;
+        return;
+    }
+
+    Node<T> *temp=head;
+
+    while (temp->next!=nullptr) {
+        temp=temp->next;
+    }
+    temp->prev->next=nullptr;
+    delete temp;
+}
+
+
 int main()
 
 {
