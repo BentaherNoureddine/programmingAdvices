@@ -14,7 +14,8 @@ public:
     };
 
 private:
-    Node *head;
+    Node *_head=nullptr;
+    Node *_tail=nullptr;
     unsigned short _size=0;
 
 public:
@@ -24,10 +25,6 @@ public:
 
 
 
-    clsDbLinkedList() {
-        this->head=nullptr;
-    }
-
     ~clsDbLinkedList() = default;
 
 
@@ -35,11 +32,12 @@ public:
 
     void insertAtBeginning(T data) {
 
-        if (head==nullptr) {
-            head=new Node;
-            head->data=data;
-            head->next=nullptr;
-            head->prev=nullptr;
+        if (_head==nullptr) {
+            _head=new Node;
+            _head->data=data;
+            _head->next=nullptr;
+            _head->prev=nullptr;
+            _tail=_head;
             _size++;
             return;
         }
@@ -48,12 +46,12 @@ public:
 
         newNode->data=data;
 
-        newNode->next=head;
+        newNode->next=_head;
         newNode->prev=nullptr;
 
-        head->prev=newNode;
+        _head->prev=newNode;
 
-        head=newNode;
+        _head=newNode;
 
         _size++;
     }
@@ -62,7 +60,7 @@ public:
 
     void printList() {
 
-        Node *tempNode=head;
+        Node *tempNode=_head;
         while (tempNode!=nullptr) {
             std::cout<<tempNode->data<<" ";
             tempNode=tempNode->next;
@@ -73,7 +71,7 @@ public:
 
 
     Node *findNode(T data) {
-        Node *tempNode=head;
+        Node *tempNode=_head;
         while (tempNode!=nullptr) {
             if (tempNode->data==data) {
                 return tempNode;
@@ -112,12 +110,13 @@ public:
         newNode->data=data;
 
 
-        if (head==nullptr) {
-            head=newNode;
+        if (_head==nullptr) {
+            _head=newNode;
             _size++;
+            _tail=_head;
             return;
         }
-        Node *temp =head;
+        Node *temp =_head;
         while (temp->next!=nullptr) {
             temp=temp->next;
         }
@@ -130,18 +129,18 @@ public:
 
 
     void deleteNode(Node *node) {
-        if (head==nullptr||findNode(node->data)==nullptr) {
+        if (_head==nullptr||findNode(node->data)==nullptr) {
             return;
         }
-        if (head->data==node->data) {
-            head=head->next;
+        if (_head->data==node->data) {
+            _head=_head->next;
         }
-        if (head->next==nullptr) {
-            head=nullptr;
+        if (_head->next==nullptr) {
+            _head=nullptr;
         }
 
 
-        Node *temp = head;
+        Node *temp = _head;
 
         while (temp->data!=node->data) {
             temp=temp->next;
@@ -149,6 +148,8 @@ public:
 
         if (temp->next==nullptr) {
             temp->prev->next=nullptr;
+            delete temp;
+            _tail=temp->prev;
             return;
         }
         _size--;
@@ -164,43 +165,44 @@ public:
 
 
     void deleteFirstNode() {
-        if (head==nullptr) {
+        if (_head==nullptr) {
             return;
         }
 
-        if (head->next!=nullptr) {
-            head=head->next;
-            delete head->prev;
-            head->prev=nullptr;
+        if (_head->next!=nullptr) {
+            _head=_head->next;
+            delete _head->prev;
+            _head->prev=nullptr;
             _size--;
             return;
         }
         _size--;
-        delete head;
-        head=nullptr;
+        delete _head;
+        _head=nullptr;
     }
 
 
 
     void deleteLastNode() {
 
-        if (head==nullptr) {
+        if (_head==nullptr) {
             return;
         }
 
-        if (head->next==nullptr) {
-            delete head;
-            head=nullptr;
+        if (_head->next==nullptr) {
+            delete _head;
+            _head=nullptr;
             _size--;
             return;
         }
 
-        Node *temp=head;
+        Node *temp=_head;
 
         while (temp->next!=nullptr) {
             temp=temp->next;
         }
         temp->prev->next=nullptr;
+        _tail=temp->prev;
         delete temp;
         _size--;
     }
@@ -211,8 +213,34 @@ public:
     }
 
 
-    bool isEmpty() {
-        return head==nullptr;
+    bool isEmpty() const {
+        return _size==0;
+    }
+
+    void clear() {
+        if (this->isEmpty()) {
+            return;
+        }
+        while (_size>0) {
+            deleteFirstNode();
+        }
+    }
+
+    void reverse() {
+        if (this->isEmpty()) {
+            return;
+        }
+        clsDbLinkedList newList;
+        Node *temp=_tail;
+        while (_size>0) {
+            newList.insertAtBeginning(temp->data);
+            temp=temp->prev;
+            this->deleteLastNode();
+        }
+
+        this->_head=newList._head;
+        this->_tail=newList._tail;
+        this->_size=newList._size;
     }
 
 };

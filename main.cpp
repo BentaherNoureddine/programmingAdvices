@@ -9,10 +9,22 @@ int main()
 
     clsDbLinkedList<int> mydbLinkedList;
 
-    if (mydbLinkedList.isEmpty()) {
-        std::cout<<"Yes list is empty";
-    }else
-     std::cout<<"No list is not empty";
+    mydbLinkedList.insertAtBeginning(1);
+    mydbLinkedList.insertAtBeginning(2);
+    mydbLinkedList.insertAtBeginning(3);
+    mydbLinkedList.insertAtBeginning(4);
+    mydbLinkedList.insertAtBeginning(5);
+
+    std::cout<<"linked list content"<<std::endl;
+    mydbLinkedList.printList();
+
+    std::cout<<"after clearing the list :"<<std::endl;
+    mydbLinkedList.reverse();
+
+    std::cout<<"after reversing:"<<std::endl;
+    mydbLinkedList.printList();
+
+
 
 
 
