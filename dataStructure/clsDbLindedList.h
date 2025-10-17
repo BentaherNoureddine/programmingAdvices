@@ -15,6 +15,7 @@ public:
 
 private:
     Node *head;
+    unsigned short _size=0;
 
 public:
 
@@ -39,6 +40,7 @@ public:
             head->data=data;
             head->next=nullptr;
             head->prev=nullptr;
+            _size++;
             return;
         }
 
@@ -52,6 +54,8 @@ public:
         head->prev=newNode;
 
         head=newNode;
+
+        _size++;
     }
 
 
@@ -97,6 +101,8 @@ public:
         newNode->next=nextNode;
         nextNode->prev=newNode;
 
+        _size++;
+
     }
 
 
@@ -108,6 +114,7 @@ public:
 
         if (head==nullptr) {
             head=newNode;
+            _size++;
             return;
         }
         Node *temp =head;
@@ -116,6 +123,7 @@ public:
         }
         temp->next=newNode;
         newNode->prev=temp;
+        _size++;
 
     }
 
@@ -143,6 +151,7 @@ public:
             temp->prev->next=nullptr;
             return;
         }
+        _size--;
 
         temp->prev->next=temp->next;
         temp->next->prev=temp->prev;
@@ -163,8 +172,10 @@ public:
             head=head->next;
             delete head->prev;
             head->prev=nullptr;
+            _size--;
             return;
         }
+        _size--;
         delete head;
         head=nullptr;
     }
@@ -180,6 +191,7 @@ public:
         if (head->next==nullptr) {
             delete head;
             head=nullptr;
+            _size--;
             return;
         }
 
@@ -190,6 +202,17 @@ public:
         }
         temp->prev->next=nullptr;
         delete temp;
+        _size--;
+    }
+
+
+    unsigned short size() const {
+        return _size;
+    }
+
+
+    bool isEmpty() {
+        return head==nullptr;
     }
 
 };
