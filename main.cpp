@@ -1,5 +1,5 @@
 #include "dataStructure/clsDbLindedList.h"
-
+#include "dataStructure/clsMysMyQueue.h"
 
 
 int main()
@@ -7,21 +7,27 @@ int main()
 {
 
 
-    clsDbLinkedList<int> mydbLinkedList;
+    clsMyQueue<short> myQueue;
 
-    mydbLinkedList.insertAtBeginning(5);
-    mydbLinkedList.insertAtBeginning(4);
-    mydbLinkedList.insertAtBeginning(3);
-    mydbLinkedList.insertAtBeginning(2);
-    mydbLinkedList.insertAtBeginning(1);
+    myQueue.push(10);
+    myQueue.push(20);
+    myQueue.push(30);
+    myQueue.push(40);
+    myQueue.push(50);
 
-    std::cout<<"linked list content"<<std::endl;
-    mydbLinkedList.printList();
+    std::cout<<"\nQueue : \n";
+    myQueue.print();
+
+    std::cout<<"\nQueue Size: " <<myQueue.size();
+    std::cout<<"\nQueue Front : "<<myQueue.front();
+    std::cout<<"\nQueue Back : "<<myQueue.back();
+
+    myQueue.pop();
+
+    std::cout<<"\nafter popping \n";
+    myQueue.print();
 
 
-   int item=mydbLinkedList.getItem(2);
-
-   std::cout<<"\nnode value is "<<item<<std::endl;
 
 
 
