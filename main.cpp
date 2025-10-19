@@ -18,7 +18,7 @@ int main()
     std::cout<<"linked list content"<<std::endl;
     mydbLinkedList.printList();
 
-    std::cout<<"after clearing the list :"<<std::endl;
+
     mydbLinkedList.reverse();
 
     std::cout<<"after reversing:"<<std::endl;

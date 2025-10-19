@@ -233,7 +233,7 @@ public:
         clsDbLinkedList newList;
         Node *temp=_tail;
         while (_size>0) {
-            newList.insertAtBeginning(temp->data);
+            newList.insertAtEnd(temp->data);
             temp=temp->prev;
             this->deleteLastNode();
         }
