@@ -258,6 +258,14 @@ public:
         return nullptr;
     }
 
+    T getItem(const unsigned short index) {
+        const Node *node =this->getNode(index);
+        if (node!=nullptr) {
+            return node->data;
+        }
+        return NULL;
+    }
+
 };
 
 

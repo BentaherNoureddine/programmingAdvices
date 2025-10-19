@@ -19,9 +19,9 @@ int main()
     mydbLinkedList.printList();
 
 
-   clsDbLinkedList<int>::Node * node=mydbLinkedList.getNode(0);
+   int item=mydbLinkedList.getItem(2);
 
-   std::cout<<"\n node value is "<<node->data<<std::endl;
+   std::cout<<"\nnode value is "<<item<<std::endl;
 
 
 
