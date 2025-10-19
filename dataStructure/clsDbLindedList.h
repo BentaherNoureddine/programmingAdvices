@@ -266,6 +266,28 @@ public:
         return NULL;
     }
 
+
+    bool updateItemByIndex(const unsigned short index,const T newValue) {
+        Node *node=getNode(index);
+        if (node!=nullptr&&index>0&&index<=_size) {
+            node->data=newValue;
+            return true;
+        }
+        return false;
+    }
+
+    bool insertAfterIndex(const unsigned short index, const T data ) {
+        Node *node=getNode(index);
+
+        if (node!=nullptr) {
+            insertAfter(node,data);
+            return true;
+        }
+        return false;
+    }
+
+
+
 };
 
 
