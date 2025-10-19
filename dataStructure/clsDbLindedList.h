@@ -227,20 +227,18 @@ public:
     }
 
     void reverse() {
-        if (this->isEmpty()) {
-            return;
-        }
-        clsDbLinkedList newList;
-        Node *temp=_tail;
-        while (_size>0) {
-            newList.insertAtEnd(temp->data);
-            temp=temp->prev;
-            this->deleteLastNode();
-        }
+        Node *current=_head;
+        while (current!=nullptr) {
+            Node *next=current->next;
+            current->next=current->prev;
+            current->prev=next;
 
-        this->_head=newList._head;
-        this->_tail=newList._tail;
-        this->_size=newList._size;
+            if (current->prev==nullptr) {
+                _head=current;
+                break;
+            }
+            current=current->prev;
+        }
     }
 
 };
