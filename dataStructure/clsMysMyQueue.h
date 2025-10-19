@@ -23,7 +23,7 @@ public:
     }
 
     unsigned short size() {
-        _myList.size();
+       return  _myList.size();
     }
 
     T front() {
@@ -40,6 +40,38 @@ public:
 
     void print() {
         _myList.printList();
+    }
+
+    void reverse() {
+        _myList.reverse();
+
+    }
+
+    T getItem(const unsigned short index) {
+        return _myList.getItem(index);
+    }
+
+
+    bool updateItem(const unsigned short index,const T data) {
+        return _myList.updateItemByIndex(index,data);
+    }
+
+    bool insertAfter(const unsigned short index,const T data) {
+        return _myList.insertAfterIndex(index,data);
+    }
+
+    void insertAtFront(const T data) {
+        _myList.insertAtBeginning(data);
+    }
+
+    void insertAtBack(const T data) {
+        this->push(data);
+    }
+
+
+
+    void clear() {
+        _myList.clear();
     }
 
 

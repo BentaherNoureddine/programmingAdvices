@@ -82,7 +82,7 @@ public:
     }
 
 
-    void insertAfter(Node *node,T data) {
+    void insertAfterIndex(Node *node,T data) {
 
 
         Node *newNode= new Node;
@@ -280,7 +280,7 @@ public:
         Node *node=getNode(index);
 
         if (node!=nullptr) {
-            insertAfter(node,data);
+            insertAfterIndex(node,data);
             return true;
         }
         return false;
