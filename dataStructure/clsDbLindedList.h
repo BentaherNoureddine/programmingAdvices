@@ -241,6 +241,23 @@ public:
         }
     }
 
+
+    Node *getNode(const unsigned short index) {
+        if (index>size() || index<0 || size()<=0) {
+            return nullptr;
+        }
+        Node *current=_head;
+        unsigned short count=1;
+        while (current!=nullptr) {
+            if (index==count) {
+                return current;
+            }
+            current=current->next;
+            count++;
+        }
+        return nullptr;
+    }
+
 };
 
 
