@@ -3,61 +3,24 @@
 
 
 template<class T>
-class clsMyClass {
+class clsMyClass:public clsMyQueue<T>{
 private:
 
-protected:
-    clsMyQueue<T> myQueue;
+
 public:
 
     void push(const T data) {
-        myQueue.insertAtFront(data);
+        clsMyQueue<T>::_myList.insertAtBeginning(data);
     }
 
-    void print() {
-        myQueue.print();
-    }
-
-    unsigned short size() {
-        return myQueue.size();
-    }
 
     T top() {
-        return myQueue.front();
+        return clsMyQueue<T>::front();
     }
 
     T bottom() {
-        return myQueue.back();
+        return clsMyQueue<T>::back();
     }
-
-    T getItem(const unsigned short index) {
-        return myQueue.getItem(index);
-    }
-
-    void reverse() {
-        myQueue.reverse();
-    }
-
-    bool updateItem(const unsigned short index,const T data) {
-        return myQueue.updateItem(index,data);
-    }
-
-    void insertAfter(const unsigned short index,const T data) {
-        myQueue.insertAfter(index,data);
-    }
-
-    void insertAtFront(const T data) {
-        myQueue.insertAtFront(data);
-    }
-
-    void insertATBack(const T data) {
-        myQueue.insertAtBack(data);
-    }
-
-    void clear() {
-        myQueue.clear();
-    }
-
 
 
 

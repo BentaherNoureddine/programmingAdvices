@@ -34,13 +34,7 @@ public:
         return _myList.getItem(size());
     }
 
-    bool isEmpty() {
-        return _myList.isEmpty();
-    }
 
-    void print() {
-        _myList.printList();
-    }
 
     void reverse() {
         _myList.reverse();
