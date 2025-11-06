@@ -125,6 +125,25 @@ public:
        return deleteItemAt(_size-1) ;
     }
 
+    unsigned short find(const T &value) {
+        for (unsigned short i=0;i<_size;i++) {
+            if (array[i]==value) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
+    bool deleteItem(const T &value) {
+        const short foundAt=find(value);
+        if (foundAt==-1) {
+            return false;
+        }
+        deleteItemAt(foundAt);
+        return true;
+    }
+
 
 
 
