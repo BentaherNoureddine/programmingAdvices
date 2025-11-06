@@ -22,6 +22,7 @@ public:
         return clsMyQueueArr<T>::front();
     }
 
+
     T bottom() {
         return clsMyQueueArr<T>::_d;
     }
