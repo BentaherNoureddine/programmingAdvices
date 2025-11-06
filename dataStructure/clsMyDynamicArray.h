@@ -93,6 +93,29 @@ public:
         _size=0;
     }
 
+    bool deleteItemAt(const unsigned short &index) {
+        if (index<0||index>_size) {
+            return false;
+        }
+        T *tempArr = new T[_size-1];
+        unsigned short arrCounter=0;
+        unsigned short tempArrCounter=0;
+        while (arrCounter<_size) {
+            if (index==arrCounter) {
+                arrCounter++;
+            }else {
+                tempArr[tempArrCounter]=array[arrCounter];
+                arrCounter++;
+                tempArrCounter++;
+            }
+
+        }
+        delete[] array;
+        array=tempArr;
+        _size--;
+        return true;
+    }
+
 
 
 

@@ -18,10 +18,8 @@ int main()
 
 
 
-    myDynamicArray.reverse();
-    myDynamicArray.printList();
 
-    myDynamicArray.clear();
+    myDynamicArray.deleteItemAt(2);
     myDynamicArray.printList();
 
 
