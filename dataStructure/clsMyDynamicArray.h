@@ -11,6 +11,8 @@ protected:
 
 
 
+
+
 public:
 
     T *array;
@@ -38,7 +40,7 @@ public:
     }
 
     unsigned short size() {
-        return size();
+        return _size;
     }
 
     bool isEmpty() {
@@ -51,6 +53,23 @@ public:
             std::cout<<*(array+i)<<" ";
         }
         std::cout<<std::endl;
+    }
+
+    bool resize(const unsigned short &newSize) {
+        if (newSize<0||newSize==_size) {
+            return false;
+        }
+        T *tempArray =new T[newSize];
+
+        for (unsigned short i=0;i<_size;i++) {
+            tempArray[i]=array[i];
+        }
+
+        delete[] array;
+        array=tempArray;
+        _size=newSize;
+
+        return true;
     }
 
 
