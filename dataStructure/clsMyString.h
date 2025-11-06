@@ -18,7 +18,7 @@ private:
 public:
 
     void setValue(const std::string &value) {
-       _undo.push(value);
+       _undo.push(_value);
         _value=value;
     }
 
@@ -28,9 +28,8 @@ public:
 
     void undo() {
         if (!_undo.isEmpty()) {
-
-            _value=_undo.top();
             _redo.push(_value);
+            _value=_undo.top();
             _undo.pop();
         }
     }
