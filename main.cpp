@@ -1,4 +1,4 @@
-#include "dataStructure/clsMyDynamicArray.h"
+#include "dataStructure/clsMyString.h"
 
 
 int main()
@@ -6,23 +6,38 @@ int main()
 {
 
 
-   clsMyDynamicArray<int> myDynamicArray(5);
-    myDynamicArray.setItem(0,10);
-    myDynamicArray.setItem(1,20);
-    myDynamicArray.setItem(2,30);
-    myDynamicArray.setItem(3,40);
-    myDynamicArray.setItem(4,50);
+    clsMyString s1;
 
-    myDynamicArray.printList();
-    std::cout<<std::endl;
+
+    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
+
+    s1.setValue("mohamed");
+    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
 
 
 
+    s1.setValue("mohamed2");
+    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
+
+    s1.setValue("mohamed3");
+    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
+
+    std::cout<<"\n UNDO ";
+    s1.undo();
+    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
+    s1.undo();
+    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
+    s1.undo();
+    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
 
 
-    myDynamicArray.insertAt(2,500);
-    myDynamicArray.printList();
-
+    std::cout<<"\n REDO ";
+    s1.redo();
+    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
+    s1.redo();
+    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
+    s1.redo();
+    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
 
 
 

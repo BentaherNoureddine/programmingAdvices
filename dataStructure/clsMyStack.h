@@ -1,5 +1,5 @@
 #pragma once
-#include "clsMysMyQueue.h"
+#include "clsMyQueue.h"
 
 
 template<class T>

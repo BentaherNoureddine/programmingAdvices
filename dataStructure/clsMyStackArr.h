@@ -27,4 +27,8 @@ public:
         return clsMyQueueArr<T>::_d;
     }
 
+    void print() {
+        clsMyQueueArr<T>::print();
+    }
+
 };
