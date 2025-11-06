@@ -164,5 +164,18 @@ public:
     }
 
 
+    bool insertAtBeginning(const T &value) {
+        return insertAt(0,value);
+    }
+
+    bool insertBefore(const unsigned short &index,const T &value) {
+        return insertAt(index-1,value);
+    }
+
+    bool insertAfter(const unsigned short &index,const T &value) {
+        return  insertAt(index+1,value);
+    }
+
+
 
 };
