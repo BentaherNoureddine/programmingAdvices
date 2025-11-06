@@ -1,29 +1,29 @@
 #pragma once
-#include "clsMyDynamicArray.h"
+#include "clsMyQueueArr.h"
 
 
 
 
 
 template<class T>
-class clsMyStackArr {
+class clsMyStackArr :protected clsMyQueueArr<T>{
 private:
 
-    clsMyDynamicArray<T> _dArr;
+
 
 public:
 
     void push(const T data) {
-        _dArr.insertAtBeginning(data);
+        clsMyQueueArr<T>::insertAtBack(data);
     }
 
 
     T top() {
-        return _dArr.getItem(_dArr.size()-1);
+        return clsMyQueueArr<T>::front();
     }
 
     T bottom() {
-        return _dArr.getItem(0);
+        return clsMyQueueArr<T>::_d;
     }
 
 };
