@@ -16,11 +16,13 @@ int main()
     myDynamicArray.printList();
     std::cout<<std::endl;
 
-   std::cout<<myDynamicArray.size()<<std::endl;
-    myDynamicArray.resize(2);
-    myDynamicArray.resize(10);
+
+
+    myDynamicArray.reverse();
     myDynamicArray.printList();
-    std::cout<<myDynamicArray.size()<<std::endl;
+
+    myDynamicArray.clear();
+    myDynamicArray.printList();
 
 
 

@@ -73,6 +73,27 @@ public:
     }
 
 
+    T getItem(const unsigned short &index) {
+        return array[index];
+    }
+
+
+    void reverse() {
+        T *tempArr=new T[_size];
+        for (unsigned short i=0;i<_size;i++) {
+            tempArr[_size-i-1]=array[i];
+        }
+        delete[] array;
+        array=tempArr;
+    }
+
+    void clear() {
+        delete[] array;
+        array=nullptr;
+        _size=0;
+    }
+
+
 
 
 
