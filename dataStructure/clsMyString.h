@@ -9,41 +9,38 @@ class clsMyString {
 
 private:
 
-    clsMyStack<std::string> _stack;
-    clsMyStack<std::string> _recStack;
+    clsMyStack<std::string> _redo;
+    clsMyStack<std::string> _undo;
+
+    std::string _value;
 
 
 public:
 
     void setValue(const std::string &value) {
-        while (!_recStack.isEmpty()) {
-            _recStack.pop();
-        }
-        _stack.push(value);
+       _undo.push(value);
+        _value=value;
     }
 
     std::string getValue() {
-        if (_stack.isEmpty()) {
-            return "";
-        }
-        return _stack.top();
+       return _value;
     }
 
     void undo() {
-        if (!_stack.isEmpty()) {
-            _recStack.push(_stack.top());
-            _stack.pop();
-        }
+        if (!_undo.isEmpty()) {
 
+            _value=_undo.top();
+            _redo.push(_value);
+            _undo.pop();
+        }
     }
 
     void redo() {
-        if (!_recStack.isEmpty()) {
-            _stack.push(_recStack.top());
-            _recStack.pop();
+        if (!_redo.isEmpty()) {
+            _undo.push(_value);
+            _value=_redo.top();
+            _redo.pop();
         }
-
-
     }
 
 
