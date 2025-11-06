@@ -3,7 +3,7 @@
 
 
 template<class T>
-class clsMyClass:public clsMyQueue<T>{
+class clsMyStack:public clsMyQueue<T>{
 private:
 
 
@@ -21,6 +21,7 @@ public:
     T bottom() {
         return clsMyQueue<T>::back();
     }
+
 
 
 

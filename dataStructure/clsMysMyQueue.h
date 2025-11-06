@@ -12,6 +12,9 @@ protected:
 
 public:
 
+    void print() {
+        _myList.printList();
+    }
 
     void push(const T data) {
        _myList.insertAtEnd(data);
@@ -66,6 +69,10 @@ public:
 
     void clear() {
         _myList.clear();
+    }
+
+    bool isEmpty() {
+        return _myList.isEmpty();
     }
 
 

@@ -13,7 +13,7 @@ public:
         Node *next=nullptr;
     };
 
-private:
+protected:
     Node *_head=nullptr;
     Node *_tail=nullptr;
     unsigned short _size=0;
