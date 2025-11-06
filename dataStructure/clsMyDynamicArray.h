@@ -1,16 +1,15 @@
 #pragma once
 #include <iostream>
+
+
+
+
 template<class T>
 class clsMyDynamicArray {
 
 
 protected:
     unsigned short _size;
-
-
-
-
-
 
 
 public:
