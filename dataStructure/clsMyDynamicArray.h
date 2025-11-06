@@ -144,8 +144,24 @@ public:
         return true;
     }
 
+    bool insertAt(const unsigned short &index,const T &value) {
+        if (index<0||index>_size) {
+            return false;
+        }
 
-
+        T *tempArray= new T[_size+1];
+        for (unsigned short i=0;i<index;i++) {
+           tempArray[i]=array[i];
+        }
+        tempArray[index]=value;
+        for (unsigned short i=index;i<_size;i++) {
+            tempArray[i+1]=array[i];
+        }
+        _size++;
+        delete[] array;
+        array=tempArray;
+        return true;
+    }
 
 
 
