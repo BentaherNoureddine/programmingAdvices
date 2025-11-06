@@ -19,7 +19,10 @@ int main()
 
 
 
-    myDynamicArray.deleteItemAt(2);
+    myDynamicArray.deleteFirstItem();
+    myDynamicArray.printList();
+
+    myDynamicArray.deleteLastItem();
     myDynamicArray.printList();
 
 

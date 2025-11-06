@@ -117,6 +117,15 @@ public:
     }
 
 
+    bool deleteFirstItem() {
+        return deleteItemAt(0);
+    }
+
+    bool deleteLastItem() {
+       return deleteItemAt(_size-1) ;
+    }
+
+
 
 
 
