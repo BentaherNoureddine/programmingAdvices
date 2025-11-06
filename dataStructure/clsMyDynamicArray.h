@@ -169,11 +169,16 @@ public:
     }
 
     bool insertBefore(const unsigned short &index,const T &value) {
+
         return insertAt(index-1,value);
     }
 
     bool insertAfter(const unsigned short &index,const T &value) {
         return  insertAt(index+1,value);
+    }
+
+    bool insertAtEnd(const T &value) {
+        return insertAt(_size,value);
     }
 
 
