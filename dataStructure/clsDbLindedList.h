@@ -11,6 +11,7 @@ public:
         T data;
         Node *prev=nullptr;
         Node *next=nullptr;
+
     };
 
 protected:
@@ -263,7 +264,7 @@ public:
         if (node!=nullptr) {
             return node->data;
         }
-        return NULL;
+        return T();
     }
 
 

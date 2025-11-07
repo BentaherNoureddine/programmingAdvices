@@ -1,4 +1,4 @@
-#include "dataStructure/clsMyString.h"
+#include "dataStructure/clsQueueLine.h"
 
 
 int main()
@@ -6,40 +6,26 @@ int main()
 {
 
 
-    clsMyString s1;
+    clsQueueLine payBillsQueue("A0",10);
+
+    payBillsQueue.issueTicket();
+    payBillsQueue.issueTicket();
+    payBillsQueue.issueTicket();
+    payBillsQueue.issueTicket();
+    payBillsQueue.issueTicket();
 
 
-    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
+    std::cout<<"\n Pay Bills Queue Info : \n";
+    payBillsQueue.printInfo();
 
-    s1.setValue("mohamed");
-    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
+    payBillsQueue.printTicketLineRTL();
+    payBillsQueue.printTicketLineLTR();
 
+    payBillsQueue.printAllTickets();
 
+    payBillsQueue.serveNextClient();
 
-    s1.setValue("mohamed2");
-    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
-
-    s1.setValue("mohamed3");
-    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
-
-    std::cout<<"\n UNDO ";
-    s1.undo();
-    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
-    s1.undo();
-    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
-    s1.undo();
-    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
-
-
-    std::cout<<"\n REDO ";
-    s1.redo();
-    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
-    s1.redo();
-    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
-    s1.redo();
-    std::cout<<"\n s1 = "<<s1.getValue()<<"\n";
-
-
+    payBillsQueue.printAllTickets();
 
     return 0;
 }
