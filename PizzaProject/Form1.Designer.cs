@@ -75,7 +75,6 @@
             label1.Size = new Size(441, 71);
             label1.TabIndex = 0;
             label1.Text = "MAKE YOUR PIZZA";
-            label1.Click += label1_Click;
             // 
             // rbSizeGroup
             // 
@@ -400,6 +399,7 @@
             orderbutton.TabIndex = 16;
             orderbutton.Text = "Order Pizza";
             orderbutton.UseVisualStyleBackColor = false;
+            orderbutton.Click += orderbutton_Click;
             // 
             // crustTypeLabel
             // 
