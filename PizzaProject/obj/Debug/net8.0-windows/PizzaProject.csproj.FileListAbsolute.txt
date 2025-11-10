@@ -1,0 +1,16 @@
+C:\projects\dotNetProjects\PizzaProject\bin\Debug\net8.0-windows\PizzaProject.exe
+C:\projects\dotNetProjects\PizzaProject\bin\Debug\net8.0-windows\PizzaProject.deps.json
+C:\projects\dotNetProjects\PizzaProject\bin\Debug\net8.0-windows\PizzaProject.runtimeconfig.json
+C:\projects\dotNetProjects\PizzaProject\bin\Debug\net8.0-windows\PizzaProject.dll
+C:\projects\dotNetProjects\PizzaProject\bin\Debug\net8.0-windows\PizzaProject.pdb
+C:\projects\dotNetProjects\PizzaProject\obj\Debug\net8.0-windows\PizzaProject.Form1.resources
+C:\projects\dotNetProjects\PizzaProject\obj\Debug\net8.0-windows\PizzaProject.csproj.GenerateResource.cache
+C:\projects\dotNetProjects\PizzaProject\obj\Debug\net8.0-windows\PizzaProject.GeneratedMSBuildEditorConfig.editorconfig
+C:\projects\dotNetProjects\PizzaProject\obj\Debug\net8.0-windows\PizzaProject.AssemblyInfoInputs.cache
+C:\projects\dotNetProjects\PizzaProject\obj\Debug\net8.0-windows\PizzaProject.AssemblyInfo.cs
+C:\projects\dotNetProjects\PizzaProject\obj\Debug\net8.0-windows\PizzaProject.csproj.CoreCompileInputs.cache
+C:\projects\dotNetProjects\PizzaProject\obj\Debug\net8.0-windows\PizzaProject.dll
+C:\projects\dotNetProjects\PizzaProject\obj\Debug\net8.0-windows\refint\PizzaProject.dll
+C:\projects\dotNetProjects\PizzaProject\obj\Debug\net8.0-windows\PizzaProject.pdb
+C:\projects\dotNetProjects\PizzaProject\obj\Debug\net8.0-windows\PizzaProject.genruntimeconfig.cache
+C:\projects\dotNetProjects\PizzaProject\obj\Debug\net8.0-windows\ref\PizzaProject.dll
