@@ -1,0 +1,7 @@
+G:\projects\ContactsConsoleApp_Using_DB\bin\Debug\ContactsConsoleApp_Using_DB.exe.config
+G:\projects\ContactsConsoleApp_Using_DB\bin\Debug\ContactsConsoleApp_Using_DB.exe
+G:\projects\ContactsConsoleApp_Using_DB\bin\Debug\ContactsConsoleApp_Using_DB.pdb
+G:\projects\ContactsConsoleApp_Using_DB\obj\Debug\ContactsConsoleApp_Using_DB.csproj.AssemblyReference.cache
+G:\projects\ContactsConsoleApp_Using_DB\obj\Debug\ContactsConsoleApp_Using_DB.csproj.CoreCompileInputs.cache
+G:\projects\ContactsConsoleApp_Using_DB\obj\Debug\ContactsConsoleApp_Using_DB.exe
+G:\projects\ContactsConsoleApp_Using_DB\obj\Debug\ContactsConsoleApp_Using_DB.pdb
